@@ -1,0 +1,21 @@
+{
+  "name": "gadgetuniverse",
+  "version": "1.0.0",
+  "description": "Fully functional e-Commerce websites using MERN stack",
+  "main": "app.js",
+  "scripts": {
+    "start": "node backend/app.js",
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/app.js",
+    "prod": "SET NODE_ENV=PRODUCTION& node backend/app.js"
+  },
+  "author": "Aiman Naim",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.2"
+  }
+}
