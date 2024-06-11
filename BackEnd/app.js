@@ -4,6 +4,14 @@ const dotenv = require('dotenv');
 const app = express();
 dotenv.config({ path: 'BackEnd/config/config.env' });
 
+// Database connection
+const { connectDatabase } = require('./config/dbConnect');
+connectDatabase();
+
+// Importing routes
+const productRoutes = require('./routes/product');
+app.use('/api/v1', productRoutes);
+
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
