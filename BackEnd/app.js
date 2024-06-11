@@ -1,5 +1,13 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const errorMiddleware = require('./middlewares/error');
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+    console.log(`Error: ${err}`);
+    console.log('Shutting down the server due to uncaught exception');
+    process.exit(1);
+});
 
 const app = express();
 dotenv.config({ path: 'BackEnd/config/config.env' });
@@ -18,8 +26,18 @@ app.get('/', (req, res) => {
     res.send('Hello World');
 });
 
-app.listen(process.env.PORT, () => {
+// Using error middleware
+app.use(errorMiddleware);
+
+const server = app.listen(process.env.PORT, () => {
     console.log(`Server is running on port: ${process.env.PORT} in ${process.env.NODE_ENV} mode.`);
 });
 
-// Path: BackEnd/config/config.env
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err) => {
+    console.log(`Error: ${err}`);
+    console.log('Shutting down the server due to unhandled promise rejection');
+    server.close(() => {
+        process.exit(1);
+    });
+})
