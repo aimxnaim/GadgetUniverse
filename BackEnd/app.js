@@ -8,6 +8,8 @@ dotenv.config({ path: 'BackEnd/config/config.env' });
 const { connectDatabase } = require('./config/dbConnect');
 connectDatabase();
 
+app.use(express.json());
+
 // Importing routes
 const productRoutes = require('./routes/product');
 app.use('/api/v1', productRoutes);
