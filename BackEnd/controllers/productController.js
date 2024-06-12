@@ -11,11 +11,11 @@ module.exports.getProducts = catchAsyncErrors(async (req, res) => {
         .search()
         .filter();
 
-    let products = await apiFilters.query.clone();
+    let products = await apiFilters.query;
     let filterProductCount = products.length;
 
     apiFilters.pagination(resPerPage);
-    products = await apiFilters.query;
+    products = await apiFilters.query.clone();
 
     res.status(200).json({
         resPerPage,
