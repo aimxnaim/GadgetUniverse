@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const errorMiddleware = require('./middlewares/error');
 const app = express();
 const { connectDatabase } = require('./config/dbConnect');
+const cookieParser = require('cookie-parser');
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
@@ -17,6 +18,7 @@ dotenv.config({ path: 'BackEnd/config/config.env' });
 connectDatabase();
 
 app.use(express.json());
+app.use(cookieParser()); // Cookie parser middleware; so that i can access req.cookies; it will parse the cookies and add them to the req object
 
 // Importing all routes
 const productRoutes = require('./routes/product');
