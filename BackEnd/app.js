@@ -1,6 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const errorMiddleware = require('./middlewares/error');
+const app = express();
+const { connectDatabase } = require('./config/dbConnect');
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
@@ -9,18 +11,19 @@ process.on('uncaughtException', (err) => {
     process.exit(1);
 });
 
-const app = express();
 dotenv.config({ path: 'BackEnd/config/config.env' });
 
 // Database connection
-const { connectDatabase } = require('./config/dbConnect');
 connectDatabase();
 
 app.use(express.json());
 
-// Importing routes
+// Importing all routes
 const productRoutes = require('./routes/product');
+const authRoutes = require('./routes/auth');
+
 app.use('/api/v1', productRoutes);
+app.use('/api/v1', authRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello World');
