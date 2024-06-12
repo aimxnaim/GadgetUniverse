@@ -2,11 +2,24 @@ const { default: mongoose } = require('mongoose');
 const Product = require('../models/product');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
+const APIFilters = require('../utils/apiFilters');
 
 // Get all products => /api/v1/products
 module.exports.getProducts = catchAsyncErrors(async (req, res) => {
-    const products = await Product.find({});
+    const resPerPage = 4;
+    const apiFilters = new APIFilters(Product, req.query)
+        .search()
+        .filter();
+
+    let products = await apiFilters.query.clone();
+    let filterProductCount = products.length;
+
+    apiFilters.pagination(resPerPage);
+    products = await apiFilters.query;
+
     res.status(200).json({
+        resPerPage,
+        filterProductCount,
         products
     });
 });
@@ -19,6 +32,7 @@ module.exports.newProduct = catchAsyncErrors(async (req, res) => {
         product
     });
 });
+
 
 // Get single product details => /api/v1/admin/products/:id
 module.exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
