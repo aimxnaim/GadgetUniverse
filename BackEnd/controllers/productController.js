@@ -11,6 +11,8 @@ module.exports.getProducts = catchAsyncErrors(async (req, res) => {
         .search()
         .filter();
 
+    console.log(`req.user : ${req.user}`)
+
     let products = await apiFilters.query;
     let filterProductCount = products.length;
 
@@ -26,6 +28,8 @@ module.exports.getProducts = catchAsyncErrors(async (req, res) => {
 
 // Create new product => /api/v1/admin/products
 module.exports.newProduct = catchAsyncErrors(async (req, res) => {
+    // associate the user with the product
+    req.body.user = req.user._id;
 
     const product = await Product.create(req.body);
     res.status(200).json({
