@@ -9,7 +9,7 @@ module.exports = (err, req, res, next) => {
     // Handling Mongoose Validation Error 
     if (err.name === 'CastError') {
         const message = `Resource not found. Invalid: ${err.path}`;
-        error = new ErrorHandler(message, 404);
+        error = new ErrorHandler(message, 400);
     }
 
     // Handle Validation Error 
