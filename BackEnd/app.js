@@ -23,9 +23,11 @@ app.use(cookieParser()); // Cookie parser middleware; so that i can access req.c
 // Importing all routes
 const productRoutes = require('./routes/product');
 const authRoutes = require('./routes/auth');
+const orderRoutes = require('./routes/order');
 
 app.use('/api/v1', productRoutes);
 app.use('/api/v1', authRoutes);
+app.use('/api/v1', orderRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello World');
