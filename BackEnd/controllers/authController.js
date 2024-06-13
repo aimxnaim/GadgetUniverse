@@ -4,6 +4,7 @@ const { getResetPasswordTemplate } = require('../utils/emailTemplate');
 const ErrorHandler = require('../utils/errorHandler');
 const sendEmail = require('../utils/sendEmail');
 const sendToken = require('../utils/sendToken');
+const crypto = require('crypto');
 
 // ? Register a user => /api/v1/register
 module.exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -81,4 +82,35 @@ module.exports.forgotPassword = catchAsyncError(async (req, res, next) => {
         await user.save();
         return next(new ErrorHandler(error.message, 500));
     }
-})
+});
+
+// ? Reset Password => /api/v1/password/reset/:token
+module.exports.resetPassword = catchAsyncError(async (req, res, next) => {
+
+    // Hash the URL token
+    const resetPasswordToken = crypto
+        .createHash('sha256')
+        .update(req.params.token)
+        .digest('hex');
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    })
+
+    if (!user) return next(new ErrorHandler('Password reset token is invalid or has been expired', 400));
+
+    // Set new password ; check if password matches
+    if (req.body.password !== req.body.confirmPassword) return next(new ErrorHandler('Password does not match', 400));
+
+    // Set up the new password
+    user.password = req.body.password;
+
+    // Reset the resetPasswordToken and resetPasswordExpire
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    sendToken(user, 200, res);
+});
