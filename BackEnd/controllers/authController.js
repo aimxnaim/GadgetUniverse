@@ -121,7 +121,7 @@ module.exports.getUserProfile = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         user
     });
-})
+});
 
 // Update password current user => /api/v1/password/update
 module.exports.updatePassword = catchAsyncError(async (req, res, next) => {
@@ -138,4 +138,24 @@ module.exports.updatePassword = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         user
     });
-})
+});
+
+// Update user profile => /api/v1/me/update
+module.exports.updateProfile = catchAsyncError(async (req, res, next) => {
+
+    const { name, email } = req.body;
+    const newUserData = {
+        name, email
+    };
+
+    const user = await User.findByIdAndUpdate(req?.user?._id, newUserData, {
+        new: true,
+        runValidators: true
+    })
+
+    await user.save();
+
+    res.status(200).json({
+        user
+    });
+});
