@@ -35,7 +35,7 @@ module.exports.newOrder = catchAsyncError(async (req, res, next) => {
     });
 });
 
-// Get single order => /api/v1/order/:id
+// Get order details => /api/v1/order/:id
 module.exports.getSingleOrder = catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
     const order = await Order.findById(id).populate(
@@ -86,7 +86,7 @@ module.exports.updateOrder = catchAsyncError(async (req, res, next) => {
         if (!product) return next(new ErrorHandler('Product not found with this id', 404));
         product.stock = product.stock - item.quantity;
         await product.save({ validateBeforeSave: false });
-    })
+    });
 
     order.orderStatus = req.body.status;
     order.deliveredAt = Date.now();
@@ -96,5 +96,19 @@ module.exports.updateOrder = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         success: true,
         order
+    });
+});
+
+// Delete single order => /api/v1/admin/order/:id
+module.exports.deleteOrder = catchAsyncError(async (req, res, next) => {
+    const { id } = req.params;
+    const order = await Order.findById(id);
+
+    if (!order) return next(new ErrorHandler('Order not found with this id', 404));
+
+    await order.deleteOne();
+
+    res.status(200).json({
+        success: true
     });
 });
