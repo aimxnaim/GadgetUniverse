@@ -21,6 +21,8 @@ router.route('/admin/products')
 
 router.route('/products/:id')
     .get(getProductDetails)
+
+router.route('/admin/products/:id')
     .put(
         isAuthenticatedUser,
         authorizeRoles('admin'),
