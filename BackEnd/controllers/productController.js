@@ -136,3 +136,32 @@ module.exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
         reviews: product.reviews
     });
 });
+
+// Delete product review => /api/v1/admin/reviews
+module.exports.deleteProductReview = catchAsyncErrors(async (req, res, next) => {
+
+    const product = await Product.findById(req.query.productId);
+
+    if (!product) {
+        return next(new ErrorHandler('Product not found with this ID', 404));
+    };
+
+    // Filter out the reviews that are not equal to the review id
+    product.reviews = product?.reviews?.filter(
+        review => review._id.toString() !== req?.query?.id.toString()
+    );
+
+    product.numOfReviews = product.reviews.length;
+
+    product.ratings =
+        product.numOfReviews === 0
+            ? 0
+            : product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+            product.numOfReviews;
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+        product
+    });
+});
