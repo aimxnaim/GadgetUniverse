@@ -11,6 +11,7 @@ const Home = () => {
     useEffect(() => {
         if (isError) toast.error(error?.data?.message)
     }, [isError]);
+
     if (isLoading) return <Loading />
     return (
         <>
