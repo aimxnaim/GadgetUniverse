@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import Loading from '../layout/Loader'
 import StarRatings from 'react-star-ratings';
-import { isAction } from '@reduxjs/toolkit';
 
 function ProductDetails() {
     const params = useParams();
@@ -25,7 +24,7 @@ function ProductDetails() {
         if (isError) {
             toast.error(error?.data?.message)
         }
-    }, [isError]);
+    }, [isError, error]);
 
     if (isLoading) return <Loading />
     return (
