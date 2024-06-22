@@ -11,7 +11,7 @@ module.exports.getProducts = catchAsyncErrors(async (req, res) => {
         .search()
         .filter();
 
-    console.log(`req.user : ${req.user}`)
+    //// console.log(`req.user : ${req.user}`)
 
     let products = await apiFilters.query;
     let filterProductCount = products.length;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useGetProductDetailsQuery } from '../redux/api/productsApi'
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import Loading from '../layout/Loader'
 import StarRatings from 'react-star-ratings';
+import { useGetProductDetailsQuery } from '../../actions/api/productsApi';
 
 function ProductDetails() {
     const params = useParams();

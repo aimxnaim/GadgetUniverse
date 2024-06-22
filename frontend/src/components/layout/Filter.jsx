@@ -11,6 +11,7 @@ const Filter = () => {
     useEffect(() => {
         searchParams.has('min') && setMin(searchParams.get('min'))
         searchParams.has('max') && setMax(searchParams.get('max'))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const navigate = useNavigate()

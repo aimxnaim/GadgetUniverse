@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import Search from './Search'
-import { useGetMeQuery } from '../redux/api/userApi'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { useLazyLogoutQuery } from '../redux/api/authApi'
+
 import { toast } from 'react-hot-toast'
+import { useGetMeQuery } from '../../actions/api/userApi'
+import { useLazyLogoutQuery } from '../../actions/api/authApi'
 
 const Header = () => {
     const navigate = useNavigate()
