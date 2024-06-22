@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Search from './Search'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-
-import { toast } from 'react-hot-toast'
 import { useGetMeQuery } from '../../actions/api/userApi'
 import { useLazyLogoutQuery } from '../../actions/api/authApi'
 

@@ -23,13 +23,13 @@ const Profile = () => {
 
                 <div className="col-12 col-md-5">
                     <h4>Full Name</h4>
-                    <p>{user.name}</p>
+                    <p>{user?.name}</p>
 
                     <h4>Email Address</h4>
-                    <p>{user.email}</p>
+                    <p>{user?.email}</p>
 
                     <h4>Joined On</h4>
-                    <p>{user.createdAt.substring(0, 10)}</p>
+                    <p>{user?.createdAt.substring(0, 10)}</p>
                 </div>
             </div>
         </UserLayout>
