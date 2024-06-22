@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react'
 import { useLoginMutation } from '../redux/api/authApi'
 import toast from 'react-hot-toast'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const navigate = useNavigate()
+
     const [login, { data, isLoading, error }] = useLoginMutation()
+    const { isAuthenticated } = useSelector(state => state.auth)
+
 
     useEffect(() => {
+        (isAuthenticated) && navigate('/')
+
         error && toast.error(error?.data?.message)
         data && toast.success('Logged in successfully')
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [error])
-
-    console.log(data)
+    }, [error, isAuthenticated])
 
     const submitHandler = (e) => {
         e.preventDefault()

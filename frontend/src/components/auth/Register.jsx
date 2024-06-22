@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useRegisterMutation } from '../redux/api/authApi'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -10,14 +12,19 @@ const Register = () => {
     })
 
     const { name, email, password } = user
-
     const [register, { isLoading, data, error }] = useRegisterMutation()
-    console.log(data)
+    const navigate = useNavigate()
+
+    const { isAuthenticated } = useSelector(state => state.auth)
+
 
     useEffect(() => {
+        (isAuthenticated) && navigate('/')
+
         error && toast.error(error?.data?.message)
+        data && toast.success('Logged in successfully')
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [error])
+    }, [error, isAuthenticated])
 
     console.log(data)
 
