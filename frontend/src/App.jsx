@@ -9,6 +9,7 @@ import Register from './components/auth/Register';
 import Header from './components/layout/Header';
 import Profile from './components/user/Profile';
 import UpdateProfile from './components/user/UpdateProfile';
+import ProtectedRoutes from './components/auth/ProtectedRoutes';
 
 
 function App() {
@@ -24,8 +25,25 @@ function App() {
             <Route path='/products/:id' element={<ProductDetails />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/me/profile' element={<Profile />} />
-            <Route path='/me/update_profile' element={<UpdateProfile />} />
+
+            <Route
+              path='/me/profile'
+              element={
+                <ProtectedRoutes>
+                  <Profile />
+                </ProtectedRoutes>
+              }
+            />
+
+            <Route
+              path='/me/update_profile'
+              element={
+                <ProtectedRoutes>
+                  <UpdateProfile />
+                </ProtectedRoutes>
+              }
+            />
+
           </Routes>
         </div>
         <Footer />
