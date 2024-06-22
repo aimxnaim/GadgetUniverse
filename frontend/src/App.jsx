@@ -8,6 +8,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Header from './components/layout/Header';
 import Profile from './components/user/Profile';
+import UpdateProfile from './components/user/UpdateProfile';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/me/profile' element={<Profile />} />
+            <Route path='/me/update_profile' element={<UpdateProfile />} />
           </Routes>
         </div>
         <Footer />
