@@ -116,6 +116,9 @@ dist
 # FuseBox cache
 .fusebox/
 
+# Avatar pictures
+avatar_pictures/
+
 # DynamoDB Local files
 .dynamodb/
 
