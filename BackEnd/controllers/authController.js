@@ -1,5 +1,6 @@
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const User = require('../models/user');
+const { uploadfile } = require('../utils/cloudinary');
 const { getResetPasswordTemplate } = require('../utils/emailTemplate');
 const ErrorHandler = require('../utils/errorHandler');
 const sendEmail = require('../utils/sendEmail');
@@ -41,6 +42,20 @@ module.exports.logoutUser = catchAsyncError(async (req, res, next) => {
         httpOnly: true
     });
 
+    res.status(200).json({
+        success: true,
+        message: 'Logged out'
+    });
+})
+
+// ? Upload user avatar => /api/v1/upload_avatar
+module.exports.uploadAvatar = catchAsyncError(async (req, res, next) => {
+
+    const avatarResponse = await uploadfile(req.body.avatar, 'GadgetUniverse/avatars')
+
+    const user = await User.findByIdAndUpdate(req?.user?._id, {
+        avatar: avatarResponse
+    })
     res.status(200).json({
         success: true,
         message: 'Logged out'
