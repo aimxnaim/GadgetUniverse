@@ -2,7 +2,8 @@ import React from 'react'
 import MetaData from '../layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setCartItem } from '../../actions/features/cartSlice'
+import { setCartItem, removeCartItem } from '../../actions/features/cartSlice'
+import toast from 'react-hot-toast'
 
 const Cart = () => {
     const dispatch = useDispatch()
@@ -33,6 +34,11 @@ const Cart = () => {
         }
 
         dispatch(setCartItem(cartItem))
+    }
+
+    const removeCartItemHandler = (id) => {
+        dispatch(removeCartItem(id))
+        toast.error('Item removed from cart')
     }
     return (
         <>
@@ -80,7 +86,11 @@ const Cart = () => {
                                                     </div>
                                                 </div>
                                                 <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                                                    <i id="delete_cart_item" className="fa fa-trash btn btn-danger"></i>
+                                                    <i
+                                                        id="delete_cart_item"
+                                                        className="fa fa-trash btn btn-danger"
+                                                        onClick={() => removeCartItemHandler(item?.product)}
+                                                    ></i>
                                                 </div>
                                             </div>
                                         </div>
