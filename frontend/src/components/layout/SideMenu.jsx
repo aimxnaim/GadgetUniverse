@@ -16,7 +16,7 @@ const SideMenu = () => {
         },
         {
             name: 'Upload Avatar',
-            url: '/me/upload-avatar',
+            url: '/me/upload_avatar',
             icon: 'fas fa-user-circle'
         },
         {

@@ -10,6 +10,7 @@ import Header from './components/layout/Header';
 import Profile from './components/user/Profile';
 import UpdateProfile from './components/user/UpdateProfile';
 import ProtectedRoutes from './components/auth/ProtectedRoutes';
+import UploadAvatar from './components/user/UploadAvatar';
 
 
 function App() {
@@ -40,6 +41,15 @@ function App() {
               element={
                 <ProtectedRoutes>
                   <UpdateProfile />
+                </ProtectedRoutes>
+              }
+            />
+
+            <Route
+              path='/me/upload_avatar'
+              element={
+                <ProtectedRoutes>
+                  <UploadAvatar />
                 </ProtectedRoutes>
               }
             />
