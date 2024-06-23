@@ -58,6 +58,7 @@ function ProductDetails() {
         }
 
         dispatch(setCartItem(cartItem))
+        toast.success('Item added to cart')
     }
 
 
