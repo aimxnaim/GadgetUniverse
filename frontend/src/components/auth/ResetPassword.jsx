@@ -60,9 +60,9 @@ const ResetPassword = () => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="confirm_password_field" className="form-label"
-                        >Confirm Password</label
-                        >
+                        <label htmlFor="confirm_password_field" className="form-label">
+                            Confirm Password
+                        </label>
                         <input
                             type="password"
                             id="confirm_password_field"
