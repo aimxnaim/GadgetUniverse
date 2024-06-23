@@ -1,6 +1,6 @@
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const User = require('../models/user');
-const { uploadfile } = require('../utils/cloudinary');
+const { uploadfile, removefile } = require('../utils/cloudinary');
 const { getResetPasswordTemplate } = require('../utils/emailTemplate');
 const ErrorHandler = require('../utils/errorHandler');
 const sendEmail = require('../utils/sendEmail');
@@ -52,6 +52,9 @@ module.exports.logoutUser = catchAsyncError(async (req, res, next) => {
 module.exports.uploadAvatar = catchAsyncError(async (req, res, next) => {
 
     const avatarResponse = await uploadfile(req.body.avatar, 'GadgetUniverse/avatars')
+
+    // Remove the previous avatar
+    req?.user?.avatar?.url && await removefile(req?.user?.avatar?.public_id);
 
     const user = await User.findByIdAndUpdate(req?.user?._id, {
         avatar: avatarResponse

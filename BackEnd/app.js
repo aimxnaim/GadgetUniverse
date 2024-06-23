@@ -17,7 +17,7 @@ dotenv.config({ path: 'BackEnd/config/config.env' });
 // Database connection
 connectDatabase();
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser()); // Cookie parser middleware; so that i can access req.cookies; it will parse the cookies and add them to the req object
 
 // Importing all routes
