@@ -3,7 +3,7 @@ import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 import { useSelector } from 'react-redux'
 import { calculateOrderCost } from '../../helpers/helpers'
-import { useCreateNewOrderMutation } from '../../actions/api/orderApi'
+import { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } from '../../actions/api/orderApi'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,7 +12,18 @@ const PaymentMethod = () => {
     const navigate = useNavigate()
 
     const { shippingInfo, cartItem } = useSelector(state => state.cart)
-    const [createNewOrder, { isLoading, error, isSuccess }] = useCreateNewOrderMutation()
+    const [createNewOrder, { error, isSuccess }] = useCreateNewOrderMutation()
+    const [stripeCheckoutSession, { data: checkoutData, error: checkoutError, isLoading }] = useStripeCheckoutSessionMutation()
+
+    useEffect(() => {
+        if (checkoutData) {
+            window.location.href = checkoutData?.url
+        }
+        if (checkoutError) {
+            toast.error(checkoutError?.data?.message)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checkoutData, checkoutError])
 
     useEffect(() => {
         error && toast.error(error?.data?.message)
@@ -46,7 +57,17 @@ const PaymentMethod = () => {
             createNewOrder(orderData)
         }
         if (method == 'Card') {
-            alert('Card')
+            // Create Card order     
+            const orderData = {
+                shippingInfo,
+                orderItems: cartItem,
+                itemsPrice,
+                shippingPrice,
+                taxPrice,
+                totalPrice
+            }
+
+            stripeCheckoutSession(orderData)
         }
     }
     return (
@@ -88,8 +109,14 @@ const PaymentMethod = () => {
                             </label>
                         </div>
 
-                        <button id="shipping_btn" type="submit" className="btn py-2 w-100">
-                            CONTINUE
+                        <button id="shipping_btn" type="submit" className="btn py-2 w-100" disabled={isLoading}>
+                            {
+                                isLoading
+                                    ? (
+                                        <>
+                                            <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                        </>
+                                    ) : ' CONTINUE'}
                         </button>
                     </form>
                 </div>
