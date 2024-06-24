@@ -43,6 +43,7 @@ const Cart = () => {
     }
 
     const checkoutHandler = () => {
+        toast.success('Fill in your shipping details to proceed')
         navigate('/shipping')
     }
     return (
