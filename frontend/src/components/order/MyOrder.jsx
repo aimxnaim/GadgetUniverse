@@ -1,24 +1,32 @@
 import React, { useEffect } from 'react'
 import { useMyOrdersQuery } from '../../actions/api/orderApi'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import Loader from '../layout/Loader'
 import { MDBDataTable } from 'mdbreact'
 import MetaData from '../layout/MetaData'
+import { useDispatch } from 'react-redux'
+import { clearCart } from '../../actions/features/cartSlice'
 
 const MyOrder = () => {
 
     const { data, isLoading, error } = useMyOrdersQuery()
 
-    console.log(data)
+    const [searchParams] = useSearchParams()
+    const orderSuccess = searchParams.get('order_success')
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
 
         error && toast.error(error?.data?.message)
+        if (orderSuccess) {
+            dispatch(clearCart())
+            navigate('/me/orders')
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [error])
+    }, [error, orderSuccess])
 
     if (isLoading) return <Loader />
 

@@ -29,7 +29,7 @@ const PaymentMethod = () => {
         error && toast.error(error?.data?.message)
         if (isSuccess) {
             toast.success('Order created successfully')
-            navigate('/')
+            navigate('/me/orders?order_success=true')
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess, error])
