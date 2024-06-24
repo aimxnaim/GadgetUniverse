@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import Loader from '../layout/Loader'
 import { MDBDataTable } from 'mdbreact'
+import MetaData from '../layout/MetaData'
 
 const MyOrder = () => {
 
@@ -20,6 +21,11 @@ const MyOrder = () => {
     }, [error])
 
     if (isLoading) return <Loader />
+
+    function capitalizeFirstLetter(string) {
+        if (!string) return '';
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     const setOrders = () => {
         const orders = {
@@ -63,8 +69,8 @@ const MyOrder = () => {
                 id: order?._id,
                 numOfItems: order?.orderItems?.length,
                 amount: `${order?.totalPrice}`,
-                status: String(order?.paymentInfo?.status).includes('paid') ? <p style={{ color: 'green' }}>{order?.paymentInfo?.status?.toUpperCase()}</p> : <p style={{ color: 'red' }}>{order?.paymentInfo?.status?.toUpperCase()}</p>,
-                orderStatus: order?.orderStatus && String(order?.orderStatus).includes('Delivered') ? <p style={{ color: 'green' }}>{order?.orderStatus}</p> : <p style={{ color: 'red' }}>{order?.orderStatus}</p>,
+                status: String(order?.paymentInfo?.status).includes('paid') ? <p style={{ color: 'green' }}>{capitalizeFirstLetter(order?.paymentInfo?.status)}</p> : <p style={{ color: 'red' }}>{capitalizeFirstLetter(order?.paymentInfo?.status)}</p>,
+                orderStatus: String(order?.orderStatus).includes('Delivered') ? <p style={{ color: 'green' }}>{order?.orderStatus}</p> : <p style={{ color: 'red' }}>{order?.orderStatus}</p>,
                 actions: (
                     <>
                         <Link to={`/me/order/${order?._id}`} className='btn btn-primary'>
@@ -82,17 +88,20 @@ const MyOrder = () => {
     }
 
     return (
-        <div>
-            <h1 className="my-5">{data?.order?.length} Orders</h1>
+        <>
+            <MetaData title={'My Orders'} />
+            <div>
+                <h1 className="my-5">{data?.order?.length} Orders</h1>
 
-            <MDBDataTable
-                data={setOrders()}
-                className='px-3'
-                bordered
-                striped
-                hover
-            />
-        </div>
+                <MDBDataTable
+                    data={setOrders()}
+                    className='px-3'
+                    bordered
+                    striped
+                    hover
+                />
+            </div>
+        </>
     )
 }
 
