@@ -24,14 +24,12 @@ app.use(cookieParser()); // Cookie parser middleware; so that i can access req.c
 const productRoutes = require('./routes/product');
 const authRoutes = require('./routes/auth');
 const orderRoutes = require('./routes/order');
+const paymentRoutes = require('./routes/payment');
 
 app.use('/api/v1', productRoutes);
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', orderRoutes);
-
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
+app.use('/api/v1', paymentRoutes);
 
 // Using error middleware
 app.use(errorMiddleware);
