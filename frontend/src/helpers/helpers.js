@@ -24,6 +24,6 @@ export const calculateOrderCost = (cartItem) => {
         itemsPrice: Number(itemsPrice).toFixed(2),
         shippingPrice,
         taxPrice,
-        totalPrice
+        totalPrice: totalPrice.toFixed(2)
     }
 }
