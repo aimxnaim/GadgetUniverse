@@ -39,7 +39,7 @@ module.exports.newProduct = catchAsyncErrors(async (req, res) => {
 });
 
 
-// Get single product details => /api/v1/admin/products/:id
+// Get single product details => /api/v1/products/:id
 module.exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
 
     const product = await Product.findById(req.params.id)
@@ -50,6 +50,16 @@ module.exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     }
     res.status(200).json({
         product
+    });
+});
+
+// Get products - ADMIN => /api/v1/admin/products
+module.exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+
+    const products = await Product.find()
+
+    res.status(200).json({
+        products
     });
 });
 
