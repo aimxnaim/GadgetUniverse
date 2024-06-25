@@ -41,7 +41,8 @@ module.exports.newProduct = catchAsyncErrors(async (req, res) => {
 // Get single product details => /api/v1/admin/products/:id
 module.exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
 
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id)
+        .populate('reviews.user');
 
     if (!product) {
         return next(new ErrorHandler('Product not found with this ID', 404));
@@ -104,7 +105,7 @@ module.exports.createProductReview = catchAsyncErrors(async (req, res, next) => 
     if (isReviewed) {
         product.reviews.forEach(review => {
             if (review?.user?.toString() === req?.user?._id.toString()) {
-                review.user = user;
+
                 review.comment = comment;
                 review.rating = rating;
             }
