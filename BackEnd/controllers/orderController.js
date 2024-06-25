@@ -194,8 +194,8 @@ module.exports.getSales = catchAsyncError(async (req, res, next) => {
     const startDate = new Date(req.query.startDate);
     const endDate = new Date(req.query.endDate);
 
-    startDate.setHours(0, 0, 0, 0); // start at 12:00 am
-    endDate.setHours(23, 59, 59, 999); // end at 11:59 pm
+    startDate.setUTCHours(0, 0, 0, 0); // start at 12:00 am UTC time
+    endDate.setUTCHours(23, 59, 59, 999); // end at 11:59 pm UTC time
 
     const { salesData, totalSales, totalNumOrders } = await getSalesData(startDate, endDate);
 
