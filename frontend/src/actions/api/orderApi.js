@@ -28,6 +28,9 @@ export const orderApi = createApi({
                 }
             }
         }),
+        getDashboardSales: builder.query({
+            query: ({ startDate, endDate }) => `/admin/get_sales?startDate=${startDate}&endDate=${endDate}`,
+        }),
     })
 })
 
@@ -36,6 +39,7 @@ export const {
     useCreateNewOrderMutation,
     useStripeCheckoutSessionMutation,
     useMyOrdersQuery,
-    useOrderDetailsQuery
+    useOrderDetailsQuery,
+    useLazyGetDashboardSalesQuery
 
 } = orderApi;
