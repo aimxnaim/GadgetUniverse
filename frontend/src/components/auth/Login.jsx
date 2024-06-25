@@ -77,7 +77,14 @@ const Login = () => {
                         className="btn w-100 py-2"
                         disabled={isLoading}
                     >
-                        {isLoading ? 'Logging in...' : 'Login'}
+                        {
+                            isLoading
+                                ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                        <span className="px-3" role="status">Logging In...</span>
+                                    </>
+                                ) : ' Login'}
                     </button>
 
                     <div className="my-3">
