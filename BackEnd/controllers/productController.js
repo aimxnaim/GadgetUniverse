@@ -1,5 +1,6 @@
 const { default: mongoose } = require('mongoose');
 const Product = require('../models/product');
+const Order = require('../models/order');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
 const APIFilters = require('../utils/apiFilters');
@@ -164,5 +165,24 @@ module.exports.deleteProductReview = catchAsyncErrors(async (req, res, next) => 
 
     res.status(200).json({
         product
+    });
+});
+
+// Can user review => /api/v1/can_review
+module.exports.canUserReview = catchAsyncErrors(async (req, res, next) => {
+
+    const orders = await Order.find({
+        user: req.user._id,
+        'orderItems.product': req.query.productId
+    });
+
+    if (orders.length === 0) {
+        res.status(200).json({
+            canReview: false
+        });
+    }
+
+    res.status(200).json({
+        canReview: true
     });
 });
