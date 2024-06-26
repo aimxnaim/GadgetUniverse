@@ -88,7 +88,7 @@ module.exports.uploadProductImages = catchAsyncErrors(async (req, res) => {
         return next(new ErrorHandler('Product not found with this ID', 404));
     }
 
-    const uploader = async (images) => uploadfile(images, `GadgetUniverse/products/${product.name}`);
+    const uploader = async (images) => uploadfile(images, `GadgetUniverse/products`);
 
     const urls = await Promise.all(req?.body?.images.map(uploader));
     product?.images?.push(...urls);
@@ -241,9 +241,11 @@ module.exports.canUserReview = catchAsyncErrors(async (req, res, next) => {
         res.status(200).json({
             canReview: false
         });
+    } else {
+        res.status(200).json({
+            canReview: true
+        });
     }
 
-    res.status(200).json({
-        canReview: true
-    });
+
 });
