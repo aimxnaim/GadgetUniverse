@@ -89,6 +89,9 @@ export const productApi = createApi({
             },
             invalidatesTags: ['AdminProducts'] // this is to refetch the product details after updating it
         }),
+        getProductReviews: builder.query({
+            query: (productId) => `/reviews?id=${productId}`,
+        }),
     })
 })
 
@@ -102,5 +105,6 @@ export const {
     useUpdateProductMutation,
     useUploadProductImagesMutation,
     useDeleteProductImageMutation,
-    useDeleteProductMutation
+    useDeleteProductMutation,
+    useLazyGetProductReviewsQuery // need to call inside a useEffect to avoid infinite loop ; submitHandler
 } = productApi;
