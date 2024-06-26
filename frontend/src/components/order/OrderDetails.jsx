@@ -130,8 +130,7 @@ const OrderDetails = () => {
                                 </div>
 
                                 <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                    {/*  eslint-disable-next-line no-unsafe-optional-chaining */}
-                                    <p>RM {(item?.price).toFixed(2)}</p>
+                                    <p>RM {item?.price.toFixed(2)}</p>
                                 </div>
 
                                 <div className="col-4 col-lg-3 mt-4 mt-lg-0">
