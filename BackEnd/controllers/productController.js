@@ -4,7 +4,7 @@ const Order = require('../models/order');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
 const APIFilters = require('../utils/apiFilters');
-const { uploadfile } = require('../utils/cloudinary');
+const { uploadfile, removefile } = require('../utils/cloudinary');
 
 // Get all products => /api/v1/products
 module.exports.getProducts = catchAsyncErrors(async (req, res) => {
@@ -94,6 +94,30 @@ module.exports.uploadProductImages = catchAsyncErrors(async (req, res) => {
     product?.images?.push(...urls);
 
     await product.save();
+
+    res.status(200).json({
+        product
+    });
+});
+
+// Delete product images => /api/v1/admin/products/:id/delete_images
+module.exports.deleteProductImage = catchAsyncErrors(async (req, res) => {
+
+    const { id } = req?.params;
+    let product = await Product.findById(id);
+    if (!product) {
+        return next(new ErrorHandler('Product not found with this ID', 404));
+    }
+
+    const isDeleted = await removefile(req.body.imgId);
+
+    if (isDeleted) {
+        product.images = product?.images?.filter(
+            img => img.public_id !== req.body.imgId
+        );
+
+        await product?.save();
+    }
 
     res.status(200).json({
         product
