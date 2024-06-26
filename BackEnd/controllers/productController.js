@@ -88,7 +88,7 @@ module.exports.uploadProductImages = catchAsyncErrors(async (req, res) => {
         return next(new ErrorHandler('Product not found with this ID', 404));
     }
 
-    const uploader = async (images) => uploadfile(images, 'GadgetUniverse/products');
+    const uploader = async (images) => uploadfile(images, `GadgetUniverse/products/${product.name}`);
 
     const urls = await Promise.all(req?.body?.images.map(uploader));
     product?.images?.push(...urls);
