@@ -5,20 +5,20 @@ import Loader from '../layout/Loader'
 import { MDBDataTable } from 'mdbreact'
 import MetaData from '../layout/MetaData'
 import AdminLayout from '../layout/AdminLayout'
-import { useGetAdminOrdersQuery } from '../../actions/api/orderApi'
+import { useDeleteOrderMutation, useGetAdminOrdersQuery } from '../../actions/api/orderApi'
 
 const ListOrders = () => {
 
     const { data, isLoading, error } = useGetAdminOrdersQuery()
+    const [deleteOrder, { error: deleteError, isSuccess, isLoading: deleteOrderLoading }] = useDeleteOrderMutation()
 
     useEffect(() => {
 
         error && toast.error(error?.data?.message)
-        // deleteProductError && toast.error(deleteProductError?.data?.message)
-        // isSuccess && toast.success('Product deleted successfully')
+        deleteError && toast.error(deleteError?.data?.message)
+        isSuccess && toast.success('Order deleted successfully')
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [error])
+    }, [error, deleteError, isSuccess])
 
     if (isLoading) return <Loader />
 
@@ -27,9 +27,9 @@ const ListOrders = () => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    // const deleteProductHandler = (productId) => {
-    //     deleteProduct(productId)
-    // }
+    const deleteOrderHandler = (productId) => {
+        deleteOrder(productId)
+    }
 
     const setOrders = () => {
         const orders = {
@@ -70,18 +70,17 @@ const ListOrders = () => {
                         </Link>
                         <button
                             className='btn btn-outline-danger ms-2'
-                        // onClick={() => deleteProductHandler(order?._id)}
-                        // disabled={deleteProductLoading}
+                            onClick={() => deleteOrderHandler(order?._id)}
+                            disabled={deleteOrderLoading}
                         >
-                            <i className='fa fa-trash'></i>
-                            {/* {
-                                deleteProductLoading
+                            {
+                                deleteOrderLoading
                                     ? (
                                         <>
                                             <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
                                             <span role="status"></span>
                                         </>
-                                    ) : <i className='fa fa-trash'></i>} */}
+                                    ) : <i className='fa fa-trash'></i>}
 
                         </button>
                     </>
