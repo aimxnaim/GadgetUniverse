@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const productApi = createApi({
     reducerPath: 'productApi',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
-    tagTypes: ['Product', 'AdminProducts'], // this is to cache the product details and admin products
+    tagTypes: ['Product', 'AdminProducts', 'Reviews'], // this is to cache the product details and admin products
     endpoints: (builder) => ({
         getProducts: builder.query({
             query: (params) => ({
@@ -91,7 +91,17 @@ export const productApi = createApi({
         }),
         getProductReviews: builder.query({
             query: (productId) => `/reviews?id=${productId}`,
+            providesTags: ['Reviews']
         }),
+        deleteReview: builder.mutation({
+            query({ productId, id }) {
+                return {
+                    url: `/admin/reviews?productId=${productId}&id=${id}`,
+                    method: 'DELETE'
+                };
+            },
+            invalidatesTags: ['Reviews']
+        })
     })
 })
 
@@ -106,5 +116,6 @@ export const {
     useUploadProductImagesMutation,
     useDeleteProductImageMutation,
     useDeleteProductMutation,
-    useLazyGetProductReviewsQuery // need to call inside a useEffect to avoid infinite loop ; submitHandler
+    useLazyGetProductReviewsQuery, // need to call inside a useEffect to avoid infinite loop ; submitHandler
+    useDeleteReviewMutation
 } = productApi;

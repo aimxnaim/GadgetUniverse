@@ -3,24 +3,30 @@ import MetaData from '../layout/MetaData'
 import AdminLayout from '../layout/AdminLayout'
 import { MDBDataTable } from 'mdbreact'
 import Loader from '../layout/Loader'
-import { useLazyGetProductReviewsQuery } from '../../actions/api/productsApi'
+import { useDeleteReviewMutation, useLazyGetProductReviewsQuery } from '../../actions/api/productsApi'
 import toast from 'react-hot-toast'
 
 const ProductReview = () => {
 
     const [productId, setProductId] = useState('')
     const [getProductReviews, { data, isLoading, error }] = useLazyGetProductReviewsQuery()
+    const [deleteReview, { isSuccess, error: deleteReviewError, isLoading: deleteReviewLoading }] = useDeleteReviewMutation()
 
     useEffect(() => {
 
-
         error && toast.error(error?.data?.message)
-        // isSuccess && toast.success('Order updated')
-    }, [error])
+        deleteReviewError && toast.error(deleteReviewError?.data?.message)
+        isSuccess && toast.success('Review deleted successfully')
+
+    }, [error, deleteReviewError, isSuccess])
 
     const submitHandler = (e) => {
         e.preventDefault()
         getProductReviews(productId)
+    }
+
+    const deleteReviewHandler = (reviewId) => {
+        deleteReview({ productId, id: reviewId })
     }
 
     const setReviews = () => {
@@ -65,18 +71,17 @@ const ProductReview = () => {
                     <>
                         <button
                             className='btn btn-outline-danger ms-2'
-                        // onClick={() => deleteReviewHandler(review?._id)}
-                        // disabled={deleteReviewLoading}
+                            onClick={() => deleteReviewHandler(review?._id)}
+                            disabled={deleteReviewLoading}
                         >
-                            <i className='fa fa-trash'></i>
-                            {/* {
+                            {
                                 deleteReviewLoading
                                     ? (
                                         <>
                                             <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
                                             <span role="status"></span>
                                         </>
-                                    ) : <i className='fa fa-trash'></i>} */}
+                                    ) : <i className='fa fa-trash'></i>}
 
                         </button>
                     </>
