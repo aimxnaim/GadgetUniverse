@@ -5,19 +5,20 @@ import Loader from '../layout/Loader'
 import { MDBDataTable } from 'mdbreact'
 import MetaData from '../layout/MetaData'
 import AdminLayout from '../layout/AdminLayout'
-import { useGetAdminUsersQuery } from '../../actions/api/userApi'
+import { useDeleteUserMutation, useGetAdminUsersQuery } from '../../actions/api/userApi'
 
 const ListUsers = () => {
 
     const { data, isLoading, error } = useGetAdminUsersQuery()
+    const [deleteUser, { isLoading: deleteUserLoading, error: deleteUserError, isSuccess }] = useDeleteUserMutation()
 
     useEffect(() => {
 
         error && toast.error(error?.data?.message)
-        // deleteError && toast.error(deleteError?.data?.message)
-        // isSuccess && toast.success('Order deleted successfully')
+        deleteUserError && toast.error(deleteUserError?.data?.message)
+        isSuccess && toast.success('User deleted')
 
-    }, [error])
+    }, [error, deleteUserError, isSuccess])
 
     if (isLoading) return <Loader />
 
@@ -26,9 +27,9 @@ const ListUsers = () => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    // const deleteUserHandler = (userId) => {
-    //     deleteUser(userId)
-    // }
+    const deleteUserHandler = (userId) => {
+        deleteUser(userId)
+    }
 
     const setUsers = () => {
         const users = {
@@ -75,18 +76,17 @@ const ListUsers = () => {
                         </Link>
                         <button
                             className='btn btn-outline-danger ms-2'
-                        // onClick={() => deleteUserHandler(user?._id)}
-                        // disabled={deleteUserLoading}
+                            onClick={() => deleteUserHandler(user?._id)}
+                            disabled={deleteUserLoading}
                         >
-                            <i className='fa fa-trash'></i>
-                            {/* {
+                            {
                                 deleteUserLoading
                                     ? (
                                         <>
                                             <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
                                             <span role="status"></span>
                                         </>
-                                    ) : <i className='fa fa-trash'></i>} */}
+                                    ) : <i className='fa fa-trash'></i>}
 
                         </button>
                     </>
