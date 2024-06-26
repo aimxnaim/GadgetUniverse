@@ -133,6 +133,11 @@ module.exports.deleteProduct = catchAsyncErrors(async (req, res) => {
         return next(new ErrorHandler('Product not found with this ID', 404));
     }
 
+    // Delete product images associated with the product
+    for (let i = 0; i < product?.images?.length; i++) {
+        await removefile(product?.images[i].public_id);
+    }
+
     product = await Product.deleteOne({ _id: id });
     res.status(200).json({
         message: 'Product deleted successfully'
