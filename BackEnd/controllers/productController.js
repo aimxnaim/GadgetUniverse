@@ -4,6 +4,7 @@ const Order = require('../models/order');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
 const APIFilters = require('../utils/apiFilters');
+const { uploadfile } = require('../utils/cloudinary');
 
 // Get all products => /api/v1/products
 module.exports.getProducts = catchAsyncErrors(async (req, res) => {
@@ -73,6 +74,27 @@ module.exports.updateProduct = catchAsyncErrors(async (req, res) => {
     }
 
     product = await Product.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
+    res.status(200).json({
+        product
+    });
+});
+
+// Update product images => /api/v1/admin/products/:id/upload_images
+module.exports.uploadProductImages = catchAsyncErrors(async (req, res) => {
+
+    const { id } = req.params;
+    let product = await Product.findById(id);
+    if (!product) {
+        return next(new ErrorHandler('Product not found with this ID', 404));
+    }
+
+    const uploader = async (images) => uploadfile(images, 'GadgetUniverse/products');
+
+    const urls = await Promise.all(req?.body?.images.map(uploader));
+    product?.images?.push(...urls);
+
+    await product.save();
+
     res.status(200).json({
         product
     });
