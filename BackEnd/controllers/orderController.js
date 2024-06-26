@@ -71,6 +71,7 @@ module.exports.allOrders = catchAsyncError(async (req, res, next) => {
     });
 });
 
+
 // Update order - ADMIN => /api/v1/admin/orders/:id
 module.exports.updateOrder = catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
@@ -80,13 +81,24 @@ module.exports.updateOrder = catchAsyncError(async (req, res, next) => {
 
     if (order?.orderStatus === 'Delivered') return next(new ErrorHandler('You have already delivered this order', 400));
 
+    let productNotFound = false;
+
     // Update product stocks
-    order?.orderItems?.forEach(async (item) => {
+    for (const item of order.orderItems) {
         const product = await Product.findById(item?.product?.toString());
-        if (!product) return next(new ErrorHandler('Product not found with this id', 404));
+        if (!product) {
+            productNotFound = true;
+            break
+        }
         product.stock = product.stock - item.quantity;
         await product.save({ validateBeforeSave: false });
-    });
+    };
+
+    if (productNotFound) {
+        return next(
+            new ErrorHandler('Product not found with one or more id', 404)
+        )
+    };
 
     order.orderStatus = req.body.status;
     order.deliveredAt = Date.now();
