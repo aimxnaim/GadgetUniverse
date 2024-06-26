@@ -189,7 +189,7 @@ module.exports.createProductReview = catchAsyncErrors(async (req, res, next) => 
 // Get product review => /api/v1/reviews
 module.exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
 
-    const product = await Product.findById(req.query.id);
+    const product = await Product.findById(req.query.id).populate('reviews.user');
 
     if (!product) {
         return next(new ErrorHandler('Product not found with this ID', 404));
