@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import AdminLayout from '../layout/AdminLayout'
 import MetaData from '../layout/MetaData'
-import { useGetProductDetailsQuery, useUploadProductImagesMutation } from '../../actions/api/productsApi'
+import { useDeleteProductImageMutation, useGetProductDetailsQuery, useUploadProductImagesMutation } from '../../actions/api/productsApi'
 import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -18,6 +18,10 @@ const UploadImages = () => {
 
     const { data } = useGetProductDetailsQuery(params?.id)
     const [uploadProductImages, { isLoading, error, isSuccess }] = useUploadProductImagesMutation()
+    const [
+        deleteProductImage,
+        { isLoading: isDeleteLoading, error: deleteError, isSuccess: isDeleteSuccess }
+    ] = useDeleteProductImageMutation()
 
     useEffect(() => {
         data?.product && setUploadedImages(data?.product?.images);
@@ -26,13 +30,17 @@ const UploadImages = () => {
             setUploadedImages(data?.product?.images)
         }
         error && toast.error(error?.data?.message)
+        deleteError && toast.error(deleteError?.data?.message)
+
         if (isSuccess) {
             setImagesPreview([])
             toast.success('Image uploaded successfully')
-            navigate('/admin/products')
-        }
+            navigate(`/admin/products`)
+        } else if (isDeleteSuccess) (
+            toast.success('Image deleted successfully')
+        )
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, error, isSuccess])
+    }, [data, error, isSuccess, deleteError])
 
     const onChange = (e) => {
         const files = Array.from(e.target.files)
@@ -70,6 +78,13 @@ const UploadImages = () => {
         uploadProductImages({
             body: { images },
             productId: params?.id
+        })
+    }
+
+    const deleteImage = (public_id) => {
+        deleteProductImage({
+            body: { imgId: public_id },
+            imageId: params?.id
         })
     }
 
@@ -160,10 +175,19 @@ const UploadImages = () => {
                                                                 borderColor: '#dc3545'
                                                             }}
                                                             className="btn btn-block btn-danger cross-button mt-1 py-0"
-                                                            disabled="true"
+                                                            disabled={isLoading || isDeleteLoading}
                                                             type="button"
+                                                            onClick={() => deleteImage(image?.public_id)}
                                                         >
-                                                            <i className="fa fa-trash"></i>
+                                                            {
+                                                                isDeleteLoading
+                                                                    ? (
+                                                                        <>
+                                                                            <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                                                            <span role="status"></span>
+                                                                        </>
+                                                                    ) : <i className="fa fa-trash"></i>}
+
                                                         </button>
                                                     </div>
                                                 </div>
@@ -174,7 +198,7 @@ const UploadImages = () => {
                                 )}
                             </div>
 
-                            <button id="register_button" type="submit" className="btn w-100 py-2" disabled={isLoading}>
+                            <button id="register_button" type="submit" className="btn w-100 py-2" disabled={isLoading || isDeleteLoading}>
                                 {
                                     isLoading
                                         ? (
