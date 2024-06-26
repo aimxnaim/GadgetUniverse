@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const orderApi = createApi({
     reducerPath: 'orderApi',
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
+    tagTypes: ['Order'],
     endpoints: (builder) => ({
         createNewOrder: builder.mutation({
             query(body) {
@@ -18,6 +19,7 @@ export const orderApi = createApi({
         }),
         orderDetails: builder.query({
             query: (id) => `/order/${id}`,
+            providesTags: ['Order']
         }),
         stripeCheckoutSession: builder.mutation({
             query(body) {
@@ -31,6 +33,20 @@ export const orderApi = createApi({
         getDashboardSales: builder.query({
             query: ({ startDate, endDate }) => `/admin/get_sales?startDate=${startDate}&endDate=${endDate}`,
         }),
+        getAdminOrders: builder.query({
+            query: () => `/admin/orders`,
+            providesTags: ['Order']
+        }),
+        updateOrder: builder.mutation({
+            query({ body, id }) {
+                return {
+                    url: `/admin/orders/${id}`,
+                    method: 'PUT',
+                    body
+                }
+            },
+            invalidatesTags: ['Order']
+        }),
     })
 })
 
@@ -40,6 +56,8 @@ export const {
     useStripeCheckoutSessionMutation,
     useMyOrdersQuery,
     useOrderDetailsQuery,
-    useLazyGetDashboardSalesQuery
+    useLazyGetDashboardSalesQuery,
+    useGetAdminOrdersQuery,
+    useUpdateOrderMutation
 
 } = orderApi;
