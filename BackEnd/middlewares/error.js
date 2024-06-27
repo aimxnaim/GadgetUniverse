@@ -1,6 +1,12 @@
 const ErrorHandler = require('../utils/errorHandler');
 
 module.exports = (err, req, res, next) => {
+    // Check if the headers have already been sent
+    if (res.headersSent) {
+        console.log('Headers already sent for request:', req.originalUrl);
+        return next(err);
+    }
+
     let error = {
         statusCode: err.statusCode || 500,
         message: err.message || 'Internal Server Error'
@@ -38,16 +44,18 @@ module.exports = (err, req, res, next) => {
 
     // displaying the error in development mode
     if (process.env.NODE_ENV === 'DEVELOPMENT') {
+        console.log('Sending error response in development mode');
         res.status(error.statusCode).json({
             message: error.message,
             error: err,
             stack: err.stack || ''
-
         });
-    } // displaying the error in production mode
+    }
+    // displaying the error in production mode
     else if (process.env.NODE_ENV === 'PRODUCTION') {
+        console.log('Sending error response in production mode');
         res.status(error.statusCode).json({
             message: error.message
         });
     }
-}
+};
