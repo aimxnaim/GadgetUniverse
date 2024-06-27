@@ -4,6 +4,7 @@ const errorMiddleware = require('./middlewares/error');
 const app = express();
 const { connectDatabase } = require('./config/dbConnect');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
@@ -23,7 +24,7 @@ app.use(express.json({
         req.rawBody = buf.toString();
     }
 }));
-app.use(cookieParser()); // Cookie parser middleware; so that i can access req.cookies; it will parse the cookies and add them to the req object
+app.use(cookieParser());
 
 // Importing all routes
 const productRoutes = require('./routes/product');
@@ -35,6 +36,16 @@ app.use('/api/v1', productRoutes);
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', orderRoutes);
 app.use('/api/v1', paymentRoutes);
+
+// Serve frontend in production mode
+if (process.env.NODE_ENV === 'PRODUCTION' || process.env.NODE_ENV === 'DEVELOPMENT') {
+    app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+    // Handle all other routes with React frontend
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../frontend/dist/index.html'));
+    });
+}
 
 // Using error middleware
 app.use(errorMiddleware);
@@ -50,4 +61,4 @@ process.on('unhandledRejection', (err) => {
     server.close(() => {
         process.exit(1);
     });
-})
+});
