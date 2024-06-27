@@ -4,10 +4,10 @@
   "description": "Fully functional e-Commerce websites using MERN stack",
   "main": "app.js",
   "scripts": {
-    "start": "node backend/app.js",
-    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon backend/app.js",
-    "prod": "SET NODE_ENV=PRODUCTION& node backend/app.js",
-    "seeder": "node backend/seed/seeder.js"
+    "start": "node BackEnd/app.js",
+    "dev": "SET NODE_ENV=DEVELOPMENT& nodemon BackEnd/app.js",
+    "prod": "SET NODE_ENV=PRODUCTION& node BackEnd/app.js",
+    "seeder": "node BackEnd/seed/seeder.js"
   },
   "author": "Aiman Naim",
   "license": "ISC",
