@@ -16,34 +16,46 @@ const {
 } = require('../controllers/productController');
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
-router.route('/products')
+router
+    .route('/products')
     .get(getProducts);
 
-router.route('/admin/products')
+router
+    .route('/admin/products')
     .get(isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts)
     .post(isAuthenticatedUser, authorizeRoles('admin'), newProduct);
 
-router.route('/products/:id')
-    .get(getProductDetails)
+router
+    .route('/products/:id')
+    .get(getProductDetails);
 
-router.route('/admin/products/:id')
+router
+    .route('/admin/products/:id')
     .put(isAuthenticatedUser, authorizeRoles('admin'), updateProduct)
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteProduct);
 
-router.route('/admin/products/:id/upload_images')
+router
+    .route('/admin/products/:id/upload_images')
     .put(isAuthenticatedUser, authorizeRoles('admin'), uploadProductImages);
 
-router.route('/admin/products/:id/delete_image')
-    .put(isAuthenticatedUser, authorizeRoles('admin'), deleteProductImage);
+router
+    .route('/admin/products/:id/delete_image')
+    .put(isAuthenticatedUser, authorizeRoles('admin'), (req, res, next) => {
+        console.log('deleteProductImage middleware triggered'); // Debugging line
+        next();
+    }, deleteProductImage);
 
-router.route('/reviews')
+router
+    .route('/reviews')
     .get(isAuthenticatedUser, getProductReviews)
     .put(isAuthenticatedUser, createProductReview);
 
-router.route('/admin/reviews')
+router
+    .route('/admin/reviews')
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteProductReview);
 
-router.route('/can_review')
+router
+    .route('/can_review')
     .get(isAuthenticatedUser, canUserReview);
 
 module.exports = router;
