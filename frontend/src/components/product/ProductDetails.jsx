@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCartItem } from '../../actions/features/cartSlice';
 import NewReview from '../reviews/NewReview';
 import ListReviews from '../reviews/ListReviews';
+import NotFound from '../layout/NotFound';
 
 function ProductDetails() {
     const params = useParams();
@@ -64,9 +65,13 @@ function ProductDetails() {
         toast.success('Item added to cart')
     }
 
-
-
     if (isLoading) return <Loading />
+    if (error && error?.status === 404) {
+        return <NotFound />
+    } else if (error?.status === 400) {
+        return <NotFound />
+    }
+
     return (
         <>
             <div className="row d-flex justify-content-around">
