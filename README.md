@@ -4,6 +4,8 @@ This project is a full-fledged eCommerce site built using the MERN stack (MongoD
 
 This project is well equip with the **Redux Toolkit** for flawless state management, seamlessly process payments with **Stripe**, manage images effortlessly with **Cloudinary**
 
+The estimation time for me to complete this project is around 3-4 weeks.
+
 [![Visit My Website](https://img.shields.io/badge/Visit-My%20Website-blue?style=for-the-badge&logo=google-chrome&logoColor=white)]([https://gadgetuniverse.onrender.com](https://gadgetuniverse.onrender.com/))
 
 ## Features
