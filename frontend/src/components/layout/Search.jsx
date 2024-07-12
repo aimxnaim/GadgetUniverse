@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { BsSearch } from 'react-icons/bs'
 
 const Search = () => {
     const [keyword, setKeyword] = useState('')
@@ -14,20 +15,21 @@ const Search = () => {
         }
     }
     return (
-        <form action="your_search_action_url_here" method="get" onSubmit={submitHandler}>
+        <form onSubmit={submitHandler}>
             <div className="input-group">
                 <input
                     type="text"
                     id="search_field"
                     aria-describedby="search_btn"
-                    className="form-control"
+                    className="form-control py-2"
                     placeholder="Enter Product Name ..."
+                    aria-label='Enter Product Name ...'
                     name="keyword"
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
                 />
-                <button id="search_btn" className="btn" type="submit">
-                    <i className="fa fa-search" aria-hidden="true"></i>
+                <button id="search_btn" className="input-group-text" type="submit">
+                    <BsSearch className='fs-5' />
                 </button>
             </div>
         </form>
