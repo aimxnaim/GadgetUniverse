@@ -4,7 +4,7 @@ const products = require('./data');
 
 const seedProducts = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/gadgetUniverse');
+        await mongoose.connect(`mongodb+srv://aimxnaim:zxoUbmVEGchx0IzG@gadgetuniverse.niqzb5t.mongodb.net/gadgetUniverse?retryWrites=true&w=majority&appName=gadgetUniverse`);
 
         await Product.deleteMany();
         await Product.insertMany(products);
