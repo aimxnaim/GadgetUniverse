@@ -17,6 +17,8 @@ body {
   --color-405D72: #405D72;
   --color-758694: #758694;
   --color-232f3e: #232f3e;
+  --color-2E236C: #2E236C;
+  --color-17153B: #17153B;
 }
 
 ::-webkit-scrollbar-track {
@@ -99,19 +101,49 @@ a {
 .header-bottom .dropdown-menu {
   background-color: var(--color-131921);
   width: 85%;
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 10px 10px;
   transform: translate3d(0px, 52px, 0px) !important;
 }
 
 .header-bottom .dropdown-item {
-  margin-bottom: 3px;
-  padding: 20px;
+  padding: 10px 13px;
   border-bottom: 1px solid var(--color-3b4149);
 }
 
 .header-bottom .dropdown-item:hover {
-  background-color: transparent;
-  transition: linear 0.4s;
+  background-color: var(--color-405D72);
+  transition: linear 0.2s;
+}
+
+.header-upper .dropdown-menu {
+  background-color: #31363F;
+  width: 45%;
+  border-radius: 0 0 10px 10px;
+  transform: translate3d(0px, 82px, 0px) !important;
+}
+
+.header-upper .dropdown-item,
+.header-upper .avatarUsername {
+  color: white;
+  padding: 10px 13px;
+  border-bottom: 1px solid var(--color-3b4149);
+}
+
+.header-upper .dropdown-item:hover {
+  background-color: var(--color-405D72);
+  transition: linear 0.2s;
+}
+
+.header-upper #avatarUsername {
+  color: #FF9BD2 !important;
+  transition: linear 0.2s;
+}
+
+.header-upper #avatarUsername:hover {
+  background-color: #E4003A;
+  color: white !important;
+  font-weight: 0rem;
+  transition: linear 0.2s;
 }
 
 .gap-10 {
@@ -165,6 +197,28 @@ a {
 
 /* Header Part End here */
 
+/* Footer Part */
+
+footer {
+  background-color: var(--color-131921);
+}
+
+footer:nth-last-child(1) {
+  border-top: 1px solid var(--color-3b4149);
+}
+
+.link-footer {
+  color: #9B86BD;
+  transition: linear 0.2s;
+}
+
+.link-footer:hover {
+  color: #E2BBE9;
+  transition: linear 0.2s;
+  font-weight: 500;
+}
+
+/* Footer Part End here */
 /* Home page */
 #products_heading {
   margin-top: 1.8rem;
@@ -211,14 +265,6 @@ a {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-/* Footer */
-footer {
-  margin-top: auto;
-  color: grey;
-  bottom: 0;
-  width: 100%;
 }
 
 /* Product Details Page */
@@ -417,10 +463,6 @@ footer {
   object-fit: cover;
 }
 
-.rounded-circle {
-  border-radius: 50% !important;
-}
-
 .btn.focus,
 .btn:focus {
   outline: 0;
@@ -431,8 +473,8 @@ footer {
 
 .avatar-nav {
   margin-right: 0.6rem;
-  height: 2.2rem;
-  width: 2.2rem;
+  height: 3rem;
+  width: 3rem;
 }
 
 /* Checkout Steps */
