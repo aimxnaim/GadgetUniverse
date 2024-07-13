@@ -23,7 +23,16 @@ const Upper = () => {
             <header className='header-upper py-3'>
                 <div className="container-xxl">
                     <nav className="row align-items-center">
-                        <div className="col-2">
+                        <div className="col-2 d-flex align-items-center">
+                            <img
+                                src="logogdget.svg"
+                                alt=""
+                                style={{
+                                    width: '50px',
+                                    height: '50px',
+                                    marginRight: '20px'
+                                }}
+                            />
                             <h3>
                                 <Link to="/" className='text-white'>Gadget Universe</Link>
                             </h3>
@@ -54,11 +63,13 @@ const Upper = () => {
                                         </div>
                                         <div className="dropdown">
                                             <button
-                                                className="btn dropdown-toggle text-white"
+                                                className="btn dropdown-toggle text-white no-focus-outline"
                                                 type="button"
-                                                id="dropDownMenuButton"
+                                                id="dropdownAvatar"
                                                 data-bs-toggle="dropdown"
                                                 aria-expanded="false"
+                                                style={{ outline: 'none', boxShadow: 'none', border: 'none' }}
+
                                             >
                                                 <figure className="avatar avatar-nav">
                                                     <img
@@ -72,9 +83,9 @@ const Upper = () => {
                                                     />
                                                 </figure>
                                             </button>
-                                            <div className="dropdown-menu" aria-labelledby="dropDownMenuButton">
-                                                <span className="dropdown-item">{user?.name}</span>
-                                                <li><hr className="dropdown-divider" /></li>
+                                            <div className="dropdown-menu" aria-labelledby="dropdownAvatar">
+                                                <span className="dropdown-item disabled">{user?.name}</span>
+                                                <li><hr className="dropdown-divider m-0" /></li>
 
                                                 {user?.role === 'admin' && (
                                                     <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
@@ -83,9 +94,9 @@ const Upper = () => {
                                                 <Link className="dropdown-item" to="/me/orders"> Orders </Link>
 
                                                 <Link className="dropdown-item" to="/me/profile"> Profile </Link>
-                                                <li><hr className="dropdown-divider" /></li>
+                                                <li><hr className="dropdown-divider m-0" /></li>
 
-                                                <Link className="dropdown-item text-danger" to="/" onClick={logoutHandler}> Logout </Link>
+                                                <Link id='avatarUsername' className="dropdown-item" to="/" onClick={logoutHandler}> Logout </Link>
                                             </div>
                                         </div>
                                     </>

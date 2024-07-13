@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { PRODUCT_CATEGORIES } from '../../../constants/constants'
 
 const Bottom = () => {
     return (
@@ -7,7 +8,7 @@ const Bottom = () => {
             <div className="container-xxl">
                 <div className="row">
                     <div className="col-12">
-                        <div className="menu-bottom d-flex align-items-center gap-30">
+                        <div className="menu-bottom d-flex align-items-center gap-30 ">
                             <div>
                                 <div className="dropdown">
                                     <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 gap-15 d-flex align-items-center me-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -17,9 +18,11 @@ const Bottom = () => {
                                         </span>
                                     </button>
                                     <ul className="dropdown-menu">
-                                        <li><Link className="dropdown-item text-white" to="#">Action</Link></li>
-                                        <li><Link className="dropdown-item text-white" to="#">Another action</Link></li>
-                                        <li><Link className="dropdown-item text-white" to="#">Something else here</Link></li>
+                                        {PRODUCT_CATEGORIES.map((category, index) => (
+                                            <>
+                                                <li><Link className="dropdown-item text-white" to="#">{category}</Link></li>
+                                            </>
+                                        ))}
                                     </ul>
                                 </div>
                             </div>
