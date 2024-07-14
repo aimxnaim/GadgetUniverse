@@ -5,7 +5,7 @@ import StarRatings from 'react-star-ratings'
 const ProductItem = ({ product, columnSize }) => {
     return (
         <div className={`col-sm-12 col-md-6 col-lg-${columnSize} my-3`} >
-            <div className="card p-3 rounded">
+            <div className="card">
                 <img
                     className="card-img-top mx-auto"
                     src={product?.images[0]
@@ -14,7 +14,7 @@ const ProductItem = ({ product, columnSize }) => {
                     alt={product?.name}
                 />
                 <div
-                    className="card-body ps-3 d-flex justify-content-center flex-column"
+                    className="card-body align-items-center d-flex justify-content-center flex-column"
                 >
                     <h5 className="card-title">
                         <Link to={`products/${product?._id}`}>{product?.name}</Link>
@@ -33,11 +33,11 @@ const ProductItem = ({ product, columnSize }) => {
                             ({product?.numOfReviews})
                         </span>
                     </div>
-                    <p className="card-text mt-2">${product?.price}</p>
+                    <p className="card-text mt-2">RM {product?.price}</p>
                     <Link
                         to={`products/${product?._id}`}
                         id="view_btn"
-                        className="btn btn-block"
+                        className="button-card"
                     >
                         View Details
                     </Link>
