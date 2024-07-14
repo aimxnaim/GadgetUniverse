@@ -25,7 +25,7 @@ const Upper = () => {
                     <nav className="row align-items-center">
                         <div className="col-2 d-flex align-items-center">
                             <img
-                                src="logogdget.svg"
+                                src="/logogdget.svg"
                                 alt=""
                                 style={{
                                     width: '50px',
@@ -44,7 +44,7 @@ const Upper = () => {
                             <div className="header-upper-links d-flex align-items-center justify-content-between">
                                 <div className='mx-2'>
                                     <Link className='d-flex align-items-center gap-10 text-white'>
-                                        <img src="images/youtube/compare.svg" alt="wishlist" />
+                                        <img src="/images/youtube/compare.svg" alt="wishlist" />
                                         <p className='mb-0'>
                                             Compare <br /> Products
                                         </p>
@@ -55,7 +55,7 @@ const Upper = () => {
                                     <>
                                         <div className='mx-2'>
                                             <Link className='d-flex align-items-center gap-10 text-white'>
-                                                <img src="images/youtube/wishlist.svg" alt="wishlist" />
+                                                <img src="/images/youtube/wishlist.svg" alt="wishlist" />
                                                 <p className='mb-0'>
                                                     Favourite <br /> Wishlist
                                                 </p>
@@ -123,7 +123,7 @@ const Upper = () => {
                                     >
                                         <img
                                             style={{ width: '50px', height: '50px' }}
-                                            src="images/youtube/cart.svg"
+                                            src="/images/youtube/cart.svg"
                                             alt=""
                                         />
                                         <div className="d-flex flex-column gap-10">

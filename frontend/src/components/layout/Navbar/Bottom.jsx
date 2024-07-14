@@ -12,7 +12,7 @@ const Bottom = () => {
                             <div>
                                 <div className="dropdown">
                                     <button className="btn btn-secondary dropdown-toggle bg-transparent border-0 gap-15 d-flex align-items-center me-5" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="images/youtube/menu.svg" alt="menu" />
+                                        <img src="/images/youtube/menu.svg" alt="menu" />
                                         <span className='me-5 d-inline-block'>
                                             Shop Categories
                                         </span>

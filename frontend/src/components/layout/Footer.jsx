@@ -10,7 +10,7 @@ const footer = () => {
                         <div className="col-5">
                             <div className="footer-top-data d-flex gap-30 align-items-center ">
                                 <img
-                                    src="images/youtube/email.svg"
+                                    src="/images/youtube/email.svg"
                                     alt="newsletter"
                                     style={{ width: '70px', height: '70px' }}
                                 />
