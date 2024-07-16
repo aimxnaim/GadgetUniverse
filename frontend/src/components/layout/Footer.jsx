@@ -49,7 +49,7 @@ const footer = () => {
                     <div className="row">
                         <div className="col-12">
                             <p className="text-center text-white">
-                                &copy; GadgetUniverse - {new Date().getFullYear()}
+                                &copy; Gadget Universe - {new Date().getFullYear()}
                             </p>
                             <p className="text-center text-white mb-3 ">
                                 Developed and built by <Link className='link-footer' to='https://www.aimanaim.works'>Aiman Naim</Link>
