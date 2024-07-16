@@ -21,6 +21,9 @@ router
     .get(getProducts);
 
 router
+    .route('/store')
+    .get(getProducts);
+router
     .route('/admin/products')
     .get(isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts)
     .post(isAuthenticatedUser, authorizeRoles('admin'), newProduct);
