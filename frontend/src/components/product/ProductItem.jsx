@@ -1,17 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
 
 const ProductItem = ({ product, columnSize }) => {
+    let location = useLocation();
     return (
-        <div className={`col-3 col-lg-${columnSize} `} >
+        <div className={location.pathname === '/store' ? `gr-${columnSize}` : 'col-3'} >
             <div className="product-card position-relative">
                 <div className="wishlist-icon position-absolute">
                     <Link>
                         <img src="/images/youtube/wish.svg" alt="wishlist" />
                     </Link>
                 </div>
-                <div className="product-image text-center ">
+                <div className="product-image">
                     <img
                         className="img-fluid"
                         src={product?.images[0]
@@ -19,46 +20,44 @@ const ProductItem = ({ product, columnSize }) => {
                             : '/images/default_product.png'}
                         alt={product?.name}
                         loading="lazy"
-                        style={{ height: '220px', width: '200px' }}
                     />
                     <img
-                        className="img-fluid mx-auto"
+                        className="img-fluid"
                         src={product?.images[1]
                             ? product?.images[1].url
                             : '/images/default_product.png'}
                         alt={product?.name}
                         loading="lazy"
-                        style={{ height: '220px', width: '200px' }}
+
                     />
                 </div>
-                <div className="product-details">
-                    <div className="align-items-center d-flex justify-content-center flex-column">
-                        <h6 className='product-card-brand py-2'>{product?.seller}</h6>
-                        <h5 className="product-card-title">
-                            <Link to={`products/${product?._id}`}>{product?.name}</Link>
+                <div className={`product-details ${(columnSize === 12) && 'align-items-center d-flex'} ${(columnSize === 6) && 'align-items-center d-flex'}`}>
+                    <div className="d-flex flex-column px-2">
+                        <h6 className={`product-card-brand ${columnSize === 12 && 'mt-2'}`}>{product?.seller.length > 8 ? product?.seller?.substring(0, 10) + "..." : product?.seller}</h6>
+                        <h5 className={`product-card-title `}>
+                            <Link to={`products/${product?._id}`} >{product?.name.length > 35 ? product.name.substring(0, 35) + "..." : product?.name}</Link>
                         </h5>
-                        <div className="ratings mt-auto d-flex">
+                        {columnSize === 12 && (
+                            <p className="product-card-text">
+                                {product?.description.length > 100 ? product.description.substring(0, 100) + "..." : product?.description}
+                            </p>
+                        )}
+                        <div className="ratings d-flex">
                             <StarRatings
                                 rating={product?.ratings}
                                 starRatedColor="#ffb829"
                                 numberOfStars={5}
                                 name='rating'
-                                starDimension='20px'
+                                starDimension='17px'
                                 starSpacing='1px'
                             />
-                            <span id="no_of_reviews" className="pt-2 ps-2">
+                            <span id="no_of_reviews" className="reviewNum ps-2">
                                 {" "}
                                 ({product?.numOfReviews})
                             </span>
                         </div>
-                        <p className="product-card-text mt-2">RM {product?.price}</p>
-                        <Link
-                            to={`products/${product?._id}`}
-                            id="view_btn"
-                            className="button-card mb-3"
-                        >
-                            View Details
-                        </Link>
+                        <p className="product-card-price mb-0">RM {product?.price}</p>
+
                     </div>
                 </div>
                 <div className="action-bar position-absolute">

@@ -18,12 +18,14 @@ import MyOrder from '../order/MyOrder';
 import OrderDetails from '../order/OrderDetails';
 import Invoice from '../invoice/Invoice';
 import { Route } from 'react-router-dom';
+import OurStore from '../store/OurStore';
 
 const userRoutes = () => {
     return (
         <>
             <Route path='/' element={<Home />} />
             <Route path='/products/:id' element={<ProductDetails />} />
+            <Route path='/store' element={<OurStore />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/password/forgot' element={<ForgotPassword />} />
