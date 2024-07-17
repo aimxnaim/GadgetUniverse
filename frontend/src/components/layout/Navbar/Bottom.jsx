@@ -4,7 +4,7 @@ import { PRODUCT_CATEGORIES } from '../../../constants/constants'
 
 const Bottom = () => {
     return (
-        <div className="header-bottom py-3">
+        <div className="header-bottom py-3 sticky-top">
             <div className="container-xxl">
                 <div className="row">
                     <div className="col-12">
@@ -19,9 +19,9 @@ const Bottom = () => {
                                     </button>
                                     <ul className="dropdown-menu">
                                         {PRODUCT_CATEGORIES.map((category, index) => (
-                                            <>
-                                                <li><Link className="dropdown-item text-white" to="#">{category}</Link></li>
-                                            </>
+                                            <li key={index}>
+                                                <Link className="dropdown-item text-white" to="#">{category}</Link>
+                                            </li>
                                         ))}
                                     </ul>
                                 </div>
