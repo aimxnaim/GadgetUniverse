@@ -16,13 +16,11 @@ function App() {
       <div className='App'>
         <Toaster position="top-center" />
         <Header />
-        <div className="container">
-          <Routes>
-            {userRoutes}
-            {adminRoutes}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+        <Routes>
+          {userRoutes}
+          {adminRoutes}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         <Footer />
       </div>
     </Router>

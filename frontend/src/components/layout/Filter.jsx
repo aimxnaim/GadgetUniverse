@@ -55,7 +55,6 @@ const Filter = () => {
         navigate(path);
     }
 
-    // 
     const defaultCheckHandler = (category, CheckBoxValue) => {
         const value = searchParams.get(category)
         const result = CheckBoxValue === value ? true : false
@@ -63,90 +62,94 @@ const Filter = () => {
     }
 
     return (
-        <div className="border p-3 filter">
-            <h3>Filters</h3>
-            <hr />
-            <h5 className="filter-heading mb-3">Price</h5>
-            <form
-                id="filter_form"
-                className="px-2"
-                onSubmit={handleButtonClick}
-            >
-                <div className="row">
-                    <div className="col">
+        <>
+            <div className="filter-card my-5 mb-3">
+                <h3 className="filter-title mb-3">Shop by Categories</h3>
+                <hr />
+                {PRODUCT_CATEGORIES.map((category, index) => (
+                    <div key={index} className="form-check">
                         <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Min ($)"
-                            name="min"
-                            value={min}
-                            onChange={(e) => setMin(e.target.value)}
+                            className="form-check-input mb-0"
+                            type="checkbox"
+                            name="category"
+                            id={`check${index}`}
+                            value={category}
+                            defaultChecked={defaultCheckHandler("category", category)}
+                            onClick={(e) => handleClick(e.target)}
                         />
+                        <label className="form-check-label p-0" htmlFor={`check${index}`}>
+                            {" "}
+                            {category}
+                        </label>
                     </div>
-                    <div className="col">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Max ($)"
-                            name="max"
-                            value={max}
-                            onChange={(e) => setMax(e.target.value)}
-                        />
-                    </div>
-                    <div className="col">
+                ))}
+            </div>
+            <div className="filter-card mb-3">
+                <h3 className="filter-title mb-3">Filter by</h3>
+                <hr />
+                <h5 className="subtitle">Price</h5>
+                <form
+                    id="filter_form"
+                    onSubmit={handleButtonClick}
+                >
+                    <div className="d-flex align-items-center gap-10">
+                        <div className="form-floating">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="0"
+                                name="min"
+                                value={min}
+                                onChange={(e) => setMin(e.target.value)}
+                            />
+                            <label htmlFor="floatingInput">Min (RM)</label>
+                        </div>
+                        <div className="form-floating">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Max (RM)"
+                                name="max"
+                                value={max}
+                                onChange={(e) => setMax(e.target.value)}
+                            />
+                            <label htmlFor="floatingInput">Max (RM)</label>
+
+                        </div>
                         <button type="submit" className="btn btn-primary">GO</button>
                     </div>
-                </div>
-            </form>
-            <hr />
-            <h5 className="mb-3">Category</h5>
-            {PRODUCT_CATEGORIES.map((category, index) => (
-                <div key={index} className="form-check">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="category"
-                        id={`check${index}`}
-                        value={category}
-                        defaultChecked={defaultCheckHandler("category", category)}
-                        onClick={(e) => handleClick(e.target)}
-                    />
-                    <label className="form-check-label" htmlFor={`check${index}`}>
-                        {" "}
-                        {category}
-                    </label>
-                </div>
-            ))}
+                </form>
 
+                <hr />
+                <h5 className="subtitle">Ratings</h5>
 
-
-            <hr />
-            <h5 className="mb-3">Ratings</h5>
-
-            {[5, 4, 3, 2, 1].map((rating, index) => (
-                <div key={index} className="form-check">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="ratings"
-                        id={`checkStar${index}`}
-                        value={rating}
-                        defaultChecked={defaultCheckHandler("ratings", rating)}
-                        onClick={(e) => handleClick(e.target)}
-                    />
-                    <label className="form-check-label" htmlFor={`checkStar${index}`}>
-                        <StarRatings
-                            rating={rating}
-                            starRatedColor="#ffb829"
-                            numberOfStars={5}
-                            name='rating'
-                            starDimension='21px'
-                            starSpacing='1px'
+                {[5, 4, 3, 2, 1].map((rating, index) => (
+                    <div key={index} className="form-check">
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            name="ratings"
+                            id={`checkStar${index}`}
+                            value={rating}
+                            defaultChecked={defaultCheckHandler("ratings", rating)}
+                            onClick={(e) => handleClick(e.target)}
                         />
-                    </label>
-                </div>
-            ))}
-        </div>
+                        <label className="form-check-label d-flex align-items-center" htmlFor={`checkStar${index}`}>
+                            <StarRatings
+                                rating={rating}
+                                starRatedColor="#ffb829"
+                                numberOfStars={5}
+                                name='rating'
+                                starDimension='17px'
+                                starSpacing='1px'
+                            />
+                        </label>
+                    </div>
+                ))}
+            </div>
+
+        </>
+
     )
 }
 

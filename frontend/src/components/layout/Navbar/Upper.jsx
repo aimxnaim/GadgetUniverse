@@ -25,7 +25,7 @@ const Upper = () => {
                     <nav className="row align-items-center">
                         <div className="col-2 d-flex align-items-center">
                             <img
-                                src="logogdget.svg"
+                                src="/logogdget.svg"
                                 alt=""
                                 style={{
                                     width: '50px',
@@ -44,23 +44,24 @@ const Upper = () => {
                             <div className="header-upper-links d-flex align-items-center justify-content-between">
                                 <div className='mx-2'>
                                     <Link className='d-flex align-items-center gap-10 text-white'>
-                                        <img src="images/youtube/compare.svg" alt="wishlist" />
+                                        <img src="/images/youtube/compare.svg" alt="compare" />
                                         <p className='mb-0'>
                                             Compare <br /> Products
+                                        </p>
+                                    </Link>
+                                </div>
+                                <div className='mx-2'>
+                                    <Link className='d-flex align-items-center gap-10 text-white'>
+                                        <img src="/images/youtube/wishlist.svg" alt="wishlist" />
+                                        <p className='mb-0'>
+                                            Favourite <br /> Wishlist
                                         </p>
                                     </Link>
                                 </div>
 
                                 {user ? (
                                     <>
-                                        <div className='mx-2'>
-                                            <Link className='d-flex align-items-center gap-10 text-white'>
-                                                <img src="images/youtube/wishlist.svg" alt="wishlist" />
-                                                <p className='mb-0'>
-                                                    Favourite <br /> Wishlist
-                                                </p>
-                                            </Link>
-                                        </div>
+
                                         <div className="dropdown">
                                             <button
                                                 className="btn dropdown-toggle text-white no-focus-outline"
@@ -106,10 +107,10 @@ const Upper = () => {
                                         <div>
                                             <Link
                                                 to='/login'
-                                                className='d-flex align-items-center gap-10 text-white'
+                                                className='d-flex align-items-center text-white'
                                             >
-                                                <img src="images/youtube/user.svg" alt="wishlist" />
-                                                <p className='mb-0'>
+                                                <img src="/images/youtube/user.svg" alt="login" />
+                                                <p className='mb-0 mx-1'>
                                                     Log in <br /> My Account
                                                 </p>
                                             </Link>
@@ -123,8 +124,8 @@ const Upper = () => {
                                     >
                                         <img
                                             style={{ width: '50px', height: '50px' }}
-                                            src="images/youtube/cart.svg"
-                                            alt=""
+                                            src="/images/youtube/cart.svg"
+                                            alt="cart"
                                         />
                                         <div className="d-flex flex-column gap-10">
                                             <span className="badge bg-white text-dark" id="cart_count">{cartItem?.length}</span>

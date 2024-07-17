@@ -18,12 +18,18 @@ import MyOrder from '../order/MyOrder';
 import OrderDetails from '../order/OrderDetails';
 import Invoice from '../invoice/Invoice';
 import { Route } from 'react-router-dom';
+import OurStore from '../store/OurStore';
+import Blog from '../blogs/Blog';
+import Contact from '../contact/Contact';
 
 const userRoutes = () => {
     return (
         <>
             <Route path='/' element={<Home />} />
             <Route path='/products/:id' element={<ProductDetails />} />
+            <Route path='/blogs' element={<Blog />} />
+            <Route path='/store' element={<OurStore />} />
+            <Route path='/contact' element={<Contact />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/password/forgot' element={<ForgotPassword />} />

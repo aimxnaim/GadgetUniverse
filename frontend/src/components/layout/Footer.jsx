@@ -10,7 +10,7 @@ const footer = () => {
                         <div className="col-5">
                             <div className="footer-top-data d-flex gap-30 align-items-center ">
                                 <img
-                                    src="images/youtube/email.svg"
+                                    src="/images/youtube/email.svg"
                                     alt="newsletter"
                                     style={{ width: '70px', height: '70px' }}
                                 />
@@ -49,7 +49,7 @@ const footer = () => {
                     <div className="row">
                         <div className="col-12">
                             <p className="text-center text-white">
-                                &copy; GadgetUniverse - {new Date().getFullYear()}
+                                &copy; Gadget Universe - {new Date().getFullYear()}
                             </p>
                             <p className="text-center text-white mb-3 ">
                                 Developed and built by <Link className='link-footer' to='https://www.aimanaim.works'>Aiman Naim</Link>
