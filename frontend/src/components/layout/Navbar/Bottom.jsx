@@ -20,7 +20,7 @@ const Bottom = () => {
                                     <ul className="dropdown-menu">
                                         {PRODUCT_CATEGORIES.map((category, index) => (
                                             <li key={index}>
-                                                <Link className="dropdown-item text-white" to="#">{category}</Link>
+                                                <Link className="dropdown-item text-white" to={`/store?category=${category}`}>{category}</Link>
                                             </li>
                                         ))}
                                     </ul>
@@ -30,8 +30,8 @@ const Bottom = () => {
                                 <div className="d-flex align-items-center gap-15">
                                     <NavLink to='/'>Home</NavLink>
                                     <NavLink to='/store'>Our Store</NavLink>
-                                    <NavLink to='/'>Blogs</NavLink>
-                                    <NavLink to='/'>Contact</NavLink>
+                                    <NavLink to='/blogs'>Blogs</NavLink>
+                                    <NavLink to='/contact'>Contact</NavLink>
                                 </div>
                             </div>
                         </div>
