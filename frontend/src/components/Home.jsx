@@ -367,10 +367,11 @@ const Home = () => {
                                 <h3 className="section-heading ">Our Latest Blogs</h3>
                             </div>
                             <div className="row">
-                                <BlogCard />
-                                <BlogCard />
-                                <BlogCard />
-                                <BlogCard />
+                                {[1, 2, 3, 4].map((item, index) => (
+                                    <div className="col-3" key={index}>
+                                        <BlogCard />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </section>
