@@ -41,97 +41,101 @@ const Upper = () => {
                             <Search />
                         </div>
                         <div className="col-5">
-                            <div className="header-upper-links d-flex align-items-center justify-content-between">
-                                <div className='mx-2'>
-                                    <Link className='d-flex align-items-center gap-10 text-white'>
-                                        <img src="/images/youtube/compare.svg" alt="compare" />
-                                        <p className='mb-0'>
-                                            Compare <br /> Products
-                                        </p>
-                                    </Link>
-                                </div>
-                                <div className='mx-2'>
-                                    <Link className='d-flex align-items-center gap-10 text-white'>
-                                        <img src="/images/youtube/wishlist.svg" alt="wishlist" />
-                                        <p className='mb-0'>
-                                            Favourite <br /> Wishlist
-                                        </p>
-                                    </Link>
-                                </div>
-
-                                {user ? (
-                                    <>
-
-                                        <div className="dropdown">
-                                            <button
-                                                className="btn dropdown-toggle text-white no-focus-outline"
-                                                type="button"
-                                                id="dropdownAvatar"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                                style={{ outline: 'none', boxShadow: 'none', border: 'none' }}
-
-                                            >
-                                                <figure className="avatar avatar-nav">
-                                                    <img
-                                                        src={
-                                                            user?.avatar
-                                                                ? user?.avatar?.url
-                                                                : '/images/default_avatar.jpg'
-                                                        }
-                                                        alt="User Avatar"
-                                                        className="rounded-circle"
-                                                    />
-                                                </figure>
-                                            </button>
-                                            <div className="dropdown-menu" aria-labelledby="dropdownAvatar">
-                                                <span className="dropdown-item disabled">{user?.name}</span>
-                                                <li><hr className="dropdown-divider m-0" /></li>
-
-                                                {user?.role === 'admin' && (
-                                                    <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
-                                                )}
-
-                                                <Link className="dropdown-item" to="/me/orders"> Orders </Link>
-
-                                                <Link className="dropdown-item" to="/me/profile"> Profile </Link>
-                                                <li><hr className="dropdown-divider m-0" /></li>
-
-                                                <Link id='avatarUsername' className="dropdown-item" to="/" onClick={logoutHandler}> Logout </Link>
-                                            </div>
-                                        </div>
-                                    </>
-
-                                ) :
-                                    !isLoading && (
-                                        <div>
-                                            <Link
-                                                to='/login'
-                                                className='d-flex align-items-center text-white'
-                                            >
-                                                <img src="/images/youtube/user.svg" alt="login" />
-                                                <p className='mb-0 mx-1'>
-                                                    Log in <br /> My Account
+                            <div className="header-upper-links d-flex align-items-center ">
+                                <div className="row">
+                                    <div className="col-3">
+                                        <div className='mx-2'>
+                                            <Link className='d-flex align-items-center gap-10 text-white' to='/compare'>
+                                                <img src="/images/youtube/compare.svg" alt="compare" />
+                                                <p className='mb-0'>
+                                                    Compare <br /> Products
                                                 </p>
                                             </Link>
                                         </div>
-                                    )}
+                                    </div>
+                                    <div className="col-3">
+                                        <Link className='d-flex align-items-center gap-10 text-white'>
+                                            <img src="/images/youtube/wishlist.svg" alt="wishlist" />
+                                            <p className='mb-0'>
+                                                Favourite <br /> Wishlist
+                                            </p>
+                                        </Link>
+                                    </div>
+                                    <div className="col-3" >
+                                        {user ? (
+                                            <>
 
-                                <div>
-                                    <Link
-                                        className='d-flex align-items-center gap-10 text-white'
-                                        to="/cart"
-                                    >
-                                        <img
-                                            style={{ width: '50px', height: '50px' }}
-                                            src="/images/youtube/cart.svg"
-                                            alt="cart"
-                                        />
-                                        <div className="d-flex flex-column gap-10">
-                                            <span className="badge bg-white text-dark" id="cart_count">{cartItem?.length}</span>
-                                            <p className='mb-0'>RM {" "}{cartItem?.reduce((acc, item) => acc + item?.quantity * item?.price, 0).toFixed(2)}</p>
-                                        </div>
-                                    </Link>
+                                                <div className="dropdown">
+                                                    <button
+                                                        className="btn dropdown-toggle text-white no-focus-outline"
+                                                        type="button"
+                                                        id="dropdownAvatar"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false"
+                                                        style={{ outline: 'none', boxShadow: 'none', border: 'none' }}
+
+                                                    >
+                                                        <figure className="avatar avatar-nav">
+                                                            <img
+                                                                src={
+                                                                    user?.avatar
+                                                                        ? user?.avatar?.url
+                                                                        : '/images/default_avatar.jpg'
+                                                                }
+                                                                alt="User Avatar"
+                                                                className="rounded-circle"
+                                                            />
+                                                        </figure>
+                                                    </button>
+                                                    <div className="dropdown-menu" aria-labelledby="dropdownAvatar">
+                                                        <span className="dropdown-item disabled">{user?.name}</span>
+                                                        <li><hr className="dropdown-divider m-0" /></li>
+
+                                                        {user?.role === 'admin' && (
+                                                            <Link className="dropdown-item" to="/admin/dashboard"> Dashboard </Link>
+                                                        )}
+
+                                                        <Link className="dropdown-item" to="/me/orders"> Orders </Link>
+
+                                                        <Link className="dropdown-item" to="/me/profile"> Profile </Link>
+                                                        <li><hr className="dropdown-divider m-0" /></li>
+
+                                                        <Link id='avatarUsername' className="dropdown-item" to="/" onClick={logoutHandler}> Logout </Link>
+                                                    </div>
+                                                </div>
+                                            </>
+
+                                        ) :
+                                            !isLoading && (
+                                                <div style={{ width: '140px' }}>
+                                                    <Link
+                                                        to='/login'
+                                                        className='d-flex align-items-center text-white'
+                                                    >
+                                                        <img src="/images/youtube/user.svg" alt="login" />
+                                                        <p className='mb-0 mx-1'>
+                                                            Log in <br /> My Account
+                                                        </p>
+                                                    </Link>
+                                                </div>
+                                            )}
+                                    </div>
+                                    <div className='col-3'>
+                                        <Link
+                                            className='d-flex align-items-center gap-10 text-white'
+                                            to="/cart"
+                                        >
+                                            <img
+                                                style={{ width: '43px', height: '43px' }}
+                                                src="/images/youtube/cart.svg"
+                                                alt="cart"
+                                            />
+                                            <div className="d-flex flex-column gap-10">
+                                                <span className="badge bg-white text-dark m-0 " id="cart_count">{cartItem?.length}</span>
+                                                <p className='mb-0 align-items-center' style={{ width: '100px' }}>RM {" "}{cartItem?.reduce((acc, item) => acc + item?.quantity * item?.price, 0).toFixed(2)}</p>
+                                            </div>
+                                        </Link>
+                                    </div>
                                 </div>
 
                             </div>
