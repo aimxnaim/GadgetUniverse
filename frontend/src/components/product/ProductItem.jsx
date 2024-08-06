@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
 
+<<<<<<< Updated upstream
 const ProductItem = ({ product, columnSize }) => {
     return (
         <div className={`col-sm-12 col-md-6 col-lg-${columnSize} my-3`} >
@@ -40,6 +41,16 @@ const ProductItem = ({ product, columnSize }) => {
                         className="btn btn-block"
                     >
                         View Details
+=======
+const ProductItem = ({ product, columnSize, keyword }) => {
+    let location = useLocation();
+    return (
+        <div className={location.pathname === '/store' ? `gr-${columnSize}` : 'col-3'} >
+            <div className={`product-card position-relative ${keyword && 'my-5'}`}>
+                <div className="wishlist-icon position-absolute">
+                    <Link>
+                        <img src="/images/youtube/wish.svg" alt="wishlist" />
+>>>>>>> Stashed changes
                     </Link>
                 </div>
             </div>
