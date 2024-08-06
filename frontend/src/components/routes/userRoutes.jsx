@@ -18,6 +18,7 @@ import MyOrder from '../order/MyOrder';
 import OrderDetails from '../order/OrderDetails';
 import Invoice from '../invoice/Invoice';
 import { Route } from 'react-router-dom';
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import OurStore from '../store/OurStore';
@@ -25,12 +26,18 @@ import Blog from '../blogs/Blog';
 import Contact from '../contact/Contact';
 import Compare from '../compare/Compare';
 >>>>>>> Stashed changes
+=======
+import OurStore from '../store/OurStore';
+import Blog from '../blogs/Blog';
+import Contact from '../contact/Contact';
+>>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
 
 const userRoutes = () => {
     return (
         <>
             <Route path='/' element={<Home />} />
             <Route path='/products/:id' element={<ProductDetails />} />
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
             <Route path='/blogs' element={<Blog />} />
@@ -38,6 +45,11 @@ const userRoutes = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/compare' element={<Compare />} />
 >>>>>>> Stashed changes
+=======
+            <Route path='/blogs' element={<Blog />} />
+            <Route path='/store' element={<OurStore />} />
+            <Route path='/contact' element={<Contact />} />
+>>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/password/forgot' element={<ForgotPassword />} />

@@ -4,9 +4,10 @@ import ProductItem from './product/ProductItem'
 import Loading from './layout/Loader'
 import toast from 'react-hot-toast'
 import CustomPagination from './layout/CustomPagination'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import Filter from './layout/Filter'
 import { useGetProductsQuery } from '../actions/api/productsApi'
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import Marquee from "react-fast-marquee";
@@ -14,8 +15,41 @@ import CategoryItem from './home/CategoryItem'
 import BlogCard from './home/BlogCard'
 import BreadCrumb from './store/BreadCrumb'
 >>>>>>> Stashed changes
+=======
+import Marquee from "react-fast-marquee";
+import CategoryItem from './home/CategoryItem'
+import BlogCard from './home/BlogCard'
+>>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
 
 const Home = () => {
+
+    useEffect(() => {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        const config = {
+            rootMargin: '0px 0px 50px 0px',
+            threshold: 0.01,
+        };
+
+        const observer = new IntersectionObserver((entries, self) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    preloadImage(entry.target);
+                    self.unobserve(entry.target);
+                }
+            });
+        }, config);
+
+        images.forEach(image => {
+            observer.observe(image);
+        });
+
+        function preloadImage(img) {
+            const src = img.getAttribute('data-src');
+            if (!src) { return; }
+            img.src = src;
+        }
+    }, []);
+
     let [searchParams] = useSearchParams();
     const page = Number(searchParams.get('page')) || 1;
     const keyword = searchParams.get('keyword') || '';
@@ -43,6 +77,7 @@ const Home = () => {
     return (
         <>
             <MetaData title={`Buy Best Products Online`}></MetaData>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             <div className="row">
                 {keyword &&
@@ -50,6 +85,8 @@ const Home = () => {
                         <Filter />
 =======
             {keyword && <BreadCrumb title='Search ' keyword={keyword} />}
+=======
+>>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
             {!keyword &&
                 <>
                     <section className='home-wrapper-1 py-5'>
@@ -212,6 +249,7 @@ const Home = () => {
                     </section>
                 </>
             }
+<<<<<<< HEAD
             <section className='product-wrapper home-wrapper-2'>
                 <div className="container-xxl">
                     <div className="row">
@@ -250,25 +288,157 @@ const Home = () => {
                             keyword
                                 ? `${data?.products?.length} Products found with keyword ${keyword}`
                                 : 'Latest Products'
+=======
+            <section className='product-wrapper pt-5 pb-0 home-wrapper-2'>
+                <div className="container-xxl">
+                    <div className="row">
+                        {keyword &&
+                            <div className="col-6 col-md-3 mt-5">
+                                <Filter />
+                            </div>
+>>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
                         }
+                        <div className={keyword ? "col-6 col-sm-6 col-md-9" : "col-12"}>
+                            <h3 id="products_heading" className="section-heading">
+                                {
+                                    keyword
+                                        ? `${data?.products?.length} Products found with keyword ${keyword}`
+                                        : 'Latest Products'
+                                }
 
-                    </h1>
+                            </h3>
 
-                    <section id="products" className="mt-5">
-                        <div className="row">
-                            {data?.products?.map((product, index) => (
-                                <ProductItem key={product.id || index} product={product} columnSize={columnSize} />
-                            ))}
+                            <section id="products">
+                                <div className="row">
+                                    {data?.products?.map((product, index) => (
+                                        <ProductItem key={product.id || index} product={product} columnSize={columnSize} />
+                                    ))}
 
+                                </div>
+                            </section>
+
+                            <CustomPagination
+                                resPerPage={data?.resPerPage}
+                                filterProductCount={data?.filterProductCount}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {!keyword &&
+                <>
+                    <section className="famous-wrapper py-5 home-wrapper-2">
+                        <div className="container-xxl">
+                            <div className="row">
+                                <div className="col-3">
+                                    <div className="famous-card position-relative">
+                                        <img
+                                            src="/images/famous/famous-01.webp"
+                                            alt="famous01"
+                                            className='img-fluid'
+                                        />
+                                        <div className="famous-content position-absolute text-white">
+                                            <h5>Big Screen</h5>
+                                            <h6>Apple Watch Series 11</h6>
+                                            <p>From RM3399 or RM283/mo. for 12 mo. *</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-3">
+                                    <div className="famous-card position-relative">
+                                        <img
+                                            src="/images/famous/famous-02.webp"
+                                            alt="famous02"
+                                            className='img-fluid'
+                                        />
+                                        <div className="famous-content position-absolute">
+                                            <h5>Studio Display</h5>
+                                            <h6>600 nits of brightness.</h6>
+                                            <p>27-inch 5K Retina Display</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-3">
+                                    <div className="famous-card position-relative">
+                                        <img
+                                            src="/images/famous/famous-03.webp"
+                                            alt="famous03"
+                                            className='img-fluid'
+                                        />
+                                        <div className="famous-content position-absolute">
+                                            <h5>Smartphones</h5>
+                                            <h6>iPhone 13 Pro</h6>
+                                            <p>Now in Green. From RM3600 or RM300/mo. for 12 mo. *</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-3">
+                                    <div className="famous-card position-relative">
+                                        <img
+                                            src="/images/famous/famous-04.webp"
+                                            alt="famous04"
+                                            className='img-fluid'
+                                        />
+                                        <div className="famous-content position-absolute">
+                                            <h5>Home Speakers</h5>
+                                            <h6>Room-filling Sounds</h6>
+                                            <p>From RM700 or RM350/mo. for 2 mo. *</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section className="popular-wrapper py-5 home-wrapper-2">
+                        <div className="container-xxl">
+                            <div className="row">
+                                <div className="col-12">
+                                    <h3 className="section-heading">Our Popular Products</h3>
+                                </div>
+                            </div>
+                            <div className="row">
+                                {data?.products?.map((product, index) => (
+                                    <ProductItem key={product.id || index} product={product} columnSize={columnSize} />
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                    <section className="marque-wrapper py-5 home-wrapper-2">
+                        <div className="container-xxl">
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="marque-inner-wrapper brand-wrapper ">
+                                        <Marquee gradient={true} speed={50} >
+                                            <div className="d-flex">
+                                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
+                                                    <div key={index} className="mx-4 w-25">
+                                                        <img src={`/images/brand/brand-0${index}.png`} alt="" loading="lazy" />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </Marquee>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section className="blog-wrapper py-5 home-wrapper-2">
+                        <div className="container-xxl">
+                            <div className="col-12">
+                                <h3 className="section-heading ">Our Latest Blogs</h3>
+                            </div>
+                            <div className="row">
+                                {[1, 2, 3, 4].map((item, index) => (
+                                    <div className="col-3" key={index}>
+                                        <BlogCard />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </section>
 
-                    <CustomPagination
-                        resPerPage={data?.resPerPage}
-                        filterProductCount={data?.filterProductCount}
-                    />
-                </div>
-            </div>
+                </>
+            }
         </>
     )
 }

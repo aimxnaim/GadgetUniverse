@@ -8,7 +8,7 @@ const { uploadfile, removefile } = require('../utils/cloudinary');
 
 // Get all products => /api/v1/products
 module.exports.getProducts = catchAsyncErrors(async (req, res) => {
-    const resPerPage = 4;
+    const resPerPage = 6;
     const apiFilters = new APIFilters(Product, req.query)
         .search()
         .filter();

@@ -8,6 +8,7 @@ import { useLazyGetDashboardSalesQuery } from '../../actions/api/orderApi';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Loader from '../layout/Loader';
+import MetaData from '../layout/MetaData';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -41,6 +42,7 @@ const Dashboard = () => {
     if (isLoading) return <Loader />
     return (
         <>
+            <MetaData title={'Admin Dashboard'} />
             <AdminLayout>
                 <div className="d-flex justify-content-start align-items-center">
                     <div className="mb-3 me-4">
@@ -65,6 +67,7 @@ const Dashboard = () => {
                             startDate={startDate}
                             endDate={endDate}
                             minDate={startDate}
+                            maxDate={new Date()}
                             className="form-control"
                         />
                     </div>

@@ -100,7 +100,6 @@ const Cart = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr />
                                     </>
                                 ))}
 

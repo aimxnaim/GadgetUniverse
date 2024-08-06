@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import { NavLink } from 'react-router-dom'
 import { useGetProductsQuery } from '../../actions/api/productsApi';
 
@@ -33,6 +34,23 @@ const BreadCrumb = (props) => {
                                 </h3>
                             )}
                         </div>
+=======
+import { Link, NavLink } from 'react-router-dom'
+
+const BreadCrumb = (props) => {
+    const { title, makan } = props;
+    return (
+        <div className="breadcrumb py-4 mb-0">
+            <div className="container-xxl">
+                <div className="row">
+                    <div className="col-12">
+                        <nav aria-label="breadcrumb ">
+                            <ol className="breadcrumb mb-0 ">
+                                <li key='1' className="breadcrumb-item"><NavLink to="/">Home</NavLink></li>
+                                <li key='2' className="breadcrumb-item active" aria-current="page">{title}</li>
+                            </ol>
+                        </nav>
+>>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
                     </div>
                 </div>
             </div>
@@ -40,4 +58,8 @@ const BreadCrumb = (props) => {
     )
 }
 
+<<<<<<< HEAD
 export default BreadCrumb
+=======
+export default BreadCrumb
+>>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
