@@ -84,7 +84,7 @@ const Filter = () => {
                     </div>
                 ))}
             </div>
-            <div className="filter-card mb-3">
+            <div className="filter-card mb-5">
                 <h3 className="filter-title mb-3">Filter by</h3>
                 <hr />
                 <h5 className="subtitle">Price</h5>
