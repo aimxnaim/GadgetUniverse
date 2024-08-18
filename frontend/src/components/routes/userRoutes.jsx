@@ -28,6 +28,7 @@ const userRoutes = () => {
         <>
             <Route path='/' element={<Home />} />
             <Route path='/products/:id' element={<ProductDetails />} />
+            <Route path='/store/products/:id' element={<ProductDetails />} />
             <Route path='/blogs' element={<Blog />} />
             <Route path='/store' element={<OurStore />} />
             <Route path='/contact' element={<Contact />} />
