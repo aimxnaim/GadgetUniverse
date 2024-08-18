@@ -275,13 +275,10 @@ footer:nth-last-child(1) {
   left: 10%;
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
 .card-img-top {
   width: 200px;
-=======
-=======
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
+}
+
 .small-banner-content h4 {
   font-size: 14px;
   font-weight: 400;
@@ -367,14 +364,11 @@ footer:nth-last-child(1) {
 
 /* Product Card */
 
-<<<<<<< HEAD
 #products_heading {
   margin: 0;
   font-size: 17px;
 }
 
-=======
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
 .product-card {
   background-color: white;
   border-radius: 15px;
@@ -388,10 +382,6 @@ footer:nth-last-child(1) {
 .product-card .product-image {
   position: relative;
   width: 150px;
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
   height: 150px;
   overflow: hidden;
   display: flex;
@@ -983,12 +973,6 @@ footer:nth-last-child(1) {
   border-color: #f3f4f6;
   border-radius: 0.3rem;
   color: #fa9c23;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-}
-=======
-=======
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
 }
 
 /* Filter Card */
@@ -1133,7 +1117,6 @@ footer:nth-last-child(1) {
 
 /* Contact Wrapper */
 
-<<<<<<< HEAD
 .breadcrumb a {
   color: var(--color-405D72);
   transition: linear 0.2s;
@@ -1143,8 +1126,6 @@ footer:nth-last-child(1) {
   font-weight: 500;
 }
 
-=======
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
 .contact-inner-wrapper {
   background-color: white;
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.263);
@@ -1156,10 +1137,6 @@ footer:nth-last-child(1) {
   width: 65%;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
 .contact-title {
   font-size: 24px;
   font-weight: 500;
@@ -1189,7 +1166,6 @@ footer:nth-last-child(1) {
 
 }
 
-<<<<<<< HEAD
 /* Contact Wrapper End Here */
 
 /* Compare Product */
@@ -1209,7 +1185,3 @@ footer:nth-last-child(1) {
 }
 
 /* Compare Product End Here */
->>>>>>> Stashed changes
-=======
-/* Contact Wrapper End Here */
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432

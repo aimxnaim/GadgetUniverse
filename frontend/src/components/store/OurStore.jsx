@@ -67,11 +67,7 @@ const OurStore = () => {
                                         </select>
                                     </div>
                                     <div className="d-flex align-items-center gap-10">
-<<<<<<< HEAD
-                                        <p className="totalproducts"> Products</p>
-=======
                                         <p className="totalproducts">{data?.products?.length} Products</p>
->>>>>>> 74d3dfd3035b01fffb5226eff1ade144013fc432
                                         <div className="d-flex align-items-center gap-10 grid">
                                             {[12, 6, 4, 3].map((item, index) => (
                                                 <img
