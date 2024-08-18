@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import MetaData from './layout/MetaData'
 import ProductItem from './product/ProductItem'
 import Loading from './layout/Loader'
@@ -11,6 +11,7 @@ import Marquee from "react-fast-marquee";
 import CategoryItem from './home/CategoryItem'
 import BlogCard from './home/BlogCard'
 import BreadCrumb from './store/BreadCrumb'
+import FilterSort from './layout/FilterSort'
 
 const Home = () => {
 
@@ -41,6 +42,7 @@ const Home = () => {
         }
     }, []);
 
+    const [grid, setGrid] = useState(3);
     let [searchParams] = useSearchParams();
     const page = Number(searchParams.get('page')) || 1;
     const keyword = searchParams.get('keyword') || '';
@@ -62,22 +64,23 @@ const Home = () => {
         if (isError) toast.error(error?.data?.message)
     }, [isError, error]);
 
-    const columnSize = keyword ? 4 : 3;
-
     if (isLoading) return <Loading />
+
+    const serviceItems = {
+        'Free Shipping': 'From all orders over RM250',
+        'Daily Surprise Offer': 'Save up to 25% off',
+        'Support 24/7': 'Shop with an expert',
+        'Affordable Prices': 'Get Factory Direct Prices',
+        'Secure Payments': '100% Protected Payments'
+    };
 
     return (
         <>
             <MetaData title={`Buy Best Products Online`} />
-
+            {keyword &&
+                <BreadCrumb title='Search' keyword={keyword} />
+            }
             <div className="row">
-                {keyword &&
-                    <div className="col-6 col-md-3 mt-5">
-                        <Filter />
-                        <BreadCrumb title='Search' keyword={keyword} />
-                    </div>
-                }
-
                 {!keyword &&
                     <>
                         <section className='home-wrapper-1 py-5'>
@@ -126,16 +129,16 @@ const Home = () => {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="services d-flex align-items-center justify-content-between">
-                                                {['01', '02', '03', '04', '05'].map((item, index) => (
+                                                {Object.entries(serviceItems).map(([title, description], index) => (
                                                     <div className='d-flex align-items-center gap-10' key={index}>
                                                         <img
-                                                            src={`/images/youtube/service-${item}.png`}
-                                                            alt={`service ${item}`}
+                                                            src={`/images/youtube/service-0${index + 1}.png`}
+                                                            alt={`service ${title}`}
                                                             style={{ width: '50px', height: '50px', marginRight: '5px' }}
                                                         />
                                                         <div>
-                                                            <h6>Service {item}</h6>
-                                                            <p className='mb-0'>Description {item}</p>
+                                                            <h6>{title}</h6>
+                                                            <p className='mb-0'>{description}</p>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -149,8 +152,8 @@ const Home = () => {
                                     <div className="row">
                                         <div className="col-12">
                                             <div className="categories d-flex flex-wrap align-items-center justify-content-between">
-                                                {['camera', 'tv', 'mouse', 'speaker', 'watch', 'books', 'game'].map((item, index) => (
-                                                    <CategoryItem key={index} title={item.charAt(0).toUpperCase() + item.slice(1)} count="10" imgSrc={`/images/youtube/${item}.png`} />
+                                                {['camera', 'smart tv', 'mouse', 'speaker', 'smart watch', 'programming books', 'gaming', 'home gadget'].map((item, index) => (
+                                                    <CategoryItem key={index} title={item.charAt(0).toUpperCase() + item.slice(1)} count="10" imgSrc={`/images/youtube/home/${item}.png`} />
                                                 ))}
                                             </div>
                                         </div>
@@ -161,26 +164,33 @@ const Home = () => {
                     </>
                 }
 
-                <section className='product-wrapper home-wrapper-2'>
-                    <div className="container-xxl">
-                        <div className="row">
-                            <div className={keyword ? "col-9" : "col-12"}>
-                                <h3 className="section-heading">
-                                    {keyword ? `Products found with keyword "${keyword}"` : 'Latest Products'}
-                                </h3>
-                                <div className="row">
-                                    {data?.products?.map((product, index) => (
-                                        <ProductItem key={product.id || index} product={product} columnSize={columnSize} />
-                                    ))}
+                {keyword &&
+                    <section className='product-wrapper home-wrapper-2'>
+                        <div className="container-xxl">
+                            <div className="row">
+                                <div className="col-3">
+                                    <Filter />
                                 </div>
-                                <CustomPagination
-                                    resPerPage={data?.resPerPage}
-                                    filterProductCount={data?.filterProductCount}
-                                />
+                                <div className="col-9">
+                                    {keyword &&
+                                        <FilterSort grid={grid} setGrid={setGrid} />
+                                    }
+                                    <section id="products">
+                                        <div className="row">
+                                            {data?.products?.map((product, index) => (
+                                                <ProductItem key={product.id || index} product={product} columnSize={grid} />
+                                            ))}
+                                        </div>
+                                    </section>
+                                    <CustomPagination
+                                        resPerPage={data?.resPerPage}
+                                        filterProductCount={data?.filterProductCount}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                }
 
                 {!keyword &&
                     <>
@@ -214,7 +224,7 @@ const Home = () => {
                                     </div>
                                     <div className="row">
                                         {data?.products?.map((product, index) => (
-                                            <ProductItem key={product.id || index} product={product} columnSize={columnSize} />
+                                            <ProductItem key={product.id || index} product={product} columnSize={grid} />
                                         ))}
                                     </div>
                                 </div>

@@ -391,6 +391,24 @@ footer:nth-last-child(1) {
   margin: 0;
 }
 
+.product-card-image {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+}
+
+.product-card-image img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
 .product-card .product-image img {
   max-width: 80%;
   max-height: 80%;
@@ -993,13 +1011,8 @@ footer:nth-last-child(1) {
   line-height: 20px;
 }
 
-.filter-card .form-check-input {
-  transition: linear 0.2s;
-}
-
 .filter-card .form-check-input:checked {
   background-color: var(--color-405D72);
-  transition: linear 0.2s;
 }
 
 .filter-card .form-check-input:focus {

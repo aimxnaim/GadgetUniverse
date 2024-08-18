@@ -17,6 +17,9 @@ const Compare = () => {
                                     alt=""
                                     className="position-absolute cross img-fluid"
                                 />
+                                <div className="product-card-image">
+                                    <img src="images/youtube/home/smart watch.png" alt="watch" />
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -24,10 +24,10 @@ const BreadCrumb = (props) => {
                         </div>
                         <div className="col-9">
                             {keyword && (
-                                <h3 id="products_heading"  >
+                                <h3 id="products_heading" style={{ marginLeft: '10px' }}>
                                     {
                                         keyword
-                                            ? `${data?.products?.length} Products found with keyword ${keyword}`
+                                            ? `${data?.products?.length} products found with keyword ${keyword}`
                                             : 'Latest Products'
                                     }
                                 </h3>

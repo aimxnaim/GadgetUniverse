@@ -3,10 +3,9 @@ import { Link, useLocation } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
 
 const ProductItem = ({ product, columnSize, keyword }) => {
-    let location = useLocation();
-
+    const location = useLocation();
     return (
-        <div className={location.pathname === '/store' ? `gr-${columnSize}` : 'col-3'} >
+        <div className={`gr-${columnSize}`} >
             <div className={`product-card position-relative ${keyword && 'my-5'}`}>
                 <div className="wishlist-icon position-absolute">
                     <Link>

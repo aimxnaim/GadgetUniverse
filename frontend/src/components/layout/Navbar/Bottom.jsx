@@ -4,7 +4,7 @@ import { PRODUCT_CATEGORIES } from '../../../constants/constants'
 
 const Bottom = () => {
     return (
-        <div className="header-bottom py-3 sticky-top">
+        <div className="header-bottom py-3">
             <div className="container-xxl">
                 <div className="row">
                     <div className="col-12">
