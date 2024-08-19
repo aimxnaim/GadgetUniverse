@@ -22,6 +22,7 @@ import Blog from '../blogs/Blog';
 import Contact from '../contact/Contact';
 import Compare from '../compare/Compare';
 import { Route } from 'react-router-dom';
+import Wishlist from '../../wishlist/Wishlist';
 
 const userRoutes = () => {
     return (
@@ -31,6 +32,7 @@ const userRoutes = () => {
             <Route path='/store/products/:id' element={<ProductDetails />} />
             <Route path='/blogs' element={<Blog />} />
             <Route path='/store' element={<OurStore />} />
+            <Route path='/wishlist' element={<Wishlist />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/compare' element={<Compare />} />
             <Route path='/login' element={<Login />} />

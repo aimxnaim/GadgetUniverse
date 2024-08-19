@@ -54,7 +54,7 @@ const Upper = () => {
                                         </div>
                                     </div>
                                     <div className="col-3">
-                                        <Link className='d-flex align-items-center gap-10 text-white'>
+                                        <Link className='d-flex align-items-center gap-10 text-white' to='/wishlist'>
                                             <img src="/images/youtube/wishlist.svg" alt="wishlist" />
                                             <p className='mb-0'>
                                                 Favourite <br /> Wishlist
