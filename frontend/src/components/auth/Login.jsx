@@ -65,9 +65,11 @@ const Login = () => {
                 <div className="row">
                     <div className="col-12">
                         <div className="login-card shadow">
-
                             <div className='d-flex justify-content-center align-items-center gap-15 mt-2'>
-                                <img src="/images/icon/icons8-login-64.png" alt="" />
+                                <img src="/images/icon/login.png" alt="" style={{ height: '75px', marginTop: '20px' }} />
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <h3 className='mt-4 mb-0 text-center'>Login Here</h3>
                             </div>
                             <form
                                 className="needs-validation"

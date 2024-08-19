@@ -35,6 +35,7 @@ const Register = () => {
         (isAuthenticated) && navigate('/')
         error && toast.error(error?.data?.message)
         data && toast.success('Logged in successfully')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error, isAuthenticated])
 
     const validateInputs = () => {
@@ -79,8 +80,12 @@ const Register = () => {
                                 onSubmit={submitHandler}
                                 noValidate
                             >
-                                <h2 className="text-center mb-4">Register</h2>
-
+                                <div className='d-flex justify-content-center align-items-center gap-15 mt-2'>
+                                    <img src="/images/icon/register.png" alt="" style={{ height: '75px' }} />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <h3 className='mt-4 mb-0 text-center'>Register Here</h3>
+                                </div>
                                 <div className="mb-3">
                                     <label htmlFor="name_field" className="form-label">Name</label>
                                     <input

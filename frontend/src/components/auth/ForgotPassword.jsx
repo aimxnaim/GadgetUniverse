@@ -41,8 +41,12 @@ const ForgotPassword = () => {
                             <form
                                 onSubmit={submitHandler}
                             >
-                                <h2 className="mb-4 text-center">Forgot Password</h2>
-
+                                <div className='d-flex justify-content-center align-items-center gap-15 mt-2'>
+                                    <img src="/images/icon/forgot-password.png" alt="" style={{ height: '75px' }} />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    <h3 className='mt-4 mb-0 text-center'>Forgot Password</h3>
+                                </div>
                                 <div className="mb-0">
                                     <label htmlFor="email_field" className="form-label">Enter Email</label>
                                     <input
