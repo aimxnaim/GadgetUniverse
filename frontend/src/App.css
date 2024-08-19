@@ -33,6 +33,7 @@ body {
 a {
   text-decoration: none;
   display: inline-block;
+  font-weight: normal;
 }
 
 /* Header Part */
@@ -186,13 +187,6 @@ a {
 #search_field {
   height: 2.4rem;
   padding: 1rem;
-}
-
-#login_btn,
-#new_review_btn {
-  background-color: #fa9c23;
-  padding: 0.4rem 1.8rem;
-  color: white;
 }
 
 #cart {
@@ -702,43 +696,65 @@ footer:nth-last-child(1) {
   padding: 0.1rem 0.5rem;
 }
 
-.stockCounter input::-webkit-outer-spin-button,
-.stockCounter input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 /* Login & Register */
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5rem;
-
-  font-weight: 700;
+.login-card,
+.register-card {
+  background-color: white;
+  font-weight: 500;
+  padding: 20px;
+  width: 700px;
+  margin: 50px auto;
+  border-radius: 15px;
 }
 
-.wrapper form {
-  padding: 2.5rem 3rem;
+.login-card .form-control,
+.register-card .form-control {
+  background-color: var(--color-f5f5f7);
+  color: var(--color-777777);
+  border-radius: 10px;
+  height: 50px;
 }
 
-.wrapper form .btn,
-.fetch-btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+#register_button,
+#forgot_password_button {
+  background-color: var(--color-405D72);
   color: white;
-  margin-top: 1rem;
+  font-weight: 400;
+}
+
+#register_button:hover,
+#forgot_password_button:hover {
+  background-color: var(--color-febd69);
+  color: var(--color-131921);
+  transition: linear 0.2s;
+  border: none;
+  text-transform: uppercase;
+}
+
+#forgot_pass {
+  color: var(--color-4c38c0);
+  transition: linear 0.2s;
+}
+
+#forgot_pass_span {
+  font-weight: 300;
+  font-size: 15px;
+}
+
+#forgot_pass:hover {
+  font-weight: 500;
+  transition: linear 0.2s;
+}
+
+.login-wrapper form,
+.register-wrapper form {
+  padding: 2.5rem 3rem;
 }
 
 .fetch-btn:hover {
   background-color: #fa9c23;
   color: white;
-}
-
-.wrapper form a {
-  font-size: 0.9rem;
-  color: grey;
 }
 
 /* Avatar */
@@ -1116,7 +1132,7 @@ footer:nth-last-child(1) {
 /* Contact Wrapper */
 
 .breadcrumb a {
-  color: var(--color-405D72);
+  color: var(--color-4c38c0);
   transition: linear 0.2s;
 }
 

@@ -36,8 +36,8 @@ const userRoutes = () => {
             <Route path='/contact' element={<Contact />} />
             <Route path='/compare' element={<Compare />} />
             <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/password/forgot' element={<ForgotPassword />} />
+            <Route path='/login/register' element={<Register />} />
+            <Route path='/login/forgot password' element={<ForgotPassword />} />
             <Route path='/password/reset/:token' element={<ResetPassword />} />
 
             <Route
