@@ -32,7 +32,7 @@ const ProductItem = ({ product, columnSize, keyword }) => {
                             {product?.seller.length > 8 ? product?.seller.substring(0, 10) + "..." : product?.seller}
                         </h6>
                         <h5 className="product-card-title">
-                            <Link to={`products/${product?._id}`}>
+                            <Link to={`${product?._id}`}>
                                 {product?.name.length > 35 ? product.name.substring(0, 35) + "..." : product?.name}
                             </Link>
                         </h5>

@@ -28,8 +28,8 @@ const userRoutes = () => {
     return (
         <>
             <Route path='/' element={<Home />} />
-            <Route path='/products/:id' element={<ProductDetails />} />
-            <Route path='/store/products/:id' element={<ProductDetails />} />
+            <Route path='/:id' element={<ProductDetails />} />
+            <Route path='/store/:id' element={<ProductDetails />} />
             <Route path='/blogs' element={<Blog />} />
             <Route path='/store' element={<OurStore />} />
             <Route path='/wishlist' element={<Wishlist />} />
