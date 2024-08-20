@@ -5,7 +5,7 @@ const NotFound = () => {
     return (
         <>
             <MetaData title={'Not Found'} />
-            <div className="row">
+            <div className="row" style={{ margin: '50px 0' }}>
                 <div className="d-flex justify-content-center page-not-found-wrapper">
                     <img
                         src="/images/404.svg"
