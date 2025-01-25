@@ -14,7 +14,7 @@ process.on('uncaughtException', (err) => {
 });
 
 if (process.env.NODE_ENV === 'DEVELOPMENT') {
-    dotenv.config({ path: 'BackEnd/config/config.env' });
+    dotenv.config({ path: 'BackEnd/config/.env' });
 }
 
 // Database connection
