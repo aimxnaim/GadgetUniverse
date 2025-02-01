@@ -31,7 +31,7 @@ const FilterSort = ({ grid, setGrid }) => {
                     </select>
                 </div>
                 <div className="d-flex align-items-center gap-10">
-                    <p className="totalproducts">{data?.products?.length} Products</p>
+                    <p className="m-2 mx-3">{data?.products?.length} Products</p>
                     <div className="d-flex align-items-center gap-10 grid">
                         {[12, 6, 4, 3].map((item, index) => (
                             <img
