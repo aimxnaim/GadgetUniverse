@@ -206,9 +206,9 @@ const Home = () => {
                                                     className='img-fluid'
                                                 />
                                                 <div className="famous-content position-absolute">
-                                                    <h5>Product {item}</h5>
-                                                    <h6>Details {item}</h6>
-                                                    <p>Price {item}</p>
+                                                    <h5 className={index === 0 ? 'text-white' : ''}>Product {item}</h5>
+                                                    <h6 className={index === 0 ? 'text-white' : ''}>Details {item}</h6>
+                                                    <p className={index === 0 ? 'text-white' : ''}>Price {item}</p>
                                                 </div>
                                             </div>
                                         </div>
