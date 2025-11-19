@@ -1,6 +1,7 @@
 import React from 'react'
 import MetaData from '../layout/MetaData'
 import BreadCrumb from '../store/BreadCrumb'
+import UnderDevelopment from '../common/UnderDevelopment'
 import StarRatings from 'react-star-ratings'
 
 const Compare = () => {
@@ -8,11 +9,16 @@ const Compare = () => {
         <>
             <MetaData title={'Compare'} />
             <BreadCrumb title='Compare Product' />
-            <div className="compare-product-wrapper home-wrapper-2 py-5">
-                <div className="container-xxl">
-                    <div className="row">
-                        {[1, 2, 3, 4].map((item, index) => (
-                            <>
+            <UnderDevelopment featureName='Product Comparison' />
+            {/**
+             * Previous compare layout preserved for future implementation.
+             * Set the condition to true and connect to real data once comparison is available.
+             */}
+            {false && (
+                <div className="compare-product-wrapper home-wrapper-2 py-5">
+                    <div className="container-xxl">
+                        <div className="row">
+                            {[1, 2, 3, 4].map((item, index) => (
                                 <div className="col-3" key={index}>
                                     <div className="compare-product-card position-relative">
                                         <img
@@ -54,14 +60,13 @@ const Compare = () => {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-                            </>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }

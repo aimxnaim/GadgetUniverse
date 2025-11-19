@@ -43,8 +43,8 @@ module.exports = (err, req, res, next) => {
     }
 
     // displaying the error in development mode
-    if (process.env.NODE_ENV === 'DEVELOPMENT') {
-        console.log('Sending error response in development mode');
+    if (process.env.NODE_ENV === 'DEVELOPMENT' && err) {
+        console.log('Sending error response in development mode', error);
         res.status(error.statusCode).json({
             message: error.message,
             error: err,
@@ -52,10 +52,12 @@ module.exports = (err, req, res, next) => {
         });
     }
     // displaying the error in production mode
-    else if (process.env.NODE_ENV === 'PRODUCTION') {
-        console.log('Sending error response in production mode');
+    else if (process.env.NODE_ENV === 'PRODUCTION' && err) {
+        console.log('Sending error response in production mode', error);
         res.status(error.statusCode).json({
-            message: error.message
+            message: error.message,
+            error: error,
+            stack: err.stack || ''
         });
     }
 };
