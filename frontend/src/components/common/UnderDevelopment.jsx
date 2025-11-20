@@ -1,4 +1,10 @@
 const UnderDevelopment = ({ featureName }) => {
+
+    const subtitle = featureName === 'Blogs' ? 
+        'We are adding the finishing touches to this experience. Check back soon to explore curated blogs crafted just for you.' :
+        featureName === 'Wishlist & Favourites' ?
+            'We are adding the finishing touches to this experience. Check back soon to explore your favourite products all in one place.' :
+            'We are adding the finishing touches to this experience. Check back soon to compare products side-by-side to find the perfect fit for you.';
     return (
         <section className='under-dev-section'>
             <div className='under-dev-glow under-dev-glow-1' />
@@ -7,8 +13,7 @@ const UnderDevelopment = ({ featureName }) => {
                 <p className='under-dev-eyebrow'>Coming Soon</p>
                 <h2 className='under-dev-title'>{featureName} is in progress</h2>
                 <p className='under-dev-subtitle'>
-                    We are adding the finishing touches to this experience. Check back soon to explore curated
-                    blogs, favourites, and side-by-side comparisons crafted just for you.
+                    {subtitle}
                 </p>
 
                 <div className='under-dev-pills'>
