@@ -4,6 +4,7 @@ html,
 body {
   font-family: "Rubik", sans-serif;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -679,7 +680,7 @@ footer:nth-last-child(1) {
   background: radial-gradient(circle at 20% 20%, rgba(255, 196, 119, 0.15), transparent 35%),
     radial-gradient(circle at 80% 0%, rgba(112, 179, 255, 0.12), transparent 32%),
     #0f111a;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .cart-glow {
