@@ -249,6 +249,8 @@ const Home = () => {
                                 </div>
                             </div>
                         </section>
+                        {/* todo :  */}
+                    {false && (
                         <section className="blog-wrapper py-5 home-wrapper-2">
                             <div className="container-xxl">
                                 <div className="row">
@@ -265,6 +267,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </section>
+                    )}
                     </>
                 }
             </div>

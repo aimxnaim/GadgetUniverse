@@ -1,5 +1,3 @@
-import React from 'react'
-
 const UnderDevelopment = ({ featureName }) => {
     return (
         <section className='under-dev-section'>
@@ -10,11 +8,11 @@ const UnderDevelopment = ({ featureName }) => {
                 <h2 className='under-dev-title'>{featureName} is in progress</h2>
                 <p className='under-dev-subtitle'>
                     We are adding the finishing touches to this experience. Check back soon to explore curated
-                    wishlists, favourites, and side-by-side comparisons crafted just for you.
+                    blogs, favourites, and side-by-side comparisons crafted just for you.
                 </p>
 
                 <div className='under-dev-pills'>
-                    <span className='under-dev-pill'>Wishlist</span>
+                    <span className='under-dev-pill'>Blogs</span>
                     <span className='under-dev-pill'>Favourites</span>
                     <span className='under-dev-pill'>Comparison</span>
                 </div>

@@ -3,12 +3,19 @@ import MetaData from '../layout/MetaData'
 import BreadCrumb from '../store/BreadCrumb'
 import BlogCard from '../home/BlogCard'
 import BlogFilter from './BlogFilter'
+import UnderDevelopment from '../common/UnderDevelopment'
 
 const Blog = () => {
     return (
         <>
             <MetaData title={'Blogs'} />
             <BreadCrumb title='Blogs' />
+            <UnderDevelopment featureName='Blogs' />
+            {/**
+             * Previous blog layout preserved for future implementation.
+             * Set the condition to true and connect to real data once blogs are available.
+             */}
+            {false && (
             <div className="blog-wrapper home-wrapper-2 py-5">
                 <div className="container-xxl">
                     <div className="row">
@@ -27,6 +34,7 @@ const Blog = () => {
                     </div>
                 </div>
             </div>
+            )}
         </>
     )
 }
