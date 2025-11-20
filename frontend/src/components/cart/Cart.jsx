@@ -54,164 +54,149 @@ const Cart = () => {
         <>
             <MetaData title={'Your Cart'} />
             <section className="cart-page">
-                <div className="cart-glow orb-one" />
-                <div className="cart-glow orb-two" />
-                <div className="cart-glow orb-three" />
-
                 <div className="container-xxl">
-                    <div className="cart-hero glass-panel">
-                        <div className="cart-hero-copy">
-                            <p className="cart-eyebrow">Beauty add-to-cart</p>
-                            <h1 className="cart-title">Make your cart look as good as your gadgets.</h1>
-                            <p className="cart-subtitle">
-                                Flowing gradients, playful 3D accents, and silky controls make adding to cart
-                                feel delightful. Adjust quantities in real time and glide to checkout.
-                            </p>
-                            <div className="cart-hero-actions">
-                                <Link className="btn-cart-cta" to="/products">
-                                    Browse gadgets
-                                </Link>
-                                {cartItem?.length > 0 && (
-                                    <button className="btn-cart-ghost" type="button" onClick={checkoutHandler}>
-                                        Jump to checkout
-                                    </button>
-                                )}
-                            </div>
-                            <div className="cart-badges">
-                                <span className="pill">Live quantity magic</span>
-                                <span className="pill">Soft neon glow</span>
-                                <span className="pill">Comfort animations</span>
+                    <div className="row g-4 align-items-center cart-top">
+                        <div className="col-lg-7">
+                            <div className="cart-welcome card border-0 shadow-sm h-100">
+                                <div className="card-body">
+                                    <p className="cart-eyebrow text-uppercase">Your bag</p>
+                                    <h1 className="cart-title">Ready when you are</h1>
+                                    <p className="cart-subtitle">
+                                        Keep tweaking quantities or head straight to checkout. We keep things light so your scroll stays smooth.
+                                    </p>
+                                    <div className="d-flex flex-wrap gap-2">
+                                        <Link className="btn btn-dark rounded-pill" to="/store">
+                                            Browse gadgets
+                                        </Link>
+                                        {cartItem?.length > 0 && (
+                                            <button className="btn btn-outline-dark rounded-pill" type="button" onClick={checkoutHandler}>
+                                                Checkout now
+                                            </button>
+                                        )}
+                                    </div>
+                                    <div className="cart-stats mt-4">
+                                        <div>
+                                            <small className="text-muted">Items</small>
+                                            <p className="display-6 mb-0">{totalUnits}</p>
+                                        </div>
+                                        <div>
+                                            <small className="text-muted">Total</small>
+                                            <p className="display-6 mb-0">RM {totalAmount.toFixed(2)}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="cart-hero-visual">
-                            <div className="cart-orbital" aria-hidden="true">
-                                <div className="cart-orbital-center" />
-                                <div className="cart-orbital-ring" />
-                                <div className="cart-floating-ticket">
-                                    <p className="ticket-title">Your cart</p>
-                                    <p className="ticket-highlight">{totalUnits} items</p>
-                                    <p className="ticket-sub">RM {totalAmount.toFixed(2)}</p>
+                        <div className="col-lg-5">
+                            <div className="cart-illustration shadow-sm" aria-hidden="true">
+                                <div className="cart-illustration-face">
+                                    <span className="eye left" />
+                                    <span className="eye right" />
+                                    <span className="smile" />
                                 </div>
-                                <div className="cart-floating-bag">
-                                    <div className="bag-handle" />
-                                    <div className="bag-body" />
-                                    <div className="bag-shine" />
+                                <div className="cart-illustration-body">
+                                    <span className="bag" />
+                                    <span className="sparkle one" />
+                                    <span className="sparkle two" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {cartItem?.length === 0 ? (
-                        <div className="cart-empty-state glass-panel">
-                            <div className="cart-empty-visual" aria-hidden="true">
-                                <div className="empty-orb" />
-                                <div className="empty-box">
-                                    <span className="empty-lid" />
-                                    <span className="empty-heart">❤</span>
-                                </div>
-                            </div>
-                            <div className="cart-empty-copy">
-                                <h3>Your cart is feeling lonely</h3>
-                                <p>
-                                    Add something shiny! Explore gadgets, drop them here, and watch this space
-                                    light up with playful 3D vibes.
+                        <div className="cart-empty card border-0 shadow-sm mt-4 text-center">
+                            <div className="card-body py-5">
+                                <p className="cart-eyebrow text-uppercase">Cart is empty</p>
+                                <h3 className="mb-3">Add something beautiful</h3>
+                                <p className="text-muted mb-4">
+                                    Items are saved instantly. Drop your favourite gadgets in and we’ll remember them for you.
                                 </p>
-                                <div className="cart-hero-actions">
-                                    <Link className="btn-cart-cta" to="/products">Find new arrivals</Link>
-                                    <Link className="btn-cart-ghost" to="/wishlist">Go to wishlist</Link>
+                                <div className="d-flex flex-wrap gap-2 justify-content-center">
+                                    <Link className="btn btn-dark rounded-pill" to="/">
+                                        Find new arrivals
+                                    </Link>
+                                    <Link className="btn btn-outline-dark rounded-pill" to="/wishlist">
+                                        Go to wishlist
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className="row g-4 cart-content">
+                        <div className="row g-4 mt-1">
                             <div className="col-12 col-lg-8">
                                 <div className="cart-items-stack">
                                     {cartItem?.map(item => (
-                                        <div className="cart-item-card" key={item?.product}>
-                                            <div className="cart-item-header">
-                                                <div className="cart-item-thumb">
-                                                    <img src={item?.image} alt={item?.name} />
-                                                    <span className="item-qty-pill">{item?.quantity} pcs</span>
-                                                </div>
-                                                <div className="cart-item-meta">
-                                                    <Link to={`/products/${item?.product}`} className="cart-item-name">
-                                                        {item?.name}
-                                                    </Link>
-                                                    <p className="cart-item-price">RM {item?.price}</p>
-                                                    <p className="cart-item-stock">{item?.stock} in stock</p>
-                                                </div>
-                                                <button
-                                                    className="cart-remove"
-                                                    type="button"
-                                                    onClick={() => removeCartItemHandler(item?.product)}
-                                                    aria-label={`Remove ${item?.name} from cart`}
-                                                >
-                                                    ×
-                                                </button>
-                                            </div>
-                                            <div className="cart-item-footer">
-                                                <div className="cart-quantity">
+                                        <div className="cart-item-card card border-0 shadow-sm" key={item?.product}>
+                                            <div className="card-body">
+                                                <div className="cart-item-header">
+                                                    <div className="cart-item-thumb">
+                                                        <img src={item?.image} alt={item?.name} />
+                                                    </div>
+                                                    <div className="cart-item-meta">
+                                                        <Link to={`/products/${item?.product}`} className="cart-item-name">
+                                                            {item?.name}
+                                                        </Link>
+                                                        <p className="cart-item-price">RM {item?.price}</p>
+                                                        <p className="cart-item-stock text-muted">{item?.stock} in stock</p>
+                                                    </div>
                                                     <button
-                                                        className="qty-btn"
+                                                        className="btn btn-link text-muted p-0 cart-remove"
                                                         type="button"
-                                                        onClick={() => decreaseQty(item, item.quantity)}
+                                                        onClick={() => removeCartItemHandler(item?.product)}
+                                                        aria-label={`Remove ${item?.name} from cart`}
                                                     >
-                                                        −
-                                                    </button>
-                                                    <input
-                                                        type="number"
-                                                        className="qty-input"
-                                                        value={item?.quantity}
-                                                        readOnly
-                                                    />
-                                                    <button
-                                                        className="qty-btn"
-                                                        type="button"
-                                                        onClick={() => increaseQty(item, item.quantity)}
-                                                    >
-                                                        +
+                                                        Remove
                                                     </button>
                                                 </div>
-                                                <div className="cart-item-total">
-                                                    <span>Subtotal</span>
-                                                    <strong>RM {(item?.price * item?.quantity).toFixed(2)}</strong>
+                                                <div className="cart-item-footer">
+                                                    <div className="cart-quantity">
+                                                        <button
+                                                            className="btn btn-outline-secondary"
+                                                            type="button"
+                                                            onClick={() => decreaseQty(item, item.quantity)}
+                                                        >
+                                                            −
+                                                        </button>
+                                                        <input type="number" className="qty-input" value={item?.quantity} readOnly />
+                                                        <button
+                                                            className="btn btn-outline-secondary"
+                                                            type="button"
+                                                            onClick={() => increaseQty(item, item.quantity)}
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                    <div className="cart-item-total text-end">
+                                                        <span className="text-muted small">Subtotal</span>
+                                                        <strong>RM {(item?.price * item?.quantity).toFixed(2)}</strong>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
-
                             <div className="col-12 col-lg-4">
-                                <div className="cart-summary-card glass-panel">
-                                    <div className="summary-header">
-                                        <div>
-                                            <p className="cart-eyebrow">Order summary</p>
-                                            <h4>Stay in the glow</h4>
+                                <div className="cart-summary card border-0 shadow-sm">
+                                    <div className="card-body">
+                                        <h4 className="mb-3">Order summary</h4>
+                                        <div className="summary-line">
+                                            <span>Items</span>
+                                            <span>{totalUnits}</span>
                                         </div>
-                                        <span className="pill">Secured</span>
+                                        <div className="summary-line">
+                                            <span>Shipping</span>
+                                            <span className="text-muted">Calculated at next step</span>
+                                        </div>
+                                        <div className="summary-line total fw-bold">
+                                            <span>Total</span>
+                                            <span>RM {totalAmount.toFixed(2)}</span>
+                                        </div>
+                                        <button id="checkout_btn" className="btn btn-dark w-100 mt-3" type="button" onClick={checkoutHandler}>
+                                            Proceed to checkout
+                                        </button>
+                                        <p className="text-muted small mt-3 mb-0">We save your cart with every change.</p>
                                     </div>
-                                    <div className="summary-line">
-                                        <span>Items</span>
-                                        <span>{totalUnits} pcs</span>
-                                    </div>
-                                    <div className="summary-line">
-                                        <span>Shipping</span>
-                                        <span className="muted">Calculated at next step</span>
-                                    </div>
-                                    <div className="summary-line total">
-                                        <span>Total</span>
-                                        <span>RM {totalAmount.toFixed(2)}</span>
-                                    </div>
-                                    <button
-                                        id="checkout_btn"
-                                        className="btn-cart-cta w-100"
-                                        type="button"
-                                        onClick={checkoutHandler}
-                                    >
-                                        Proceed to checkout
-                                    </button>
-                                    <p className="summary-hint">We save your cart with every change. No surprises.</p>
                                 </div>
                             </div>
                         </div>
