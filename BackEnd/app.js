@@ -39,13 +39,20 @@ app.use('/api/v1', authRoutes);
 app.use('/api/v1', orderRoutes);
 app.use('/api/v1', paymentRoutes);
 
-// Serve frontend in production mode
-if (process.env.NODE_ENV === 'PRODUCTION' || process.env.NODE_ENV === 'DEVELOPMENT') {
+// Serve frontend differently based on environment
+if (process.env.NODE_ENV === 'PRODUCTION') {
     app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-    // Handle all other routes with React frontend
+    // Handle all other routes with React frontend build
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '../frontend/dist/index.html'));
+    });
+} else if (process.env.NODE_ENV === 'DEVELOPMENT') {
+    app.use(express.static(path.join(__dirname, '../frontend')));
+
+    // Serve unbuilt frontend directly in development
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../frontend/index.html'));
     });
 }
 

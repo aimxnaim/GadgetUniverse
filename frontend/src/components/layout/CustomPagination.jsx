@@ -3,12 +3,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import Pagination from 'react-js-pagination'
 
 function CustomPagination({ resPerPage, filterProductCount }) {
-    const [currentPage, setCurrentPage] = useState();
     let [searchParams] = useSearchParams();
+    const page = Number(searchParams.get('page')) || 1;
+    const [currentPage, setCurrentPage] = useState(page);
     const navigate = useNavigate();
 
-    // pagination logic in the CustomPagination component
-    const page = Number(searchParams.get('page')) || 1;
+    const totalPages = Math.max(1, Math.ceil(filterProductCount / resPerPage));
 
     useEffect(() => {
         setCurrentPage(page)
@@ -32,20 +32,32 @@ function CustomPagination({ resPerPage, filterProductCount }) {
     }
 
     return (
-        <div className='d-flex justify-content-center my-5'>
+        <div className='pagination-shell my-5'>
             {filterProductCount > resPerPage &&
-                <Pagination
-                    activePage={currentPage}
-                    itemsCountPerPage={resPerPage}
-                    totalItemsCount={filterProductCount}
-                    onChange={setCurrentPageNo}
-                    nextPageText="Next"
-                    prevPageText="Prev"
-                    firstPageText="First"
-                    lastPageText="Last"
-                    itemClass="page-item"
-                    linkClass="page-link"
-                />
+                <>
+                    <span className='pagination-pill-label'>Page {currentPage} of {totalPages}</span>
+                    <div className='pagination-meta text-center'>
+                    </div>
+                    <Pagination
+                        activePage={currentPage}
+                        itemsCountPerPage={resPerPage}
+                        totalItemsCount={filterProductCount}
+                        onChange={setCurrentPageNo}
+                        nextPageText="Next"
+                        prevPageText="Prev"
+                        firstPageText="First"
+                        lastPageText="Last"
+                        pageRangeDisplayed={5}
+                        innerClass="pagination custom-pagination"
+                        itemClass="page-item custom-page-item"
+                        linkClass="page-link custom-page-link"
+                        activeClass="active custom-page-item-active"
+                        activeLinkClass="custom-page-link-active"
+                        disabledClass="custom-page-item-disabled"
+                    />
+                    <span className='pagination-meta-sub'>Showing {resPerPage} products per page</span>
+
+                </>
             }
         </div>
     )
