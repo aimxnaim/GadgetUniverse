@@ -11,34 +11,29 @@ import ListReviews from '../reviews/ListReviews';
 import NotFound from '../layout/NotFound';
 import MetaData from '../layout/MetaData';
 import BreadCrumb from '../store/BreadCrumb';
-import ReactImageZoom from 'react-image-zoom';
 
 function ProductDetails() {
 
     const params = useParams();
     const dispatch = useDispatch()
 
-    const [activeImg, setActiveImg] = React.useState('');
-    const [quantity, setQuantity] = React.useState(1)
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [quantity, setQuantity] = useState(1)
 
     const { data, isLoading, error, isError } = useGetProductDetailsQuery(params?.id);
     const product = data?.product;
     const { isAuthenticated } = useSelector(state => state.auth)
 
-    useEffect(() => {
-        setActiveImg(
-            product?.images[0]
-                ? product?.images[0].url
-                : '/images/default_product.png'
-        )
-    }, [product]);
+    const productImages = product?.images?.length
+        ? product.images
+        : [{ url: '/images/default_product.png', public_id: 'default-product' }];
 
-    const props = {
-        width: 240,
-        height: 250,
-        zoomWidth: 500,
-        img: `${activeImg}`,
-    };
+    const activeImage = productImages[activeIndex] || productImages[0];
+
+    useEffect(() => {
+        setActiveIndex(0);
+        setQuantity(product?.stock > 0 ? 1 : 0);
+    }, [product]);
 
     useEffect(() => {
         if (isError) {
@@ -47,19 +42,13 @@ function ProductDetails() {
     }, [isError, error]);
 
     const increaseQty = () => {
-        const count = document.querySelector('.count');
-
-        if (count.valueAsNumber >= product?.stock) return;
-        const qty = count.valueAsNumber + 1;
-        setQuantity(qty)
+        const max = product?.stock ?? Infinity;
+        if (max <= 0) return;
+        setQuantity((prev) => (prev >= max ? prev : prev + 1));
     }
 
     const decreaseQty = () => {
-        const count = document.querySelector('.count');
-
-        if (count.valueAsNumber <= 1) return;
-        const qty = count.valueAsNumber - 1;
-        setQuantity(qty)
+        setQuantity((prev) => (prev <= 1 ? prev : prev - 1));
     }
 
     const setItemToCart = () => {
@@ -67,7 +56,7 @@ function ProductDetails() {
             product: product?._id,
             name: product?.name,
             price: product?.price,
-            image: product?.images[0].url,
+            image: product?.images?.[0]?.url || '/images/default_product.png',
             stock: product?.stock,
             quantity
         }
@@ -88,42 +77,71 @@ function ProductDetails() {
             <MetaData title={product?.name} />
             <BreadCrumb />
             <div className="home-wrapper-2 py-5">
-                <div className="container-xxl bg-white p-4 product-detail-wrapper  ">
-                    <div className="row ">
-                        <div className="col-6 product-detail-image">
-                            <div id="product-detail-img">
-                                <ReactImageZoom {...props} />
+                <div className="container-xxl p-4 product-detail-wrapper">
+                    <div className="row gy-4 align-items-start">
+                        <div className="col-12 col-lg-6 product-detail-image">
+                            <div className="product-gallery">
+                                <div className="product-hero position-relative">
+                                    <img
+                                        className="w-100 h-100"
+                                        src={activeImage?.url}
+                                        alt={product?.name + ' Image'}
+                                    />
+                                    {productImages.length > 1 && (
+                                        <>
+                                            <button
+                                                type="button"
+                                                className="gallery-nav nav-left"
+                                                aria-label="Previous product image"
+                                                onClick={() => setActiveIndex((prev) => (prev - 1 + productImages.length) % productImages.length)}
+                                            >
+                                                &#8592;
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="gallery-nav nav-right"
+                                                aria-label="Next product image"
+                                                onClick={() => setActiveIndex((prev) => (prev + 1) % productImages.length)}
+                                            >
+                                                &#8594;
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
 
-                            </div>
-                            <div className="other-product-img d-flex flex-wrap mt-5 gap-15">
-                                {product?.images?.map((image) => (
-                                    <div key={image.public_id} className="mt-2">
-                                        <a role="button">
-                                            <img
-                                                className={`rounded p-3 cursor-pointer ${image.url === activeImg ? "border-purple" : ""}`}
-                                                height="150"
-                                                width="150"
-                                                src={image.url}
-                                                alt={product?.name + ' Image'}
-                                                style={{ cursor: 'pointer' }}
-                                                onClick={() => setActiveImg(image.url)}
-                                            />
-                                        </a>
+                                {productImages.length > 1 && (
+                                    <div className="other-product-img d-flex flex-wrap mt-4 gap-10">
+                                        {productImages.map((image, index) => (
+                                            <button
+                                                key={image.public_id || index}
+                                                type="button"
+                                                className={`thumb-btn ${index === activeIndex ? "active" : ""}`}
+                                                onClick={() => setActiveIndex(index)}
+                                            >
+                                                <img
+                                                    className="rounded p-2"
+                                                    height="90"
+                                                    width="90"
+                                                    src={image.url}
+                                                    alt={`${product?.name || 'Product'} thumbnail ${index + 1}`}
+                                                />
+                                            </button>
+                                        ))}
                                     </div>
-
-                                ))}
-
+                                )}
                             </div>
                         </div>
 
-                        <div className="col-6">
-                            <div className="main-product-details">
-                                <h3>{product?.name}</h3>
-                                <p id="product_id">Product ID: #{product?._id}</p>
+                        <div className="col-12 col-lg-6">
+                            <div className="main-product-details px-4">
+                                <p id="product_id" className="product-chip subtle mb-2">Product ID: #{product?._id}</p>
+                                <h3 className="mb-2">{product?.name}</h3>
 
-                                <hr />
-                                <p id="product_price">RM {product?.price}</p>
-                                <hr />
+                                <div className="price-card mb-3">
+                                    <p id="product_price" className="mb-0">RM {product?.price}</p>
+                                    <span className="price-subtle">Inclusive of all taxes</span>
+                                </div>
+
                                 <div className="d-flex">
                                     <StarRatings
                                         rating={product?.ratings}
@@ -137,34 +155,26 @@ function ProductDetails() {
                                 </div>
                                 <hr />
 
-                                <div className="stockCounter d-inline">
-                                    <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
-
-                                    <input
-                                        type="number"
-                                        className="form-control count d-inline"
-                                        value={quantity}
-                                        readOnly
-                                    />
-                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0 0 48 48" onClick={increaseQty}>
-                                        <linearGradient id="dyoR47AMqzPbkc_5POASHa_aWZy3jlAFSa9_gr1" x1="9.858" x2="38.142" y1="-27.858" y2="-56.142" gradientTransform="matrix(1 0 0 -1 0 -18)" gradientUnits="userSpaceOnUse">
-                                            <stop offset="0" stopColor="#9dffce"></stop>
-                                            <stop offset="1" stopColor="#50d18d"></stop>
-                                        </linearGradient><path fill="url(#dyoR47AMqzPbkc_5POASHa_aWZy3jlAFSa9_gr1)" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path>
-                                        <path d="M34,21h-7v-7c0-1.105-0.895-2-2-2h-2c-1.105,0-2,0.895-2,2v7h-7	c-1.105,0-2,0.895-2,2v2c0,1.105,0.895,2,2,2h7v7c0,1.105,0.895,2,2,2h2c1.105,0,2-0.895,2-2v-7h7c1.105,0,2-0.895,2-2v-2	C36,21.895,35.105,21,34,21z" opacity=".05"></path>
-                                        <path d="M34,21.5h-7.5V14c0-0.828-0.672-1.5-1.5-1.5h-2	c-0.828,0-1.5,0.672-1.5,1.5v7.5H14c-0.828,0-1.5,0.672-1.5,1.5v2c0,0.828,0.672,1.5,1.5,1.5h7.5V34c0,0.828,0.672,1.5,1.5,1.5h2	c0.828,0,1.5-0.672,1.5-1.5v-7.5H34c0.828,0,1.5-0.672,1.5-1.5v-2C35.5,22.172,34.828,21.5,34,21.5z" opacity=".07"></path>
-                                        <linearGradient id="dyoR47AMqzPbkc_5POASHb_aWZy3jlAFSa9_gr2" x1="22" x2="26" y1="24" y2="24" gradientUnits="userSpaceOnUse"><stop offset=".824" stopColor="#135d36"></stop>
-                                            <stop offset=".931" stopColor="#125933"></stop>
-                                            <stop offset="1" stopColor="#11522f"></stop>
-                                        </linearGradient>
-                                        <path fill="url(#dyoR47AMqzPbkc_5POASHb_aWZy3jlAFSa9_gr2)" d="M23,13h2c0.552,0,1,0.448,1,1v20c0,0.552-0.448,1-1,1h-2c-0.552,0-1-0.448-1-1V14	C22,13.448,22.448,13,23,13z"></path>
-                                        <linearGradient id="dyoR47AMqzPbkc_5POASHc_aWZy3jlAFSa9_gr3" x1="13" x2="35" y1="24" y2="24" gradientUnits="userSpaceOnUse">
-                                            <stop offset=".824" stopColor="#135d36"></stop>
-                                            <stop offset=".931" stopColor="#125933"></stop>
-                                            <stop offset="1" stopColor="#11522f"></stop>
-                                        </linearGradient>
-                                        <path fill="url(#dyoR47AMqzPbkc_5POASHc_aWZy3jlAFSa9_gr3)" d="M35,23v2c0,0.552-0.448,1-1,1H14c-0.552,0-1-0.448-1-1v-2c0-0.552,0.448-1,1-1h20	C34.552,22,35,22.448,35,23z"></path>
-                                    </svg>
+                                <div className="qty-control">
+                                    <button
+                                        type="button"
+                                        className="qty-btn"
+                                        aria-label="Decrease quantity"
+                                        onClick={decreaseQty}
+                                        disabled={product?.stock <= 0 || quantity <= 1}
+                                    >
+                                        &#8722;
+                                    </button>
+                                    <span className="qty-value">{quantity}</span>
+                                    <button
+                                        type="button"
+                                        className="qty-btn"
+                                        aria-label="Increase quantity"
+                                        onClick={increaseQty}
+                                        disabled={product?.stock <= 0}
+                                    >
+                                        &#43;
+                                    </button>
                                 </div>
                                 <button
                                     type="button"
@@ -176,17 +186,12 @@ function ProductDetails() {
                                     Add to Cart
                                 </button>
 
-                                <hr />
-
-                                <p>
-                                    Status: <span id="stock_status" className={product?.stock > 0 ? 'greenColor' : 'redColor'}>
+                                <div className="d-flex flex-wrap gap-10 mt-3">
+                                    <span className={`product-chip ${product?.stock > 0 ? 'chip-success' : 'chip-danger'}`} id="stock_status">
                                         {product?.stock > 0 ? 'In Stock' : 'Out of Stock'}
                                     </span>
-                                </p>
-
-                                <hr />
-
-                                <p id="product_seller mb-3">Sold by: {product?.seller}</p>
+                                    <span className="product-chip muted" id="product_seller">Sold by: {product?.seller}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -133,7 +133,7 @@ const Cart = () => {
                                                         <img src={item?.image} alt={item?.name} />
                                                     </div>
                                                     <div className="cart-item-meta">
-                                                        <Link to={`/products/${item?.product}`} className="cart-item-name">
+                                                        <Link to={`/store/${item?.product}`} className="cart-item-name">
                                                             {item?.name}
                                                         </Link>
                                                         <p className="cart-item-price">RM {item?.price}</p>
