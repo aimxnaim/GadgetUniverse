@@ -5,6 +5,9 @@ export const blogApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: '/api/v1' }),
     tagTypes: ['Blog', 'AdminBlogs', 'BlogComments'],
     endpoints: (builder) => ({
+        getBlogCategories: builder.query({
+            query: () => '/blog_categories'
+        }),
         getBlogs: builder.query({
             query: (params) => ({
                 url: '/blogs',
@@ -80,6 +83,7 @@ export const blogApi = createApi({
 });
 
 export const {
+    useGetBlogCategoriesQuery,
     useGetBlogsQuery,
     useGetBlogDetailsQuery,
     useGetBlogCommentsQuery,

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const BlogCard = ({ blog }) => {
     const formatDate = (dateString) => {
-        if (!dateString) return new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        if (!dateString) return 'Date not available';
         return new Date(dateString).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
     };
 

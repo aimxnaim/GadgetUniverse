@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { BLOG_CATEGORIES } = require('../utils/blogConstants');
 
 const blogSchema = new mongoose.Schema({
     title: {
@@ -31,15 +32,7 @@ const blogSchema = new mongoose.Schema({
     category: {
         type: String,
         enum: {
-            values: [
-                'Technology',
-                'Reviews',
-                'Tutorials',
-                'News',
-                'Tips & Tricks',
-                'Product Guides',
-                'Industry Insights'
-            ],
+            values: BLOG_CATEGORIES,
             message: 'Please select correct category for blog'
         }
     },

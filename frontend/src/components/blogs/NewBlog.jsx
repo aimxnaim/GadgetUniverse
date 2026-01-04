@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useCreateBlogMutation } from '../../actions/api/blogApi'
+import { useCreateBlogMutation, useGetBlogCategoriesQuery } from '../../actions/api/blogApi'
 import MetaData from '../layout/MetaData'
 import BreadCrumb from '../store/BreadCrumb'
 import toast from 'react-hot-toast'
@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 const NewBlog = () => {
     const navigate = useNavigate();
     const [createBlog, { isLoading, error, isSuccess, data }] = useCreateBlogMutation();
+    const { data: categoriesData } = useGetBlogCategoriesQuery();
 
     const [blogData, setBlogData] = useState({
         title: '',
@@ -18,15 +19,7 @@ const NewBlog = () => {
         status: 'published'
     });
 
-    const categories = [
-        'Technology',
-        'Reviews',
-        'Tutorials',
-        'News',
-        'Tips & Tricks',
-        'Product Guides',
-        'Industry Insights'
-    ];
+    const categories = categoriesData?.categories || [];
 
     useEffect(() => {
         if (error) {

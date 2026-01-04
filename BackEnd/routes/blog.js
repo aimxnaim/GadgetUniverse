@@ -9,11 +9,16 @@ const {
     addBlogComment,
     getBlogComments,
     deleteBlogComment,
-    getAdminBlogs
+    getAdminBlogs,
+    getBlogCategories
 } = require('../controllers/blogController');
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
 // Public routes
+router
+    .route('/blog_categories')
+    .get(getBlogCategories);
+
 router
     .route('/blogs')
     .get(getBlogs);

@@ -2,6 +2,14 @@ const Blog = require('../models/blog');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncError');
 const APIFilters = require('../utils/apiFilters');
+const { BLOG_CATEGORIES } = require('../utils/blogConstants');
+
+// Get blog categories => /api/v1/blog_categories
+module.exports.getBlogCategories = catchAsyncErrors(async (req, res) => {
+    res.status(200).json({
+        categories: BLOG_CATEGORIES
+    });
+});
 
 // Get all blogs => /api/v1/blogs
 module.exports.getBlogs = catchAsyncErrors(async (req, res) => {
