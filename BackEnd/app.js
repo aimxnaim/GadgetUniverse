@@ -33,11 +33,13 @@ const productRoutes = require('./routes/product');
 const authRoutes = require('./routes/auth');
 const orderRoutes = require('./routes/order');
 const paymentRoutes = require('./routes/payment');
+const blogRoutes = require('./routes/blog');
 
 app.use('/api/v1', productRoutes);
 app.use('/api/v1', authRoutes);
 app.use('/api/v1', orderRoutes);
 app.use('/api/v1', paymentRoutes);
+app.use('/api/v1', blogRoutes);
 
 // Serve frontend differently based on environment
 if (process.env.NODE_ENV === 'PRODUCTION') {
