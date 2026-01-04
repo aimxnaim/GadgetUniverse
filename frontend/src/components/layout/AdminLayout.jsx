@@ -32,6 +32,11 @@ const AdminLayout = ({ children }) => {
             name: 'Reviews',
             url: '/admin/reviews',
             icon: 'fas fa-star'
+        },
+        {
+            name: 'Blogs',
+            url: '/admin/blogs',
+            icon: 'fas fa-blog'
         }
 
     ]
