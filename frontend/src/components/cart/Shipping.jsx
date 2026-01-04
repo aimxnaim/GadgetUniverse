@@ -50,89 +50,115 @@ const Shipping = () => {
             <MetaData title={'Shipping'} />
 
             <CheckoutSteps shipping />
-            <div className="row wrapper mb-5">
-                <div className="col-10 col-lg-5">
-                    <form
-                        className="shadow rounded bg-body"
-                        onSubmit={submitHandler}
-                    >
-                        <h2 className="mb-4">Shipping Info</h2>
-                        <div className="mb-3">
-                            <label htmlFor="address_field" className="form-label">Address</label>
-                            <input
-                                type="text"
-                                id="address_field"
-                                className="form-control"
-                                name="address"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                                required
-                            />
-                        </div>
+            
+            <div className="checkout-page-container">
+                <div className="checkout-header">
+                    <h1 className="checkout-main-title">Shipping Information</h1>
+                    <p className="checkout-subtitle">Please provide your delivery details</p>
+                </div>
+                
+                <div className="row justify-content-center">
+                    <div className="col-12">
+                        <div className="modern-checkout-card">
+                            <form onSubmit={submitHandler}>
+                                <div className="form-group-modern">
+                                    <label htmlFor="address_field" className="modern-label">
+                                        <i className="fas fa-map-marker-alt"></i> Address
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="address_field"
+                                        className="modern-input"
+                                        name="address"
+                                        placeholder="Enter your street address"
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                        required
+                                    />
+                                </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="city_field" className="form-label">City</label>
-                            <input
-                                type="text"
-                                id="city_field"
-                                className="form-control"
-                                name="city"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                                required
-                            />
-                        </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group-modern">
+                                            <label htmlFor="city_field" className="modern-label">
+                                                <i className="fas fa-city"></i> City
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="city_field"
+                                                className="modern-input"
+                                                name="city"
+                                                placeholder="Enter your city"
+                                                value={city}
+                                                onChange={(e) => setCity(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="col-md-6">
+                                        <div className="form-group-modern">
+                                            <label htmlFor="zip_code_field" className="modern-label">
+                                                <i className="fas fa-mail-bulk"></i> Zip Code
+                                            </label>
+                                            <input
+                                                type="number"
+                                                id="zip_code_field"
+                                                className="modern-input"
+                                                name="zipCode"
+                                                placeholder="Enter zip code"
+                                                value={zipCode}
+                                                onChange={(e) => setZipCode(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="phone_field" className="form-label">Phone No</label>
-                            <input
-                                type="tel"
-                                id="phone_field"
-                                className="form-control"
-                                name="phoneNo"
-                                value={phoneNo}
-                                onChange={(e) => setPhoneNo(e.target.value)}
-                                required
-                            />
-                        </div>
+                                <div className="form-group-modern">
+                                    <label htmlFor="phone_field" className="modern-label">
+                                        <i className="fas fa-phone"></i> Phone Number
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        id="phone_field"
+                                        className="modern-input"
+                                        name="phoneNo"
+                                        placeholder="Enter your phone number"
+                                        value={phoneNo}
+                                        onChange={(e) => setPhoneNo(e.target.value)}
+                                        required
+                                    />
+                                </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="zip_code_field" className="form-label">
-                                Zip Code
-                            </label>
-                            <input
-                                type="number"
-                                id="zip_code_field"
-                                className="form-control"
-                                name="zipCode"
-                                value={zipCode}
-                                onChange={(e) => setZipCode(e.target.value)}
-                                required
-                            />
-                        </div>
+                                <div className="form-group-modern">
+                                    <label htmlFor="country_field" className="modern-label">
+                                        <i className="fas fa-globe"></i> Country
+                                    </label>
+                                    <select
+                                        id="country_field"
+                                        className="modern-select"
+                                        name="country"
+                                        value={country}
+                                        onChange={(e) => setCountry(e.target.value)}
+                                        required
+                                    >
+                                        <option value="">Select Country</option>
+                                        {countriesList?.map((country, index) => (
+                                            <option key={index} value={country?.name}>
+                                                {country?.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="country_field" className="form-label">Country</label>
-                            <select
-                                id="country_field"
-                                className="form-select"
-                                name="country"
-                                value={country}
-                                onChange={(e) => setCountry(e.target.value)}
-                                required
-                            >
-                                {countriesList?.map((country, index) => (
-                                    <option key={index} value={country?.name}>
-                                        {country?.name}
-                                    </option>
-                                ))}
-                            </select>
+                                <button type="submit" className="modern-checkout-btn">
+                                    <span>Continue to Order Confirmation</span>
+                                    <i className="fas fa-arrow-right"></i>
+                                </button>
+                            </form>
                         </div>
-
-                        <button id="shipping_btn" type="submit" className="btn w-100 py-2">
-                            CONTINUE
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>

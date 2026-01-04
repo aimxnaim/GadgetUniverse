@@ -1,93 +1,81 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const CheckoutSteps = ({ shipping, confirmOrder, payment }) => {
+    // Determine which steps are clickable (completed steps)
+    const isShippingClickable = confirmOrder || payment
+    const isConfirmOrderClickable = payment
+
     return (
-        <div className="checkout-progress d-flex justify-content-center mt-5">
-
-            {shipping ? (
-
-                // ? Shipping (Active) 
-                <a
-                    href="/shipping"
-                    className="float-right"
-                >
-                    <div className="triangle2-active"></div>
-                    <div className="step active-step">Shipping</div>
-                    <div className="triangle-active"></div>
-                </a>
-
-            ) : (
-
-                // ? Shipping (Inactive)
-                <a
-                    href="#!"
-                    className="float-right"
-                    disabled
-                >
-                    <div className="triangle2-incomplete"></div>
-                    <div className="step incomplete">Shipping</div>
-                    <div className="triangle-incomplete"></div>
-                </a>
-
-            )}
-            {confirmOrder ? (
-
-                // ? Confirm Order (Active)
-                <a
-                    href="/confirm_order"
-                    className="float-right"
-                >
-                    <div className="triangle2-active"></div>
-                    <div className="step active-step">Confirm Order</div>
-                    <div className="triangle-active"></div>
-                </a>
-
-            ) : (
-
-                //  ? Confirm Order (Inactive)
-                <a
-                    href="#!"
-                    className="float-right"
-                    disabled
-                >
-                    <div className="triangle2-incomplete"></div>
-                    <div className="step incomplete">Confirm Order</div>
-                    <div className="triangle-incomplete"></div>
-                </a>
-            )}
-
-            {payment ? (
-
-                // ? Payment (Active)
-                <a
-                    href="/payment_method"
-                    className="float-right"
-                >
-                    <div className="triangle2-active"></div>
-                    <div className="step active-step">Payment</div>
-                    <div className="triangle-active"></div>
-                </a>
-
-            ) : (
-
-                // ? Payment (Inactive)
-                <a
-                    href="#!"
-                    className="float-right"
-                    disabled
-                >
-                    <div className="triangle2-incomplete"></div>
-                    <div className="step incomplete">Payment</div>
-                    <div className="triangle-incomplete"></div>
-                </a>
-
-            )}
-
-
-
-
-
-
+        <div className="modern-checkout-steps">
+            <div className="checkout-steps-container">
+                {/* Step 1: Shipping */}
+                {isShippingClickable ? (
+                    <Link 
+                        to="/shipping" 
+                        className={`checkout-step ${shipping ? 'active' : ''} ${confirmOrder || payment ? 'completed' : ''} clickable`}
+                    >
+                        <div className="step-icon">
+                            <i className={`fas ${confirmOrder || payment ? 'fa-check' : 'fa-truck'}`}></i>
+                        </div>
+                        <div className="step-content">
+                            <div className="step-label">Step 1</div>
+                            <div className="step-title">Shipping</div>
+                        </div>
+                    </Link>
+                ) : (
+                    <div className={`checkout-step ${shipping ? 'active' : ''}`}>
+                        <div className="step-icon">
+                            <i className="fas fa-truck"></i>
+                        </div>
+                        <div className="step-content">
+                            <div className="step-label">Step 1</div>
+                            <div className="step-title">Shipping</div>
+                        </div>
+                    </div>
+                )}
+                
+                <div className={`step-connector ${confirmOrder || payment ? 'completed' : ''}`}></div>
+                
+                {/* Step 2: Confirm Order */}
+                {isConfirmOrderClickable ? (
+                    <Link 
+                        to="/confirm_order" 
+                        className={`checkout-step ${confirmOrder ? 'active' : ''} ${payment ? 'completed' : ''} clickable`}
+                    >
+                        <div className="step-icon">
+                            <i className={`fas ${payment ? 'fa-check' : 'fa-clipboard-check'}`}></i>
+                        </div>
+                        <div className="step-content">
+                            <div className="step-label">Step 2</div>
+                            <div className="step-title">Confirm Order</div>
+                        </div>
+                    </Link>
+                ) : (
+                    <div className={`checkout-step ${confirmOrder ? 'active' : ''}`}>
+                        <div className="step-icon">
+                            <i className="fas fa-clipboard-check"></i>
+                        </div>
+                        <div className="step-content">
+                            <div className="step-label">Step 2</div>
+                            <div className="step-title">Confirm Order</div>
+                        </div>
+                    </div>
+                )}
+                
+                <div className={`step-connector ${payment ? 'completed' : ''}`}></div>
+                
+                {/* Step 3: Payment */}
+                <div className={`checkout-step ${payment ? 'active' : ''}`}>
+                    <div className="step-icon">
+                        <i className="fas fa-credit-card"></i>
+                    </div>
+                    <div className="step-content">
+                        <div className="step-label">Step 3</div>
+                        <div className="step-title">Payment</div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

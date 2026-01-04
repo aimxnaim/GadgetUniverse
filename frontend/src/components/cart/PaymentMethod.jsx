@@ -74,51 +74,85 @@ const PaymentMethod = () => {
         <>
             <MetaData title={'Confirm Order Info'} />
             <CheckoutSteps shipping confirmOrder payment />
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form
-                        className="shadow rounded bg-body"
-                        onSubmit={submitHandler}
-                    >
-                        <h2 className="mb-4">Select Payment Method</h2>
+            
+            <div className="checkout-page-container">
+                <div className="checkout-header">
+                    <h1 className="checkout-main-title">Payment Method</h1>
+                    <p className="checkout-subtitle">Choose how you'd like to pay</p>
+                </div>
+                
+                <div className="row justify-content-center">
+                    <div className="col-12">
+                        <div className="modern-checkout-card">
+                            <form onSubmit={submitHandler}>
+                                <div className="payment-methods-grid">
+                                    <label className={`payment-method-card ${method === 'COD' ? 'selected' : ''}`}>
+                                        <input
+                                            className="payment-radio"
+                                            type="radio"
+                                            name="payment_mode"
+                                            id="codradio"
+                                            value="COD"
+                                            onChange={() => setMethod('COD')}
+                                        />
+                                        <div className="payment-content">
+                                            <div className="payment-icon cod-icon">
+                                                <i className="fas fa-money-bill-wave"></i>
+                                            </div>
+                                            <div className="payment-details">
+                                                <h5>Cash on Delivery</h5>
+                                                <p>Pay when you receive your order</p>
+                                            </div>
+                                            <div className="payment-check">
+                                                <i className="fas fa-check-circle"></i>
+                                            </div>
+                                        </div>
+                                    </label>
 
-                        <div className="form-check">
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="payment_mode"
-                                id="codradio"
-                                value="COD"
-                                onChange={() => setMethod('COD')}
-                            />
-                            <label className="form-check-label" htmlFor="codradio">
-                                Cash on Delivery
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="payment_mode"
-                                id="cardradio"
-                                value="Card"
-                                onChange={() => setMethod('Card')}
-                            />
-                            <label className="form-check-label" htmlFor="cardradio">
-                                Card - VISA, MasterCard
-                            </label>
-                        </div>
+                                    <label className={`payment-method-card ${method === 'Card' ? 'selected' : ''}`}>
+                                        <input
+                                            className="payment-radio"
+                                            type="radio"
+                                            name="payment_mode"
+                                            id="cardradio"
+                                            value="Card"
+                                            onChange={() => setMethod('Card')}
+                                        />
+                                        <div className="payment-content">
+                                            <div className="payment-icon card-icon">
+                                                <i className="fas fa-credit-card"></i>
+                                            </div>
+                                            <div className="payment-details">
+                                                <h5>Credit/Debit Card</h5>
+                                                <p>VISA, MasterCard, and more</p>
+                                            </div>
+                                            <div className="payment-check">
+                                                <i className="fas fa-check-circle"></i>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
 
-                        <button id="shipping_btn" type="submit" className="btn py-2 w-100" disabled={isLoading}>
-                            {
-                                isLoading
-                                    ? (
+                                <button 
+                                    type="submit" 
+                                    className="modern-checkout-btn mt-4" 
+                                    disabled={isLoading || !method}
+                                >
+                                    {isLoading ? (
                                         <>
-                                            <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                            <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                            <span>Processing...</span>
                                         </>
-                                    ) : ' CONTINUE'}
-                        </button>
-                    </form>
+                                    ) : (
+                                        <>
+                                            <span>Complete Order</span>
+                                            <i className="fas fa-lock"></i>
+                                        </>
+                                    )}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
