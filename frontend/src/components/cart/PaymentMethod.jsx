@@ -78,7 +78,7 @@ const PaymentMethod = () => {
             <div className="checkout-page-container">
                 <div className="checkout-header">
                     <h1 className="checkout-main-title">Payment Method</h1>
-                    <p className="checkout-subtitle">Choose how you'd like to pay</p>
+                    <p className="checkout-subtitle">Choose how you&apos;d like to pay</p>
                 </div>
                 
                 <div className="row justify-content-center">
