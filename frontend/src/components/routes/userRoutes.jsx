@@ -19,6 +19,8 @@ import OrderDetails from '../order/OrderDetails';
 import Invoice from '../invoice/Invoice';
 import OurStore from '../store/OurStore';
 import Blog from '../blogs/Blog';
+import BlogDetails from '../blogs/BlogDetails';
+import NewBlog from '../blogs/NewBlog';
 import Contact from '../contact/Contact';
 import Compare from '../compare/Compare';
 import { Route } from 'react-router-dom';
@@ -31,6 +33,7 @@ const userRoutes = () => {
             <Route path='/:id' element={<ProductDetails />} />
             <Route path='/store/:id' element={<ProductDetails />} />
             <Route path='/blogs' element={<Blog />} />
+            <Route path='/blogs/:id' element={<BlogDetails />} />
             <Route path='/store' element={<OurStore />} />
             <Route path='/wishlist' element={<Wishlist />} />
             <Route path='/contact' element={<Contact />} />
@@ -72,6 +75,15 @@ const userRoutes = () => {
                 element={
                     <ProtectedRoutes>
                         <UpdatePassword />
+                    </ProtectedRoutes>
+                }
+            />
+
+            <Route
+                path='/blogs/new'
+                element={
+                    <ProtectedRoutes>
+                        <NewBlog />
                     </ProtectedRoutes>
                 }
             />
