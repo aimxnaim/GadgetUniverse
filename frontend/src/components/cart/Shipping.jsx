@@ -143,7 +143,7 @@ const Shipping = () => {
                                         onChange={(e) => setCountry(e.target.value)}
                                         required
                                     >
-                                        <option value="">Select Country</option>
+                                        <option value="" disabled>Select Country</option>
                                         {countriesList?.map((country, index) => (
                                             <option key={index} value={country?.name}>
                                                 {country?.name}
