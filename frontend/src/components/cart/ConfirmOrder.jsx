@@ -18,67 +18,104 @@ const ConfirmOrder = () => {
         <>
             <MetaData title={'Confirm Order Info'} />
             <CheckoutSteps shipping confirmOrder />
-            <div className="row d-flex justify-content-between">
-                <div className="col-12 col-lg-8 mt-5 order-confirm">
-                    <h4 className="mb-3">Shipping Info</h4>
-                    <p><b>Name:</b> {user?.name}</p>
-                    <p><b>Phone:</b> {shippingInfo?.phoneNo}</p>
-                    <p className="mb-4">
-                        <b>Address:</b> {shippingInfo?.address}, {shippingInfo?.city}, {shippingInfo?.zipCode},  {shippingInfo?.country}
-                    </p>
-                    <hr />
-                    <h4 className="mt-3">Your Cart Items:</h4>
-
-                    {cartItem?.map((item, index) => (
-                        <>
-                            <hr />
-                            <div className="cart-item my-1" key={index}>
-                                <div className="row">
-                                    <div className="col-4 col-lg-2">
-                                        <img
-                                            src={item?.image}
-                                            alt={item?.name}
-                                            height="45"
-                                            width="44"
-                                        />
-                                    </div>
-
-                                    <div className="col-5 col-lg-6">
-                                        <a href={`/products/${item?.product}`}>{item?.name}</a>
-                                    </div>
-
-                                    <div className="col-4 col-lg-4 mt-4 mt-lg-0">
-                                        <p>
-                                            {item?.quantity} x RM{item?.price} = <b>RM{(item?.quantity * item?.price).toFixed(2)}</b>
-                                        </p>
-                                    </div>
+            
+            <div className="checkout-page-container">
+                <div className="checkout-header">
+                    <h1 className="checkout-main-title">Confirm Your Order</h1>
+                    <p className="checkout-subtitle">Review your order details before proceeding</p>
+                </div>
+                
+                <div className="row g-4">
+                    <div className="col-12 col-lg-8">
+                        <div className="modern-checkout-card">
+                            <div className="card-section-header">
+                                <i className="fas fa-truck"></i>
+                                <h4>Shipping Information</h4>
+                            </div>
+                            <div className="info-grid">
+                                <div className="info-item">
+                                    <span className="info-label">
+                                        <i className="fas fa-user"></i> Name
+                                    </span>
+                                    <span className="info-value">{user?.name}</span>
+                                </div>
+                                <div className="info-item">
+                                    <span className="info-label">
+                                        <i className="fas fa-phone"></i> Phone
+                                    </span>
+                                    <span className="info-value">{shippingInfo?.phoneNo}</span>
+                                </div>
+                                <div className="info-item full-width">
+                                    <span className="info-label">
+                                        <i className="fas fa-map-marker-alt"></i> Address
+                                    </span>
+                                    <span className="info-value">
+                                        {shippingInfo?.address}, {shippingInfo?.city}, {shippingInfo?.zipCode}, {shippingInfo?.country}
+                                    </span>
                                 </div>
                             </div>
-                            <hr />
-                        </>
-                    ))}
-                </div>
+                        </div>
 
-                <div className="col-12 col-lg-3 my-4">
-                    <div id="order_summary">
-                        <h4>Order Summary</h4>
-                        <hr />
-                        <p>Subtotal: <span className="order-summary-values">RM {itemsPrice}</span></p>
-                        <p>Shipping: <span className="order-summary-values">RM {shippingPrice}</span></p>
-                        <p>Tax (GST 6%): <span className="order-summary-values">RM {taxPrice}</span></p>
+                        <div className="modern-checkout-card mt-4">
+                            <div className="card-section-header">
+                                <i className="fas fa-shopping-bag"></i>
+                                <h4>Order Items</h4>
+                            </div>
+                            
+                            <div className="order-items-list">
+                                {cartItem?.map((item, index) => (
+                                    <div className="order-item-card" key={index}>
+                                        <div className="order-item-image">
+                                            <img src={item?.image} alt={item?.name} />
+                                        </div>
+                                        <div className="order-item-details">
+                                            <a href={`/products/${item?.product}`} className="order-item-name">
+                                                {item?.name}
+                                            </a>
+                                            <div className="order-item-price-info">
+                                                <span className="quantity-badge">{item?.quantity}x</span>
+                                                <span className="unit-price">RM {item?.price}</span>
+                                                <span className="total-price">RM {(item?.quantity * item?.price).toFixed(2)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
 
-                        <hr />
+                    <div className="col-12 col-lg-4">
+                        <div className="modern-checkout-card sticky-summary">
+                            <div className="card-section-header">
+                                <i className="fas fa-receipt"></i>
+                                <h4>Order Summary</h4>
+                            </div>
+                            
+                            <div className="summary-breakdown">
+                                <div className="summary-row">
+                                    <span className="summary-label">Subtotal</span>
+                                    <span className="summary-value">RM {itemsPrice}</span>
+                                </div>
+                                <div className="summary-row">
+                                    <span className="summary-label">Shipping</span>
+                                    <span className="summary-value">RM {shippingPrice}</span>
+                                </div>
+                                <div className="summary-row">
+                                    <span className="summary-label">Tax (GST 6%)</span>
+                                    <span className="summary-value">RM {taxPrice}</span>
+                                </div>
+                                <div className="summary-divider"></div>
+                                <div className="summary-row total-row">
+                                    <span className="summary-label">Total</span>
+                                    <span className="summary-value">RM {totalPrice}</span>
+                                </div>
+                            </div>
 
-                        <p>Total: <span className="order-summary-values">RM {totalPrice}</span></p>
-
-                        <hr />
-                        <a
-                            href="/payment_method"
-                            id="checkout_btn"
-                            className="btn btn-primary w-100"
-                        >
-                            Proceed to Payment
-                        </a>
+                            <a href="/payment_method" className="modern-checkout-btn">
+                                <span>Proceed to Payment</span>
+                                <i className="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
