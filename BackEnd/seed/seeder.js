@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Product = require('../models/product');
 const products = require('./data');
-// const products = require('./data');
 require('dotenv').config({ path: 'BackEnd/config/.env' });
 
 const seedProducts = async () => {
