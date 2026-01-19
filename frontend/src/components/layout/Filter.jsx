@@ -7,15 +7,13 @@ import StarRatings from 'react-star-ratings'
 const Filter = () => {
     const [min, setMin] = useState(0)
     const [max, setMax] = useState(0)
+    const navigate = useNavigate()
+    let [searchParams] = useSearchParams()
 
     useEffect(() => {
         searchParams.has('min') && setMin(searchParams.get('min'))
         searchParams.has('max') && setMax(searchParams.get('max'))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const navigate = useNavigate()
-    let [searchParams] = useSearchParams()
+    }, [searchParams])
 
     // Handle category & ratings filter
     const handleClick = (checkbox) => {
@@ -27,15 +25,59 @@ const Filter = () => {
                 // Delete the unchecked checkbox from the URL
                 if (searchParams.has(checkbox.name)) {
                     searchParams.delete(checkbox.name)
+                    
+                    // Also remove rating range params
+                    if (checkbox.name === 'ratings') {
+                        searchParams.delete('minRating')
+                        searchParams.delete('maxRating')
+                    }
+                    
                     const path = window.location.pathname + "?" + searchParams.toString()
                     navigate(path)
                 }
             } else {
-                // Set the new filter if already exists in the URL
-                if (searchParams.has(checkbox.name)) {
-                    searchParams.set(checkbox.name, checkbox.value)
-                } else { // Append the new filter to the URL
-                    searchParams.set(checkbox.name, checkbox.value)
+                // Handle ratings with ranges
+                if (checkbox.name === 'ratings') {
+                    const rating = parseInt(checkbox.value)
+                    let minRating, maxRating
+                    
+                    // Define rating ranges
+                    switch(rating) {
+                        case 5:
+                            minRating = 4.0
+                            maxRating = 5.0
+                            break
+                        case 4:
+                            minRating = 3.0
+                            maxRating = 3.99
+                            break
+                        case 3:
+                            minRating = 2.0
+                            maxRating = 2.99
+                            break
+                        case 2:
+                            minRating = 1.0
+                            maxRating = 1.99
+                            break
+                        case 1:
+                            minRating = 0
+                            maxRating = 0.99
+                            break
+                        default:
+                            minRating = 0
+                            maxRating = 5
+                    }
+                    
+                    searchParams.set('ratings', checkbox.value)
+                    searchParams.set('minRating', minRating)
+                    searchParams.set('maxRating', maxRating)
+                } else {
+                    // Set the new filter if already exists in the URL
+                    if (searchParams.has(checkbox.name)) {
+                        searchParams.set(checkbox.name, checkbox.value)
+                    } else { // Append the new filter to the URL
+                        searchParams.set(checkbox.name, checkbox.value)
+                    }
                 }
             }
 
@@ -61,6 +103,14 @@ const Filter = () => {
         return result
     }
 
+    const ratingRanges = {
+        5: '4.0 - 5.0',
+        4: '3.0 - 3.99',
+        3: '2.0 - 2.99',
+        2: '1.0 - 1.99',
+        1: '0 - 0.99',
+    }
+
     return (
         <>
             <div className="filter-card my-5 mb-3">
@@ -74,8 +124,8 @@ const Filter = () => {
                             name="category"
                             id={`check${index}`}
                             value={category}
-                            defaultChecked={defaultCheckHandler("category", category)}
-                            onClick={(e) => handleClick(e.target)}
+                            checked={defaultCheckHandler("category", category)}
+                            onChange={(e) => handleClick(e.target)}
                         />
                         <label className="form-check-label p-0" htmlFor={`check${index}`}>
                             {" "}
@@ -131,10 +181,10 @@ const Filter = () => {
                             name="ratings"
                             id={`checkStar${index}`}
                             value={rating}
-                            defaultChecked={defaultCheckHandler("ratings", rating)}
-                            onClick={(e) => handleClick(e.target)}
+                            checked={defaultCheckHandler("ratings", rating)}
+                            onChange={(e) => handleClick(e.target)}
                         />
-                        <label className="form-check-label d-flex align-items-center" htmlFor={`checkStar${index}`}>
+                        <label className="form-check-label d-flex align-items-center justify-content-between w-100" htmlFor={`checkStar${index}`}>
                             <StarRatings
                                 rating={rating}
                                 starRatedColor="#ffb829"
@@ -143,6 +193,7 @@ const Filter = () => {
                                 starDimension='17px'
                                 starSpacing='1px'
                             />
+                            <span className="text-muted small ms-2">{ratingRanges[rating]}</span>
                         </label>
                     </div>
                 ))}
