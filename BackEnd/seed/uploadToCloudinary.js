@@ -21,7 +21,7 @@ cloudinary.config({
 async function uploadImage(imagePath, folder = 'GadgetUniverse/products') {
     try {
         console.log(`Uploading ${imagePath}...`);
-        
+
         const result = await cloudinary.uploader.upload(imagePath, {
             folder: folder,
             resource_type: 'auto',
@@ -53,7 +53,7 @@ async function uploadImage(imagePath, folder = 'GadgetUniverse/products') {
 async function uploadFolder(folderPath) {
     try {
         const files = fs.readdirSync(folderPath);
-        const imageFiles = files.filter(file => 
+        const imageFiles = files.filter(file =>
             /\.(jpg|jpeg|png|gif|webp)$/i.test(file)
         );
 
@@ -89,7 +89,7 @@ async function uploadFromUrls(urls) {
     for (const url of urls) {
         try {
             console.log(`Uploading ${url}...`);
-            
+
             const result = await cloudinary.uploader.upload(url, {
                 folder: 'GadgetUniverse/products',
                 resource_type: 'auto'
@@ -120,28 +120,28 @@ const args = process.argv.slice(2);
 
 if (args.length === 0) {
     console.log(`
-Cloudinary Image Upload Utility
-================================
+        Cloudinary Image Upload Utility
+        ================================
 
-Usage:
-  node uploadToCloudinary.js <imagePath>           Upload a single image
-  node uploadToCloudinary.js folder <folderPath>   Upload all images from a folder
-  node uploadToCloudinary.js url <imageUrl>        Upload image from URL
+        Usage:
+        node uploadToCloudinary.js <imagePath>           Upload a single image
+        node uploadToCloudinary.js folder <folderPath>   Upload all images from a folder
+        node uploadToCloudinary.js url <imageUrl>        Upload image from URL
 
-Examples:
-  node uploadToCloudinary.js ./images/product1.jpg
-  node uploadToCloudinary.js folder ./images/products
-  node uploadToCloudinary.js url https://example.com/image.jpg
+        Examples:
+        node uploadToCloudinary.js ./images/product1.jpg
+        node uploadToCloudinary.js folder ./images/products
+        node uploadToCloudinary.js url https://example.com/image.jpg
 
-Configuration:
-  Make sure your .env file has:
-  - CLOUDINARY_CLOUD_NAME
-  - CLOUDINARY_API_KEY
-  - CLOUDINARY_API_SECRET
+        Configuration:
+        Make sure your .env file has:
+        - CLOUDINARY_CLOUD_NAME
+        - CLOUDINARY_API_KEY
+        - CLOUDINARY_API_SECRET
 
-Current Config:
-  Cloud Name: ${process.env.CLOUDINARY_CLOUD_NAME || 'NOT SET'}
-  API Key: ${process.env.CLOUDINARY_API_KEY ? '***' + process.env.CLOUDINARY_API_KEY.slice(-4) : 'NOT SET'}
+        Current Config:
+        Cloud Name: ${process.env.CLOUDINARY_CLOUD_NAME || 'NOT SET'}
+        API Key: ${process.env.CLOUDINARY_API_KEY ? '[SET]' : 'NOT SET'}
     `);
     process.exit(0);
 }

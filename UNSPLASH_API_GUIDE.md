@@ -89,7 +89,7 @@ const response = await axios.get('https://api.unsplash.com/search/photos', {
         per_page: 30
     },
     headers: {
-        'Authorization': 'Client-ID 6q_jxzZpP_0ENFs7T5Rw6M3jb4doRGzZ2nVkRPIBVFQ'
+        'Authorization': 'Client-ID YOUR_ACCESS_KEY_HERE'
     }
 });
 
