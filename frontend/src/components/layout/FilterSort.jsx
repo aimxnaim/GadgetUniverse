@@ -1,15 +1,38 @@
 import React from 'react';
 import { useGetProductsQuery } from '../../actions/api/productsApi';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const FilterSort = ({ grid, setGrid }) => {
 
     let [searchParams] = useSearchParams();
+    const navigate = useNavigate();
     const page = Number(searchParams.get('page')) || 1;
     const keyword = searchParams.get('keyword') || '';
+    const sort = searchParams.get('sort') || '';
+    const gridParam = searchParams.get('grid') || '';
+    
     const params = { page, keyword };
+    sort && (params.sort = sort);
+    gridParam && (params.grid = gridParam);
 
     const { data, isLoading, error, isError } = useGetProductsQuery(params);
+
+    const handleSort = (sortValue) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('sort', sortValue);
+        newParams.set('page', 1);
+        const path = window.location.pathname + "?" + newParams.toString();
+        navigate(path);
+    }
+
+    const handleGridChange = (columnCount) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('grid', columnCount);
+        newParams.set('page', 1);
+        const path = window.location.pathname + "?" + newParams.toString();
+        navigate(path);
+    }
+
 
     return (
         <div className="filter-sort-grid my-5 mb-4">
@@ -17,10 +40,11 @@ const FilterSort = ({ grid, setGrid }) => {
                 <div className="d-flex align-items-center gap-10">
                     <p className="mb-0 d-block" style={{ width: '100px' }}>Sort By:</p>
                     <select
-                        name=""
-                        id=""
                         className="form-control form-select"
+                        value={sort}
+                        onChange={(e) => handleSort(e.target.value)}
                     >
+                        <option value="">Default</option>
                         <option value="newest">Newest</option>
                         <option value="oldest">Oldest</option>
                         <option value="popular">Popular</option>
@@ -28,18 +52,24 @@ const FilterSort = ({ grid, setGrid }) => {
                         <option value="title-descending">Alphabetically, Z-A</option>
                         <option value="price-ascending">Price, low to high</option>
                         <option value="price-descending">Price, high to low</option>
+                        <option value="rating-ascending">Rating, low to high</option>
+                        <option value="rating-descending">Rating, high to low</option>
                     </select>
                 </div>
                 <div className="d-flex align-items-center gap-10">
-                    <p className="m-2 mx-3">{data?.products?.length} Products</p>
+                    {/* Badge is here showing products per page count */}
+                    <p className="m-2 mx-3 small badge bg-secondary bg-pilled">{data?.resPerPage || 0} products per page
+                    </p>
                     <div className="d-flex align-items-center gap-10 grid">
                         {[12, 6, 4, 3].map((item, index) => (
                             <img
                                 key={index}
-                                onClick={() => setGrid(item)}
+                                onClick={() => handleGridChange(item)}
                                 src={`/images/grid/gr${index + 1}.svg`}
                                 alt={`grid${index + 1}`}
                                 className='d-block img-fluid'
+                                style={{ cursor: 'pointer', opacity: grid === item ? 1 : 0.5 }}
+                                title={`${item} columns`}
                             />
                         ))}
                     </div>

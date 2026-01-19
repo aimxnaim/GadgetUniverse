@@ -20,19 +20,28 @@ const OurStore = () => {
     const max = searchParams.get('max');
     const category = searchParams.get('category');
     const ratings = searchParams.get('ratings');
+    const sort = searchParams.get('sort');
+    const gridParam = Number(searchParams.get('grid')) || grid;
 
-    const params = { page, keyword };
+    const params = { page, keyword, grid: gridParam };
 
     min !== null && (params.min = min);
     max !== null && (params.max = max);
     category !== null && (params.category = category);
     ratings !== null && (params.ratings = ratings);
+    sort !== null && (params.sort = sort);
 
     const { data, isLoading, error, isError } = useGetProductsQuery(params);
 
     useEffect(() => {
         if (isError) toast.error(error?.data?.message)
     }, [isError, error]);
+
+    useEffect(() => {
+        if (gridParam) {
+            setGrid(gridParam);
+        }
+    }, [gridParam]);
 
     const columnSize = keyword ? 4 : 3;
 

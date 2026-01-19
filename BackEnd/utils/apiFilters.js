@@ -22,7 +22,7 @@ class APIFilters {
         const queryCopy = { ...this.queryStr };
 
         // Fields to remove 
-        const fieldstoRemove = ['keyword', 'page'];
+        const fieldstoRemove = ['keyword', 'page', 'grid', 'sort'];
         fieldstoRemove.forEach(el => delete queryCopy[el]);
 
         ////console.log(`queryCopy: ${JSON.stringify(queryCopy)}`);
