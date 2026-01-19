@@ -1556,6 +1556,14 @@ footer:nth-last-child(1) {
   color: var(--color-777777);
 }
 
+.icon-website {
+  color:  black;
+  /* font-size: 16px; */
+  margin: 0 0 30px 0;
+
+  /* padding: 100%; */
+}
+
 #new_review_btn {
   background-color: var(--color-232f3e);
   color: white;
