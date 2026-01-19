@@ -7,7 +7,11 @@
     "start": "node BackEnd/app.js",
     "dev": "SET NODE_ENV=DEVELOPMENT& nodemon BackEnd/app.js",
     "prod": "SET NODE_ENV=PRODUCTION& node BackEnd/app.js",
-    "seeder": "SET NODE_ENV=DEVELOPMENT& node BackEnd/seed/seeder.js"
+    "seeder": "SET NODE_ENV=DEVELOPMENT& node BackEnd/seed/seeder.js",
+    "seed:admin": "SET NODE_ENV=DEVELOPMENT& node BackEnd/seed/seedAdmin.js",
+    "seed:prod": "SET NODE_ENV=PRODUCTION& node BackEnd/seed/seedAdmin.js",
+    "deploy": "npm run seed:prod && npm run prod",
+    "deploy:fresh": "SET NODE_ENV=PRODUCTION& node BackEnd/seed/seedAdmin.js && node BackEnd/app.js"
   },
   "author": "Aiman Naim",
   "license": "ISC",
