@@ -43,8 +43,9 @@ const resetAndSeedDatabase = async () => {
         // Optionally seed products
         if (products && products.length > 0) {
             console.log('Seeding products...');
-            await Product.insertMany(products);
-            console.log(`${products.length} products imported successfully`);
+            const productsWithUser = products.map(product => ({ ...product, user: adminUser._id }));
+            await Product.insertMany(productsWithUser);
+            console.log(`${productsWithUser.length} products imported successfully`);
         }
 
         console.log('\n✅ Database reset and seeding completed successfully!');
