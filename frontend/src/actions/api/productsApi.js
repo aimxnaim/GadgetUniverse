@@ -14,8 +14,10 @@ export const productApi = createApi({
                     "price[gte]": params.min,
                     "price[lte]": params.max,
                     category: params?.category,
-                    "ratings[gte]": params?.ratings,
-
+                    "ratings[gte]": params?.minRating,
+                    "ratings[lte]": params?.maxRating,
+                    sort: params?.sort,
+                    grid: params?.grid,
                 },
             }),
         }),

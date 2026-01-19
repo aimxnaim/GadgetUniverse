@@ -1603,42 +1603,156 @@ footer:nth-last-child(1) {
 .filter-card {
   background-color: white;
   border-radius: 15px;
-  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.263);
-  padding: 10px 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.filter-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.filter-card .form-check {
+  padding: 6px 26px;
+  margin-bottom: 2px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.filter-card .form-check:hover {
+  background-color: rgba(64, 93, 114, 0.03);
 }
 
 .filter-card .form-check-label {
   list-style-type: none;
-  background-color: white;
+  background-color: transparent;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-777777);
   line-height: 20px;
+  padding-left: 4px;
+}
+
+.filter-card .form-check-input {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  transition: all 0.2s ease;
 }
 
 .filter-card .form-check-input:checked {
   background-color: var(--color-405D72);
+  border-color: var(--color-405D72);
 }
 
 .filter-card .form-check-input:focus {
-  box-shadow: none;
-  border-color: inherit;
+  box-shadow: 0 0 0 0.25rem rgba(64, 93, 114, 0.25);
+  border-color: var(--color-405D72);
 }
 
 .filter-title {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
   color: var(--color-3b4149);
+  margin-bottom: 16px;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+}
+
+.filter-title i {
+  color: var(--color-405D72);
+  font-size: 20px;
+}
+
+.filter-divider {
+  margin: 16px 0;
+  border-top: 2px solid rgba(0, 0, 0, 0.06);
+}
+
+.filter-section {
   margin-bottom: 20px;
-  margin-top: 10px;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--color-3b4149);
-  margin-bottom: 15px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.subtitle i {
+  color: #febd69;
+  font-size: 16px;
+}
+
+/* Price Filter Styling */
+.price-filter-form {
+  margin-top: 12px;
+}
+
+.price-inputs-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.price-input {
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.price-input:focus {
+  border-color: var(--color-405D72);
+  box-shadow: 0 0 0 0.2rem rgba(64, 93, 114, 0.15);
+  background-color: transparent;
+}
+
+.price-separator {
+  color: var(--color-777777);
+  font-weight: 500;
+  font-size: 18px;
+  margin: 0 -4px;
+}
+
+.price-filter-btn {
+  width: 100%;
+  padding: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--color-405D72) 0%, #2c4a5e 100%);
+  border: none;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.price-filter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(64, 93, 114, 0.3);
+  background: linear-gradient(135deg, #2c4a5e 0%, var(--color-405D72) 100%);
+}
+
+.price-filter-btn:active {
+  transform: translateY(0);
+}
+
+.price-filter-btn i {
+  font-size: 16px;
 }
 
 .filter-sort-grid {

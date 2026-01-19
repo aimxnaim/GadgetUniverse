@@ -8,10 +8,56 @@ const { uploadfile, removefile } = require('../utils/cloudinary');
 
 // Get all products => /api/v1/products
 module.exports.getProducts = catchAsyncErrors(async (req, res) => {
-    const resPerPage = 6;
+    // Calculate resPerPage based on grid layout (columns selected)
+    const perPage = {
+        12 : 3,
+        6: 6,
+        4: 6,
+        3: 8
+    }
+    const gridColumns = parseInt(req.query.grid) || 3;
+    const resPerPage = perPage[gridColumns] ;
+
     const apiFilters = new APIFilters(Product, req.query)
         .search()
         .filter();
+
+    // Apply sorting if specified
+    let sortQuery = {};
+    if (req.query.sort) {
+        switch(req.query.sort) {
+            case 'newest':
+                sortQuery = { createdAt: -1 };
+                break;
+            case 'oldest':
+                sortQuery = { createdAt: 1 };
+                break;
+            case 'popular':
+                sortQuery = { ratings: -1 };
+                break;
+            case 'title-ascending':
+                sortQuery = { name: 1 };
+                break;
+            case 'title-descending':
+                sortQuery = { name: -1 };
+                break;
+            case 'price-ascending':
+                sortQuery = { price: 1 };
+                break;
+            case 'price-descending':
+                sortQuery = { price: -1 };
+                break;
+            case 'rating-ascending':
+                sortQuery = { ratings: 1 };
+                break;
+            case 'rating-descending':
+                sortQuery = { ratings: -1 };
+                break;
+            default:
+                sortQuery = { createdAt: -1 };
+        }
+        apiFilters.query = apiFilters.query.sort(sortQuery);
+    }
 
     //// console.log(`req.user : ${req.user}`)
 
