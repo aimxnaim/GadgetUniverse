@@ -1709,13 +1709,13 @@ footer:nth-last-child(1) {
   border-radius: 10px;
   font-size: 14px;
   transition: all 0.3s ease;
-  background-color: #f8f9fa;
+  background-color: transparent;
 }
 
 .price-input:focus {
   border-color: var(--color-405D72);
   box-shadow: 0 0 0 0.2rem rgba(64, 93, 114, 0.15);
-  background-color: white;
+  background-color: transparent;
 }
 
 .price-separator {

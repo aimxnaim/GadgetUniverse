@@ -133,7 +133,7 @@ const Filter = () => {
                             value={category}
                             checked={defaultCheckHandler("category", category)}
                             onChange={(e) => handleClick(e.target)}
-                            onClick={(e) => e.stopPropagation()}
+                            // onClick={(e) => e.stopPropagation()}
                         />
                         <label className="form-check-label p-0" htmlFor={`check${index}`}>
                             {" "}

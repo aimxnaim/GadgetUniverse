@@ -11,9 +11,23 @@ const FilterSort = ({ grid, setGrid }) => {
     const sort = searchParams.get('sort') || '';
     const gridParam = searchParams.get('grid') || '';
     
+    // Get filter parameters
+    const category = searchParams.get('category') || '';
+    const ratings = searchParams.get('ratings') || '';
+    const minRating = searchParams.get('minRating') || '';
+    const maxRating = searchParams.get('maxRating') || '';
+    const min = searchParams.get('min') || '';
+    const max = searchParams.get('max') || '';
+    
     const params = { page, keyword };
     sort && (params.sort = sort);
     gridParam && (params.grid = gridParam);
+    category && (params.category = category);
+    ratings && (params.ratings = ratings);
+    minRating && (params.minRating = minRating);
+    maxRating && (params.maxRating = maxRating);
+    min && (params.min = min);
+    max && (params.max = max);
 
     const { data, isLoading, error, isError } = useGetProductsQuery(params);
 
@@ -58,7 +72,7 @@ const FilterSort = ({ grid, setGrid }) => {
                 </div>
                 <div className="d-flex align-items-center gap-10">
                     {/* Badge is here showing products per page count */}
-                    <p className="m-2 mx-3 small badge bg-secondary bg-pilled">{data?.resPerPage || 0} products per page
+                    <p className="m-2 mx-3 small badge bg-secondary bg-pilled">{data?.filterProductCount} { data?.filterProductCount > 0 ? 'total products found' : 'No' } 
                     </p>
                     <div className="d-flex align-items-center gap-10 grid">
                         {[12, 6, 4, 3].map((item, index) => (
