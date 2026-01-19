@@ -1,45 +1,121 @@
-# MERN Stack eCommerce Site 🛒
+# GadgetUniverse 🛒
 
-This project is a full-fledged eCommerce site built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It includes robust features for product management, user authentication, authorization, order processing, and more. 
+A full-stack eCommerce platform for tech products built with the MERN stack.
 
-This project is well equip with the **Redux Toolkit** for flawless state management, seamlessly process payments with **Stripe**, manage images effortlessly with **Cloudinary**
+## Tech Stack
 
-The estimation time for me is still in progress. 👨‍💻
+- **Frontend**: React.js + Vite, Redux Toolkit
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **APIs**: Unsplash API (product images), Stripe (payments)
+- **Cloud**: Cloudinary (image storage)
 
-## Features 🏭
+## Quick Start
 
-#### Backend Error Handling
+### 1. Install Dependencies
+```bash
+npm install
+cd frontend && npm install
+```
 
-- Managed unhandled promise rejections and uncaught exceptions using global error handling middleware.
-- Caught async errors to prevent server crashes and improve error reporting.
-- Handled specific errors such as Mongoose ID errors gracefully.
+### 2. Setup Environment
+Create `BackEnd/config/.env`:
+```env
+PORT=4001
+DB_LOCAL_URI=mongodb://127.0.0.1:27017/gadgetUniverse
+JWT_TOKEN=your_jwt_secret
+UNSPLASH_ACCESS_KEY=your_unsplash_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+STRIPE_SECRET_KEY=your_stripe_key
+```
 
-#### Authentication & Authorization
+### 3. Seed Database with Real Product Data
+```bash
+# Fetch category-matched images from Unsplash and seed database
+node BackEnd/seed/updateDataWithUnsplash.js && npm run seeder
+```
 
-- Encrypted user passwords using bcrypt during registration for enhanced security.
-- Implemented JSON Web Token (JWT) based authentication.
-- Stored JWT securely in HTTP Only cookies for protection against XSS attacks.
-- Generated tokens for forgot password functionality and configured Nodemailer for sending reset password emails.
+This fetches real images for 12 categories:
+- 📷 Cameras (12 products)
+- 💻 Laptops (12 products)
+- 🎧 Headphones (10 products)
+- 📱 Electronics (15 products)
+- And 8 more categories...
 
-## Deployment 🚀
+### 4. Run Application
+```bash
+# Backend
+npm run dev
 
-#### Deployment on Render.com
+# Frontend (new terminal)
+cd frontend && npm run dev
+```
 
-- Configured environment variables for secure storage of sensitive information like API keys and database connection strings.
+## Backend Features
 
-## Tech Stack 🔨
-- **Frontend**: React.js, Redux, Redux Toolkit, HTML5, CSS3 (with Bootstrap)<br><br>
-[![My Skills](https://skillicons.dev/icons?i=react,redux,bootstrap)](https://skillicons.dev)
-- **Backend**: Node.js, Express.js<br><br>
-[![My Skills](https://skillicons.dev/icons?i=nodejs,npm,express)](https://skillicons.dev)
+### Error Handling
+- Global error middleware for unhandled promise rejections
+- Async error wrapper to catch all async errors
+- Custom error handler for Mongoose validation errors
+- Environment-specific error responses (dev/prod)
 
-- **Database**: MongoDB (with Mongoose)<br><br>
-[![My Skills](https://skillicons.dev/icons?i=mongodb)](https://skillicons.dev)
+### Authentication & Authorization
+- JWT-based authentication with HTTP-only cookies
+- Password encryption using bcrypt
+- Email verification with Nodemailer
+- Role-based access control (user/admin)
+- Forgot password with secure token generation
 
-- **Authentication**: JSON Web Tokens (JWT), bcrypt, Nodemailer
-- **Payment**: Stripe integration
-- **Deployment**: Render.com
+### API Features
+- RESTful API design
+- Advanced filtering, sorting, and pagination
+- Product search with multiple criteria
+- Image upload with Cloudinary integration
+- Order processing and tracking
+- Secure payment with Stripe
+
+## Project Structure
+```
+GadgetUniverse/
+├── BackEnd/
+│   ├── config/          # Database & environment config
+│   ├── controllers/     # Route controllers
+│   ├── middlewares/     # Auth, error handling
+│   ├── models/          # Mongoose schemas
+│   ├── routes/          # API routes
+│   ├── seed/            # Database seeder with Unsplash
+│   └── utils/           # Helper functions
+├── frontend/
+│   └── src/
+│       ├── actions/     # Redux actions & API calls
+│       ├── components/  # React components
+│       └── constants/   # App constants
+```
+
+## API Endpoints
+
+### Products
+- `GET /api/v1/products` - Get all products (with filters)
+- `GET /api/v1/products/:id` - Get product details
+- `POST /api/v1/admin/products/new` - Create product (admin)
+- `PUT /api/v1/admin/products/:id` - Update product (admin)
+- `DELETE /api/v1/admin/products/:id` - Delete product (admin)
+
+### Authentication
+- `POST /api/v1/register` - Register user
+- `POST /api/v1/login` - Login user
+- `POST /api/v1/logout` - Logout user
+- `POST /api/v1/password/forgot` - Forgot password
+- `PUT /api/v1/password/reset/:token` - Reset password
+
+### Orders
+- `POST /api/v1/orders/new` - Create order
+- `GET /api/v1/orders/:id` - Get order details
+- `GET /api/v1/me/orders` - Get my orders
+- `GET /api/v1/admin/orders` - Get all orders (admin)
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and create a pull request for any new features or fixes. 🐛
+Contributions are welcome! Fork the repository and create a pull request.
