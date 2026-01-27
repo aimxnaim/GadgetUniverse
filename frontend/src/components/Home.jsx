@@ -14,6 +14,7 @@ import BlogCard from './home/BlogCard'
 import BreadCrumb from './store/BreadCrumb'
 import FilterSort from './layout/FilterSort'
 import HorizontalScroller from './layout/HorizontalScroller'
+import ProductSidebar from './layout/ProductSidebar'
 
 const Home = () => {
 
@@ -46,6 +47,7 @@ const Home = () => {
 
     const [grid, setGrid] = useState(3);
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [activeProductSection, setActiveProductSection] = useState('featured');
     let [searchParams] = useSearchParams();
     const page = Number(searchParams.get('page')) || 1;
     const keyword = searchParams.get('keyword') || '';
@@ -113,23 +115,52 @@ const Home = () => {
         'Secure Payments': '100% Protected Payments'
     };
 
+    const productSections = [
+        { id: 'featured', title: 'Featured', icon: 'fas fa-star' },
+        { id: 'new', title: 'New Arrivals', icon: 'fas fa-box' },
+        { id: 'toprated', title: 'Top Rated', icon: 'fas fa-crown' },
+        { id: 'popular', title: 'Popular', icon: 'fas fa-heart' }
+    ];
+
+    const getProductsBySection = () => {
+        switch(activeProductSection) {
+            case 'featured':
+                return featuredData?.products?.slice(0, 12) || [];
+            case 'new':
+                return newArrivalsData?.products?.slice(0, 12) || [];
+            case 'toprated':
+                return topRatedData?.products?.slice(0, 12) || [];
+            case 'popular':
+                return data?.products || [];
+            default:
+                return featuredData?.products?.slice(0, 12) || [];
+        }
+    };
+
+    const getSectionTitle = () => {
+        const section = productSections.find(s => s.id === activeProductSection);
+        return section ? section.title : 'Featured Products';
+    };
+
     return (
         <>
             <MetaData title={`Buy Best Products Online`} />
             {keyword &&
                 <BreadCrumb title='Our Store' />
             }
-            <div className="row">
+            <div className="row home-main-wrapper">
                 {!keyword &&
                     <>
-                        <section className='home-wrapper-1 py-5' style={{ backgroundColor: '#fff' }}>
-                            <div className="container-xxl">
-                                <div className="row">
-                                    <div className="col-12">
+                        <section className=' pb-5' style={{ backgroundColor: 'transparent' }}>
+                            <div className="container-xxl" style={{ maxWidth: '100%', padding: 0 }}>
+                                <div className="row" style={{ margin: 0 }}>
+                                    <div className="col-12" style={{ padding: 0 }}>
                                         {/* Nike-style carousel with image backgrounds */}
-                                        <div style={{ 
+                                        <div style={{
                                             position: 'relative', 
-                                            height: '650px', 
+                                            height: '75vh',
+                                            maxHeight: '700px',
+                                            minHeight: '500px',
                                             overflow: 'hidden', 
                                             borderRadius: '0',
                                             fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif"
@@ -459,21 +490,53 @@ const Home = () => {
                                 </div>
                             </div>
                         </section>
-                         <section className="marque-wrapper py-5 home-wrapper-2">
+                         <section className="">
                             <div className="container-xxl">
                                 <div className="row">
                                     <div className="col-12">
-                                        <div className="marque-inner-wrapper brand-wrapper">
-                                            <Marquee gradient={true} speed={50}>
-                                                <div className="d-flex">
+                                        <div className="marque-inner-wrapper brand-wrapper" style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                            <Marquee gradient={true} gradientColor="white" speed={60} pauseOnHover={true}>
+                                                <div className="d-flex" style={{ alignItems: 'center', gap: '3rem' }}>
                                                     {['brand-01.png', 'brand-02.png', 'brand-03.png', 'brand-04.png', 'brand-05.png', 'brand-06.png', 'brand-07.png', 'brand-08.png'].map((brand, index) => (
-                                                        <div className="mx-4 w-25" key={index}>
-                                                            <img src={`/images/brand/${brand}`} alt={`brand ${index}`} />
+                                                        <div key={index} style={{ padding: '0 2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100px' }}>
+                                                            <img src={`/images/brand/${brand}`} alt={`brand ${index}`} style={{ maxHeight: '80px', objectFit: 'contain' }} />
                                                         </div>
                                                     ))}
                                                 </div>
                                             </Marquee>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                         {/* Product Collections with Sidebar - Right after brand logo */}
+                        <section className="product-collections-wrapper py-5">
+                            <div className="container-xxl">
+                                <div className="row g-4">
+                                    {/* Sidebar Navigation */}
+                                    <div className="col-12 col-lg-3">
+                                        <ProductSidebar 
+                                            sections={productSections}
+                                            activeSection={activeProductSection}
+                                            onSectionChange={setActiveProductSection}
+                                        />
+                                    </div>
+
+                                    {/* Products Display */}
+                                    <div className="col-12 col-lg-9">
+                                        <HorizontalScroller
+                                            title={getSectionTitle()}
+                                            items={getProductsBySection()}
+                                            renderItem={(product, index) => (
+                                                <ProductItemCompact
+                                                    key={product._id || index}
+                                                    product={product}
+                                                    columnSize={12}
+                                                    highlight={index === 0}
+                                                    badgeText={productSections.find(s => s.id === activeProductSection)?.title}
+                                                />
+                                            )}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -579,88 +642,6 @@ const Home = () => {
                             </div>
                         </div>
                     </section>
-                }
-
-                {!keyword &&
-                    <>
-                        {/* Featured Products Section */}
-                        <HorizontalScroller
-                            title="Featured Products"
-                            items={featuredData?.products?.slice(0, 12) || []}
-                            renderItem={(product, index) => (
-                                <ProductItemCompact
-                                    key={product._id || index}
-                                    product={product}
-                                    columnSize={12}
-                                    highlight={index === 0}
-                                    badgeText={index === 0 ? 'Top Rated' : undefined}
-                                />
-                            )}
-                        />
-
-                        {/* New Arrivals Section */}
-                        <HorizontalScroller
-                            title="New Arrivals"
-                            items={newArrivalsData?.products?.slice(0, 12) || []}
-                            renderItem={(product, index) => (
-                                <ProductItemCompact
-                                    key={product._id || index}
-                                    product={product}
-                                    columnSize={12}
-                                    highlight={index === 0}
-                                    badgeText={index === 0 ? 'New' : undefined}
-                                />
-                            )}
-                        />
-
-                        {/* Top Rated Section */}
-                        <HorizontalScroller
-                            title="Top Rated Products"
-                            items={topRatedData?.products?.slice(0, 12) || []}
-                            renderItem={(product, index) => (
-                                <ProductItemCompact
-                                    key={product._id || index}
-                                    product={product}
-                                    columnSize={12}
-                                    highlight={index === 0}
-                                    badgeText={index === 0 ? 'Most Reviewed' : undefined}
-                                />
-                            )}
-                        />
-
-                        <HorizontalScroller
-                            title="Our Popular Products"
-                            items={data?.products || []}
-                            renderItem={(product, index) => (
-                                <ProductItemCompact
-                                    key={product._id || index}
-                                    product={product}
-                                    columnSize={12}
-                                    highlight={index === 0}
-                                    badgeText={index === 0 ? 'Popular' : undefined}
-                                />
-                            )}
-                        />
-                        {/* Blog Section commented out as requested */}
-                        {false && (
-                            <section className="blog-wrapper py-5 home-wrapper-2 bg-light">
-                                <div className="container-xxl">
-                                    <div className="row">
-                                        <div className="col-12 mb-4">
-                                            <h3 className="section-heading">Our Latest News</h3>
-                                        </div>
-                                        <div className="row">
-                                            {['1', '2', '3', '4'].map((item, index) => (
-                                                <div className="col-3" key={index}>
-                                                    <BlogCard id={item} />
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        )}
-                    </>
                 }
             </div>
         </>
