@@ -2,6 +2,7 @@ import React from 'react'
 import Upper from './Navbar/Upper'
 import Top from './Navbar/Top'
 import Bottom from './Navbar/Bottom'
+import './Header.css'
 
 const Header = () => {
 
@@ -10,9 +11,8 @@ const Header = () => {
     return (
         <>
             <Top />
-            < Upper />
+            <Upper />
             {!hideHeader && <Bottom />}
-
         </>
     )
 }
