@@ -75,7 +75,7 @@ function ProductDetails() {
     return (
         <>
             <MetaData title={product?.name} />
-            <BreadCrumb />
+            <BreadCrumb title={product?.name} />
             <div className="home-wrapper-2 py-5">
                 <div className="container-xxl p-4 product-detail-wrapper">
                     <div className="row gy-4 align-items-start">

@@ -117,7 +117,7 @@ const Home = () => {
         <>
             <MetaData title={`Buy Best Products Online`} />
             {keyword &&
-                <BreadCrumb title='Search' keyword={keyword} />
+                <BreadCrumb title='Our Store' />
             }
             <div className="row">
                 {!keyword &&
