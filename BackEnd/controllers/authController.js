@@ -54,7 +54,9 @@ module.exports.uploadAvatar = catchAsyncError(async (req, res, next) => {
     const avatarResponse = await uploadfile(req.body.avatar, 'GadgetUniverse/avatars')
 
     // Remove the previous avatar
-    req?.user?.avatar?.url && await removefile(req?.user?.avatar?.public_id);
+    if (req?.user?.avatar?.public_id) {
+        await removefile(req.user.avatar.public_id);
+    }
 
     const user = await User.findByIdAndUpdate(req?.user?._id, {
         avatar: avatarResponse

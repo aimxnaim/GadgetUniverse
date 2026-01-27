@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom'
 import { useUploadAvatarMutation } from '../../actions/api/userApi'
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
+import { getAvatarUrl } from '../../constants/constants'
 
 const UploadAvatar = () => {
 
     const { user } = useSelector(state => state.auth)
     const [avatar, setAvatar] = useState('')
     const [avatarPreview, setAvatarPreview] = useState(
-        user?.avatar ? user?.avatar?.url : '/images/default_avatar.jpg'
+        getAvatarUrl(user?.avatar?.url)
     )
 
     const navigate = useNavigate()

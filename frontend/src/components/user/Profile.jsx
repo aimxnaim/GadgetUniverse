@@ -1,6 +1,7 @@
 import React from 'react'
 import UserLayout from '../layout/UserLayout'
 import { useSelector } from 'react-redux'
+import { getAvatarUrl } from '../../constants/constants'
 
 const Profile = () => {
     const { user } = useSelector(state => state.auth)
@@ -11,11 +12,7 @@ const Profile = () => {
                     <figure className="avatar avatar-profile">
                         <img
                             className="rounded-circle img-fluid"
-                            src={
-                                user?.avatar
-                                    ? user?.avatar?.url
-                                    : '/images/default_avatar.jpg'
-                            }
+                            src={getAvatarUrl(user?.avatar?.url)}
                             alt={user?.name}
                         />
                     </figure>
