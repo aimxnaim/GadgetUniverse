@@ -1,0 +1,15 @@
+/* Sticky Bottom Navigation - Sticks when scrolled past top sections */
+.header-bottom {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: var(--color-232f3e) !important;
+    border-bottom: 1px solid var(--color-3b4149);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+

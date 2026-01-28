@@ -10,6 +10,7 @@
     "seeder": "SET NODE_ENV=DEVELOPMENT& node BackEnd/seed/seeder.js",
     "seed:admin": "SET NODE_ENV=DEVELOPMENT& node BackEnd/seed/seedAdmin.js",
     "seed:prod": "SET NODE_ENV=PRODUCTION& node BackEnd/seed/seedAdmin.js",
+    "seed:fresh": "node BackEnd/seed/updateDataWithUnsplash.js && npm run seeder",
     "deploy": "npm run seed:prod && npm run prod",
     "deploy:fresh": "SET NODE_ENV=PRODUCTION& node BackEnd/seed/seedAdmin.js && node BackEnd/app.js"
   },

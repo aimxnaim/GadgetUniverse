@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useGetProductsQuery } from '../../actions/api/productsApi';
 
 const BreadCrumb = (props) => {
-    const { keyword } = props;
+    const { keyword, title } = props;
     const params = { keyword };
 
     const { data } = useGetProductsQuery(params);
@@ -34,14 +34,17 @@ const BreadCrumb = (props) => {
                                             .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
                                             .join(' '); // Join words back with space
 
+                                        // Use title prop for the last item if provided
+                                        const finalDisplayName = (isLast && title) ? title : displayName;
+
                                         return isLast ? (
                                             <li key={to} className="breadcrumb-item active" aria-current="page">
-                                                {displayName}
+                                                {finalDisplayName}
                                             </li>
                                         ) : (
                                             <li key={to} className="breadcrumb-item">
                                                 <NavLink to={to}>
-                                                    {displayName}
+                                                    {finalDisplayName}
                                                 </NavLink>
                                             </li>
                                         );
@@ -49,13 +52,6 @@ const BreadCrumb = (props) => {
 
                                 </ol>
                             </nav>
-                        </div>
-                        <div className={keyword && "col-9"}>
-                            {keyword && (
-                                <h3 id="products_heading" style={{ marginLeft: '10px' }}>
-                                    {`${data?.products?.length} products found with keyword '${keyword}'`}
-                                </h3>
-                            )}
                         </div>
                     </div>
                 </div>

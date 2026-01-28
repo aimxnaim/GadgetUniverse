@@ -4,6 +4,7 @@ import { useGetProductDetailsQuery } from '../../actions/api/productsApi';
 import { Link, useParams } from 'react-router-dom';
 import NewReview from './NewReview';
 import { useSelector } from 'react-redux';
+import { getAvatarUrl } from '../../constants/constants'
 
 const ListReviews = ({ reviews }) => {
     const params = useParams();
@@ -19,10 +20,7 @@ const ListReviews = ({ reviews }) => {
                     <div className="review-card">
                         <div className="review-profile d-flex gap-10 align-items-center" key={review?._id}>
                             <img
-                                src={
-                                    review?.user?.avatar
-                                        ? review?.user?.avatar.url
-                                        : "/images/default_avatar.jpg"}
+                                src={getAvatarUrl(review?.user?.avatar?.url)}
                                 alt="User Name"
                                 width="50"
                                 height="50"

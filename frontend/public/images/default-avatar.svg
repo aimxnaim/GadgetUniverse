@@ -1,0 +1,45 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="20" y1="20" x2="140" y2="140" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4FC3F7"/>
+      <stop offset="0.5" stop-color="#6C63FF"/>
+      <stop offset="1" stop-color="#1DD1A1"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="160" height="160" rx="50" fill="url(#bg)"/>
+  
+  <!-- Head -->
+  <circle cx="80" cy="55" r="35" fill="#FDB4B9"/>
+  
+  <!-- Ears -->
+  <circle cx="50" cy="48" r="10" fill="#FDB4B9"/>
+  <circle cx="110" cy="48" r="10" fill="#FDB4B9"/>
+  
+  <!-- Hair -->
+  <path d="M50 30 Q80 15 110 30 Q115 35 115 45 L45 45 Q45 35 50 30Z" fill="#2C3E50"/>
+  
+  <!-- Eyes -->
+  <circle cx="68" cy="50" r="4.5" fill="#2C3E50"/>
+  <circle cx="92" cy="50" r="4.5" fill="#2C3E50"/>
+  
+  <!-- Eye shine -->
+  <circle cx="69.5" cy="48.5" r="1.5" fill="white" opacity="0.8"/>
+  <circle cx="93.5" cy="48.5" r="1.5" fill="white" opacity="0.8"/>
+  
+  <!-- Nose -->
+  <path d="M80 55 L78 62 L82 62 Z" fill="#F5A8AE"/>
+  
+  <!-- Smile -->
+  <path d="M72 68 Q80 75 88 68" stroke="#2C3E50" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  
+  <!-- Blush -->
+  <circle cx="55" cy="60" r="5" fill="#FFB6C1" opacity="0.6"/>
+  <circle cx="105" cy="60" r="5" fill="#FFB6C1" opacity="0.6"/>
+  
+  <!-- Body/Torso -->
+  <ellipse cx="80" cy="115" rx="38" ry="42" fill="#FF6B9D"/>
+  
+  <!-- Shirt accent -->
+  <path d="M60 95 L100 95 Q110 100 110 125 L50 125 Q50 100 60 95Z" fill="#FF6B9D" opacity="0.9"/>
+</svg>

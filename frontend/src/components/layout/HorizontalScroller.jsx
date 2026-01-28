@@ -12,7 +12,7 @@ const HorizontalScroller = ({ title, items = [], renderItem }) => {
   };
 
   return (
-    <section className="home-wrapper-2 py-5" style={{ backgroundColor: '#fafafa', marginTop: '1rem' }}>
+    <section className="home-wrapper-2 py-5" style={{ backgroundColor: 'transparent', marginTop: '0' }}>
       <div className="container-xxl">
         <div className="d-flex align-items-center justify-content-between mb-4">
           <h3 className="section-heading m-0" style={{ fontSize: '1.75rem', fontWeight: '700', color: '#1a1a1a' }}>{title}</h3>

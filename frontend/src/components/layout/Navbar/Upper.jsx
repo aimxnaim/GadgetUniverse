@@ -4,6 +4,7 @@ import { useGetMeQuery } from '../../../actions/api/userApi'
 import { useLazyLogoutQuery } from '../../../actions/api/authApi'
 import { useSelector } from 'react-redux'
 import Search from '../Search'
+import { getAvatarUrl } from '../../../constants/constants'
 
 const Upper = () => {
     const navigate = useNavigate()
@@ -77,11 +78,7 @@ const Upper = () => {
                                                     >
                                                         <figure className="avatar avatar-nav">
                                                             <img
-                                                                src={
-                                                                    user?.avatar
-                                                                        ? user?.avatar?.url
-                                                                        : '/images/default_avatar.jpg'
-                                                                }
+                                                                src={getAvatarUrl(user?.avatar?.url)}
                                                                 alt="User Avatar"
                                                                 className="rounded-circle"
                                                             />
