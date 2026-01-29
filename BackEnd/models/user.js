@@ -21,8 +21,14 @@ const userSchema = new mongoose.Schema({
         select: false // Hide password from user
     },
     avatar: {
-        public_id: String,
-        url: String
+        public_id: {
+            type: String,
+            default: ''
+        },
+        url: {
+            type: String,
+            default: '/images/default-avatar.svg'
+        }
     },
     role: {
         type: String,

@@ -35,7 +35,7 @@ const ProductItemCompact = ({ product, columnSize, highlight = false, badgeText 
         <>
         <div className={`gr-${columnSize}`} >
             <div
-                className={`product-card position-relative ${highlight ? 'border-3 border-warning' : ''}`}
+                className={`product-card position-relative`}
                 style={{
                     borderRadius: 16,
                     paddingBottom: '0.75rem',
@@ -43,9 +43,10 @@ const ProductItemCompact = ({ product, columnSize, highlight = false, badgeText 
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    backgroundColor: highlight ? '#fffbf0' : '#fff',
+                    backgroundColor: highlight ? '#fffbf0' : '#f5f5f5',
+                    border: highlight ? '2px solid #ffc107' : 'none',
                     boxShadow: highlight 
-                        ? '0 8px 24px rgba(255, 193, 7, 0.2)' 
+                        ? '0 8px 24px rgba(255, 193, 7, 0.25)' 
                         : isHovered 
                         ? '0 12px 24px rgba(0, 0, 0, 0.15)'
                         : '0 2px 8px rgba(0, 0, 0, 0.08)',

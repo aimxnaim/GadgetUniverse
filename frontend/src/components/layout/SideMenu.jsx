@@ -11,21 +11,37 @@ const SideMenu = ({ menuItems }) => {
     }
 
     return (
-        <div className="list-group mt-5 pl-4">
-            {menuItems?.map((menuItem, index) => (
-                <Link
-                    key={index}
-                    to={menuItem.url}
-                    className={`fw-bold list-group-item list-group-item-action ${activeMenuItem.includes(menuItem.url) && 'active'}`}
-                    aria-current={activeMenuItem.includes(menuItem.url) ? 'true' : 'false'}
-                    onClick={() => handleMenuItemClick(menuItem.url)}
-                >
-                    <i className={`${menuItem.icon} fa-fw pe-2`}></i> {menuItem.name}
-                </Link>
-            ))
-            }
-
-        </div >
+        <div className="side-menu-container">
+            <div className="side-menu-card">
+                <div className="menu-header">
+                    <i className="fas fa-list-ul"></i>
+                    <span>Navigation</span>
+                </div>
+                <div className="menu-items">
+                    {menuItems?.map((menuItem, index) => (
+                        <Link
+                            key={index}
+                            to={menuItem.url}
+                            className={`menu-item ${activeMenuItem.includes(menuItem.url) ? 'active' : ''}`}
+                            onClick={() => handleMenuItemClick(menuItem.url)}
+                        >
+                            <div className="menu-item-icon">
+                                <i className={menuItem.icon}></i>
+                            </div>
+                            <div className="menu-item-content">
+                                <span className="menu-item-name">{menuItem.name}</span>
+                                {menuItem.description && (
+                                    <small className="menu-item-desc">{menuItem.description}</small>
+                                )}
+                            </div>
+                            <div className="menu-item-arrow">
+                                <i className="fas fa-chevron-right"></i>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+            </div>
+        </div>
     )
 }
 

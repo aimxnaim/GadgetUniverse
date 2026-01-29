@@ -47,41 +47,83 @@ const UpdateProfile = () => {
 
     return (
         <UserLayout>
-            <div className="row wrapper">
-                <div className="col-10 col-lg-8">
-                    <form
-                        className="shadow rounded bg-body"
-                        onSubmit={submitHandler}
-                    >
-                        <h2 className="mb-4">Update Profile</h2>
+            <div className="profile-form-container">
+                <div className="profile-form-card">
+                    <div className="form-header">
+                        <div className="form-icon">
+                            <i className="fas fa-user-edit"></i>
+                        </div>
+                        <h2 className="form-title">Update Profile</h2>
+                        <p className="form-subtitle">Keep your profile information up to date</p>
+                    </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="name_field" className="form-label"> Name </label>
-                            <input
-                                type="text"
-                                id="name_field"
-                                className="form-control"
-                                name="name"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
+                    <form onSubmit={submitHandler}>
+                        <div className="form-group-enhanced">
+                            <label htmlFor="name_field" className="form-label-enhanced">
+                                <i className="fas fa-user me-2"></i>
+                                Full Name
+                            </label>
+                            <div className="input-wrapper">
+                                <input
+                                    type="text"
+                                    id="name_field"
+                                    className="form-control-enhanced"
+                                    name="name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Enter your full name"
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="email_field" className="form-label"> Email </label>
-                            <input
-                                type="email"
-                                id="email_field"
-                                className="form-control"
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
+                        <div className="form-group-enhanced">
+                            <label htmlFor="email_field" className="form-label-enhanced">
+                                <i className="fas fa-envelope me-2"></i>
+                                Email Address
+                            </label>
+                            <div className="input-wrapper">
+                                <input
+                                    type="email"
+                                    id="email_field"
+                                    className="form-control-enhanced"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Enter your email address"
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <button type="submit" className="btn update-btn w-100" disabled={isLoading}>
-                            {isLoading ? 'Updating...' : 'Update'}
-                        </button>
+                        <div className="form-actions">
+                            <button 
+                                type="button" 
+                                className="btn-secondary-enhanced"
+                                onClick={() => navigate('/me/profile')}
+                                disabled={isLoading}
+                            >
+                                <i className="fas fa-times me-2"></i>
+                                Cancel
+                            </button>
+                            <button 
+                                type="submit" 
+                                className="btn-primary-enhanced" 
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <i className="fas fa-spinner fa-spin me-2"></i>
+                                        Updating...
+                                    </>
+                                ) : (
+                                    <>
+                                        <i className="fas fa-save me-2"></i>
+                                        Save Changes
+                                    </>
+                                )}
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
