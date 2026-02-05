@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useGetMeQuery } from '../../../actions/api/userApi'
 import { useLazyLogoutQuery } from '../../../actions/api/authApi'
 import { useSelector } from 'react-redux'
 import Search from '../Search'
 import { getAvatarUrl } from '../../../constants/constants'
+import AuthModal from '../../auth/AuthModal'
 
 const Upper = () => {
     const navigate = useNavigate()
     const { isLoading } = useGetMeQuery()
     const [logout, { data }] = useLazyLogoutQuery()
+    const [showAuthModal, setShowAuthModal] = useState(false)
+    const [authView, setAuthView] = useState('login')
 
     const { user } = useSelector(state => state.auth)
     const { cartItem } = useSelector(state => state.cart)
 
+    const openAuthModal = (view) => {
+        setAuthView(view)
+        setShowAuthModal(true)
+    }
 
     const logoutHandler = () => {
         logout()
@@ -105,15 +112,16 @@ const Upper = () => {
                                         ) :
                                             !isLoading && (
                                                 <div style={{ width: '140px' }}>
-                                                    <Link
-                                                        to='/login'
+                                                    <button
+                                                        onClick={() => openAuthModal('login')}
                                                         className='d-flex align-items-center text-white'
+                                                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
                                                     >
                                                         <img src="/images/youtube/user.svg" alt="login" />
                                                         <p className='mb-0 mx-1'>
                                                             Log in <br /> My Account
                                                         </p>
-                                                    </Link>
+                                                    </button>
                                                 </div>
                                             )}
                                     </div>
@@ -142,6 +150,13 @@ const Upper = () => {
                     </nav>
                 </div>
             </header>
+            
+            {/* Auth Modal */}
+            <AuthModal 
+                isOpen={showAuthModal} 
+                onClose={() => setShowAuthModal(false)} 
+                initialView={authView}
+            />
         </>
     )
 }

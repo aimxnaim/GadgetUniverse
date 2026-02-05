@@ -1,14 +1,11 @@
 import React from 'react';
 import Home from '../Home';
 import ProductDetails from '../product/ProductDetails';
-import Login from '../auth/Login';
-import Register from '../auth/Register';
 import Profile from '../user/Profile';
 import UpdateProfile from '../user/UpdateProfile';
 import ProtectedRoutes from '../auth/ProtectedRoutes';
 import UploadAvatar from '../user/UploadAvatar';
 import UpdatePassword from '../user/UpdatePassword';
-import ForgotPassword from '../auth/ForgotPassword';
 import ResetPassword from '../auth/ResetPassword';
 import Cart from '../cart/Cart';
 import Shipping from '../cart/Shipping';
@@ -35,9 +32,6 @@ const userRoutes = () => {
             <Route path='/wishlist' element={<Wishlist />} />
             <Route path='/contact' element={<Contact />} />
             <Route path='/compare' element={<Compare />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/login/register' element={<Register />} />
-            <Route path='/login/forgot password' element={<ForgotPassword />} />
             <Route path='/password/reset/:token' element={<ResetPassword />} />
 
             <Route
