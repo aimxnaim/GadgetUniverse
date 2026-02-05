@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import useUserRoutes from './components/routes/userRoutes';
 import useAdminRoutes from './components/routes/adminRoutes';
 import NotFound from './components/layout/NotFound';
-import StandaloneResetPassword from './components/auth/StandaloneResetPassword';
+import ResetPassword from './components/auth/ResetPassword';
 
 function AppContent() {
   const userRoutes = useUserRoutes();
@@ -22,8 +22,8 @@ function AppContent() {
       <Toaster position="top-center" />
       {!hideHeaderFooter && <Header />}
       <Routes>
-        {/* Standalone reset password route (from email link) */}
-        <Route path="/auth/reset-password/:token" element={<StandaloneResetPassword />} />
+        {/* Reset password route (from email link) */}
+        <Route path="/auth/reset-password/:token" element={<ResetPassword />} />
         
         {userRoutes}
         {adminRoutes}
