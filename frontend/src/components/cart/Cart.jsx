@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MetaData from '../layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { setCartItem, removeCartItem } from '../../actions/features/cartSlice'
 import toast from 'react-hot-toast'
+import AuthModal from '../auth/AuthModal'
 
 const Cart = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { cartItem = [] } = useSelector(state => state.cart)
+    const { isAuthenticated } = useSelector(state => state.auth)
+    const [showAuthModal, setShowAuthModal] = useState(false)
 
     const totalUnits = cartItem?.reduce((acc, item) => acc + item?.quantity, 0) || 0
     const totalAmount = cartItem?.reduce((acc, item) => acc + item?.quantity * item?.price, 0) || 0
@@ -46,6 +49,10 @@ const Cart = () => {
     }
 
     const checkoutHandler = () => {
+        if (!isAuthenticated) {
+            setShowAuthModal(true)
+            return
+        }
         toast.success('Fill in your shipping details to proceed')
         navigate('/shipping')
     }
@@ -203,6 +210,13 @@ const Cart = () => {
                     )}
                 </div>
             </section>
+            
+            <AuthModal 
+                isOpen={showAuthModal} 
+                onClose={() => setShowAuthModal(false)} 
+                initialView="login"
+                redirectPath="/shipping"
+            />
         </>
     )
 }

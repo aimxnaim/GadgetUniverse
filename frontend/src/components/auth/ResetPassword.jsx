@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
 import MetaData from '../layout/MetaData'
 import BreadCrumb from '../store/BreadCrumb'
+import PasswordStrength from './PasswordStrength'
+import PasswordRequirements from './PasswordRequirements'
 
 const ResetPassword = () => {
     const [password, setPassword] = useState('')
@@ -58,7 +60,7 @@ const ResetPassword = () => {
                                     <h3 className='mt-4 mb-0 text-center'>Reset Password</h3>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="password_field" className="form-label">Password</label>
+                                    <label htmlFor="password_field" className="form-label">New Password</label>
                                     <input
                                         type="password"
                                         id="password_field"
@@ -67,11 +69,12 @@ const ResetPassword = () => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
+                                    <PasswordStrength password={password} />
                                 </div>
 
                                 <div className="mb-3">
                                     <label htmlFor="confirm_password_field" className="form-label">
-                                        Confirm Password
+                                        Confirm New Password
                                     </label>
                                     <input
                                         type="password"
@@ -83,6 +86,7 @@ const ResetPassword = () => {
                                     />
                                 </div>
 
+                                <PasswordRequirements password={password} />
 
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <button
