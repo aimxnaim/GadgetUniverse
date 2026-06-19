@@ -119,6 +119,9 @@ out
 # Avatar pictures
 avatar_pictures/
 
+# Frontend build output (built by Render during deploy)
+frontend/dist/
+
 # DynamoDB Local files
 .dynamodb/
 
