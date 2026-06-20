@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const footer = () => {
+const Footer = () => {
     return (
         <>
-            <footer className="py-4">
+        {/* todo: Implement newsletter subscription */}
+            {/* <footer className="py-4">
                 <div className="container-xxl">
                     <div className="row align-items-center mt-4 ">
                         <div className="col-5">
@@ -39,11 +40,8 @@ const footer = () => {
                     </div>
                 </div>
 
-            </footer>
-            <footer className="py-3">
-
-
-            </footer>
+            </footer> */}
+    
             <footer className="py-4">
                 <div className="container-xxl">
                     <div className="row">
@@ -63,4 +61,4 @@ const footer = () => {
     )
 }
 
-export default footer
+export default Footer
